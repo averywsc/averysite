@@ -14,8 +14,8 @@
       <a class="name" href="index.html">Avery Beuth</a>
     </div>
     <nav class="mainnav">
-      <a href="photo.html" class="active">Photo</a>
-      <a href="film.html">Film</a>
+      <a href="photo.html" class="active">Photos</a>
+      <a href="film.html">Films</a>
       <a href="scripts/index.html">Scripts</a>
       <a href="code.html">Code</a>
     </nav>
@@ -25,7 +25,7 @@
 
   <main id="stage">
     <div class="page-content">
-      <div class="page-title">Photo</div>
+      <div class="page-title">Photos</div>
       <div class="small-label">click on any image to view it full size</div>
       <div class="jump-nav">
         <a href="#boards">Boards</a>
@@ -90,6 +90,25 @@
           });
         };
 
+        const smoothStageScroll = (stage, to, duration = 320) => {
+          const start = stage.scrollTop;
+          const distance = to - start;
+          if (!distance) return;
+
+          let startTime = null;
+          const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+          const step = timestamp => {
+            if (startTime === null) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            stage.scrollTop = start + distance * easeOutCubic(progress);
+            if (progress < 1) requestAnimationFrame(step);
+          };
+
+          requestAnimationFrame(step);
+        };
+
         document.querySelectorAll('a[href^="#"]').forEach(link => {
           link.addEventListener('click', event => {
             const hash = link.getAttribute('href');
@@ -98,10 +117,7 @@
             const stage = document.getElementById('stage');
             if (target && stage) {
               event.preventDefault();
-              stage.scrollTo({
-                top: target.offsetTop - 16,
-                behavior: 'smooth'
-              });
+              smoothStageScroll(stage, target.offsetTop - 16, 320);
             }
           });
         });

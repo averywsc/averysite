@@ -20,7 +20,7 @@
 
 *{ box-sizing:border-box; margin:0; padding:0; }
 html,body{ height:100%; }
-html { scroll-behavior:smooth; }
+html, #stage { scroll-behavior:auto; }
 body,
 body *{
  font-family:'Dotmatri', sans-serif;
@@ -110,7 +110,7 @@ nav.mainnav a.active::before{
   overflow-y:auto;
   overflow-x:hidden;
   background:var(--stage-bg);
-  scroll-behavior:smooth;
+  scroll-behavior:auto;
   scrollbar-width:thin;
   scrollbar-color:rgba(255,255,255,0.35) transparent;
 }
@@ -128,7 +128,7 @@ nav.mainnav a.active::before{
   top:0; left:0; right:0;
   display:flex;
   flex-direction:column;
-  animation: scrollStrip 90s linear infinite;
+  animation: scrollStrip 52s linear infinite;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   will-change: transform;
@@ -154,7 +154,7 @@ nav.mainnav a.active::before{
   height:100%;
   object-fit:cover;
   display:block;
-  filter:saturate(0.92) contrast(1.02);
+  filter:grayscale(1) contrast(1.08);
 }
 
 .fade-top, .fade-bottom{

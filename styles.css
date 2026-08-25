@@ -111,6 +111,7 @@ nav.mainnav a.active::before{
   overflow-x:hidden;
   background:var(--stage-bg);
   scroll-behavior:auto;
+  padding-top:10vh;
   scrollbar-width:thin;
   scrollbar-color:rgba(255,255,255,0.35) transparent;
 }
@@ -124,7 +125,7 @@ nav.mainnav a.active::before{
 
 /* ---------- home: scrolling strip ---------- */
 .strip{
-  position:absolute;
+  position:relative;
   top:0; left:0; right:0;
   display:flex;
   flex-direction:column;

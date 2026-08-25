@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avery Beuth — Photo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="shell">
+  <aside id="sidebar">
+    <div>
+      <a class="name" href="index.html">Avery Beuth</a>
+    </div>
+    <nav class="mainnav">
+      <a href="photo.html" class="active">Photo</a>
+      <a href="film.html">Film</a>
+      <a href="code.html">Code</a>
+    </nav>
+  </aside>
+
+  <div id="sprockets"></div>
+
+  <main id="stage">
+    <div class="page-content">
+      <div class="page-title">Photo</div>
+      <div class="photo-grid" id="photoGrid"></div>
+      <script>
+        fetch('photos/title-strip.json').then(r=>r.json()).then(list => {
+          const grid = document.getElementById('photoGrid');
+          list.forEach(name => {
+            const fig = document.createElement('figure');
+            const img = document.createElement('img');
+            const src = name.startsWith('films/') || name.startsWith('http') ? name : 'photos/' + name;
+            img.src = src;
+            img.alt = name;
+            fig.appendChild(img);
+            grid.appendChild(fig);
+          });
+        }).catch(e => console.error('Could not load photos/title-strip.json', e));
+      </script>
+    </div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

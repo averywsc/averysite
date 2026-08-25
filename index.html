@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avery Beuth</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="shell">
+  <aside id="sidebar">
+    <div>
+      <a class="name" href="index.html">Avery Beuth</a>
+    </div>
+    <nav class="mainnav">
+      <a href="photo.html">Photo</a>
+      <a href="film.html">Film</a>
+      <a href="code.html">Code</a>
+    </nav>
+  </aside>
+
+  <div id="sprockets"></div>
+
+  <main id="stage">
+    <div class="fade-top"></div>
+    <div class="fade-bottom"></div>
+    <div class="strip" id="homeStrip"></div>
+    <script>
+      fetch('photos/title-strip.json').then(r=>r.json()).then(list=>{
+        const strip = document.getElementById('homeStrip');
+        const looped = [...list, ...list];
+        looped.forEach(name => {
+          const item = document.createElement('div');
+          item.className = 'strip-item';
+          const img = document.createElement('img');
+          const src = name.startsWith('films/') || name.startsWith('http') ? name : 'photos/' + name;
+          img.src = src;
+          img.alt = '';
+          item.appendChild(img);
+          strip.appendChild(item);
+        });
+      }).catch(e => console.error('Could not load photos/title-strip.json for home strip', e));
+    </script>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

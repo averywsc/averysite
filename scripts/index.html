@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avery Beuth — Scripts</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div id="shell">
+    <aside id="sidebar">
+      <div>
+        <a class="name" href="../index.html">Avery Beuth</a>
+      </div>
+      <nav class="mainnav">
+        <a href="../photo.html">Photo</a>
+        <a href="../film.html">Film</a>
+        <a href="index.html" class="active">Scripts</a>
+        <a href="../code.html">Code</a>
+      </nav>
+    </aside>
+
+    <div id="sprockets"></div>
+
+    <main id="stage">
+      <div class="page-content">
+        <div class="page-title">Scripts</div>
+        <div class="small-label">screenplay pieces, click on the title to view</div>
+        <div id="scriptCards" class="script-grid"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../script.js"></script>
+  <script>
+    const parseScriptFile = (text) => {
+      const lines = text.split(/\r?\n/);
+      let title = '';
+      let subtitle = '';
+      let description = '';
+      let bodyStart = 0;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!title && /^#\s+/.test(line)) {
+          title = line.replace(/^#\s+/, '').trim();
+          continue;
+        }
+        if (!subtitle && /^###\s+/.test(line) && !/^(?:###\s+)?(?:FADE IN:|INT\.|EXT\.|SUPER:|CUT TO:|CUT TO BLACK|INSERT:|END\.)/i.test(line)) {
+          subtitle = line.replace(/^###\s+/, '').trim();
+          continue;
+        }
+        if (!description && /^\*.*\*$/.test(line)) {
+          description = line.replace(/^\*|\*$/g, '').trim();
+          continue;
+        }
+        if (line === 'FADE IN:' || /^###\s+/.test(line) || /^CUT\s+TO:/.test(line) || /^CUT\s+TO\s+BLACK/i.test(line) || /^INSERT:/.test(line) || /^SUPER:/.test(line)) {
+          bodyStart = i;
+          break;
+        }
+      }
+
+      return {
+        title,
+        subtitle,
+        description,
+        body: lines.slice(bodyStart).join('\n')
+      };
+    };
+
+    const buildScriptCard = (file, script) => {
+      const article = document.createElement('article');
+      article.className = 'script-card';
+      article.innerHTML = `
+        <h3><a href="view.html?slug=${encodeURIComponent(file.replace(/\.md$/, ''))}">${script.title}</a></h3>
+        ${script.subtitle ? '<div class="script-subtitle">' + script.subtitle + '</div>' : ''}
+        ${script.description ? '<p class="script-description">' + script.description + '</p>' : ''}
+      `;
+      return article;
+    };
+
+    fetch('manifest.json')
+      .then(res => res.json())
+      .then(files => Promise.all(files.map(async (file) => {
+        const text = await fetch(file).then(r => r.text());
+        return { file, ...parseScriptFile(text) };
+      })))
+      .then(scripts => {
+        const grid = document.getElementById('scriptCards');
+        scripts.forEach(script => {
+          grid.appendChild(buildScriptCard(script.file, script));
+        });
+      })
+      .catch(err => {
+        const grid = document.getElementById('scriptCards');
+        grid.innerHTML = '<div class="placeholder-card"><span>Scripts</span><strong>Unable to load script files.</strong></div>';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

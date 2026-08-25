@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avery Beuth — Script</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div id="shell">
+    <aside id="sidebar">
+      <div>
+        <a class="name" href="../index.html">Avery Beuth</a>
+      </div>
+      <nav class="mainnav">
+        <a href="../photo.html">Photo</a>
+        <a href="../film.html">Film</a>
+        <a href="index.html" class="active">Scripts</a>
+        <a href="../code.html">Code</a>
+      </nav>
+    </aside>
+
+    <div id="sprockets"></div>
+
+    <main id="stage">
+      <div class="page-content script-page">
+        <a href="index.html" class="back-link">← Back to scripts</a>
+        <div id="scriptDetail"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../script.js"></script>
+  <script>
+    const isCharacterLine = (line) => {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('### ') || trimmed.startsWith('FADE') || trimmed.startsWith('CUT ') || trimmed.startsWith('INSERT:') || trimmed.startsWith('SUPER:') || trimmed.startsWith('**')) {
+        return false;
+      }
+      return /^[A-Z0-9'().,/\-\s]+$/.test(trimmed) && trimmed.length <= 80 && !/^(INT|EXT|A\s|B\s|C\s|D\s|E\s|F\s|G\s|H\s|I\s|J\s|K\s|L\s|M\s|N\s|O\s|P\s|Q\s|R\s|S\s|T\s|U\s|V\s|W\s|X\s|Y\s|Z\s)/.test(trimmed);
+    };
+
+    const escapeHtml = (value) => value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+
+    const formatInline = (value) => escapeHtml(value).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    const renderScriptBody = (mdText) => {
+      const lines = mdText.split(/\r?\n/);
+      const body = [];
+      let i = 0;
+
+      while (i < lines.length) {
+        let line = lines[i].trim();
+        if (!line) { i++; continue; }
+
+        if (line === 'FADE IN:' || line === 'FADE OUT.' || line === 'CUT TO:' || line === 'CUT TO BLACK' || line === 'END.' || /^\*\*END\./.test(line)) {
+          body.push('<p class="script-transition">' + formatInline(line.replace(/^\*\*/, '')) + '</p>');
+          i++;
+          continue;
+        }
+
+        if (line.startsWith('### ')) {
+          body.push('<h3 class="script-scene">' + formatInline(line.replace(/^###\s+/, '')) + '</h3>');
+          i++;
+          continue;
+        }
+
+        if (line.startsWith('SUPER:')) {
+          body.push('<p class="script-super">' + formatInline(line.replace(/^SUPER:\s*/, '')) + '</p>');
+          i++;
+          continue;
+        }
+
+        if (line.startsWith('INSERT:')) {
+          body.push('<p class="script-insert">' + formatInline(line.replace(/^INSERT:\s*/, '')) + '</p>');
+          i++;
+          continue;
+        }
+
+        if (line.startsWith('Written by')) {
+          body.push('<p class="script-credit">' + formatInline(line) + '</p>');
+          i++;
+          continue;
+        }
+
+        if (line.startsWith('*') && line.endsWith('*')) {
+          body.push('<p class="script-description">' + formatInline(line) + '</p>');
+          i++;
+          continue;
+        }
+
+        if (isCharacterLine(line)) {
+          const speaker = formatInline(line);
+          let dialogue = [];
+          i++;
+
+          while (i < lines.length) {
+            const next = lines[i].trim();
+            if (!next) { i++; continue; }
+            if (next.startsWith('### ') || next.startsWith('FADE') || next.startsWith('CUT ') || next.startsWith('INSERT:') || next.startsWith('SUPER:') || isCharacterLine(next)) {
+              break;
+            }
+            dialogue.push(formatInline(next));
+            i++;
+          }
+
+          body.push('<div class="script-character">' + speaker + '</div>');
+          if (dialogue.length) {
+            body.push('<div class="script-dialogue"><p>' + dialogue.join('</p><p>') + '</p></div>');
+          }
+          continue;
+        }
+
+        body.push('<p class="script-action">' + formatInline(line) + '</p>');
+        i++;
+      }
+
+      return body.join('');
+    };
+
+    const parseScriptFile = (text) => {
+      const lines = text.split(/\r?\n/);
+      let title = '';
+      let subtitle = '';
+      let description = '';
+      let bodyStart = 0;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!title && /^#\s+/.test(line)) {
+          title = line.replace(/^#\s+/, '').trim();
+          continue;
+        }
+        if (!subtitle && /^###\s+/.test(line) && !/^(?:###\s+)?(?:FADE IN:|INT\.|EXT\.|SUPER:|CUT TO:|CUT TO BLACK|INSERT:|END\.)/i.test(line)) {
+          subtitle = line.replace(/^###\s+/, '').trim();
+          continue;
+        }
+        if (!description && /^\*.*\*$/.test(line)) {
+          description = line.replace(/^\*|\*$/g, '').trim();
+          continue;
+        }
+        if (line === 'FADE IN:' || /^###\s+/.test(line) || /^CUT\s+TO:/.test(line) || /^CUT\s+TO\s+BLACK/i.test(line) || /^INSERT:/.test(line) || /^SUPER:/.test(line)) {
+          bodyStart = i;
+          break;
+        }
+      }
+
+      return {
+        title,
+        subtitle,
+        description,
+        body: lines.slice(bodyStart).join('\n')
+      };
+    };
+
+    const slug = new URLSearchParams(window.location.search).get('slug') || 'leos-date';
+
+    fetch('./' + slug + '.md')
+      .then(res => res.text())
+      .then(text => {
+        const script = parseScriptFile(text);
+        const detail = document.getElementById('scriptDetail');
+        detail.innerHTML = `
+          <div class="script-header">
+            <div class="script-kicker">Script</div>
+            <h1>${escapeHtml(script.title)}</h1>
+            ${script.subtitle ? '<h2>' + escapeHtml(script.subtitle) + '</h2>' : ''}
+            ${script.description ? '<p class="script-lead">' + escapeHtml(script.description) + '</p>' : ''}
+          </div>
+          <div class="script-body">${renderScriptBody(script.body)}</div>
+        `;
+      })
+      .catch(err => {
+        document.getElementById('scriptDetail').innerHTML = '<div class="placeholder-card"><span>Script</span><strong>Unable to load script.</strong></div>';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

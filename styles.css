@@ -364,6 +364,30 @@ nav.mainnav a.active::before{
   line-height:1.6;
 }
 
+.script-card-actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  margin-top:16px;
+}
+
+.script-download{
+  display:inline-block;
+  padding:8px 12px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.02);
+  color:var(--ink);
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  transition:border-color 0.18s ease, transform 0.18s ease;
+}
+
+.script-download:hover{
+  border-color:var(--accent);
+  transform:translateY(-1px);
+}
+
 .script-page{
   max-width:900px;
 }

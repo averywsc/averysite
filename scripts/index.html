@@ -71,10 +71,15 @@
     const buildScriptCard = (file, script) => {
       const article = document.createElement('article');
       article.className = 'script-card';
+      const slug = file.replace(/\.md$/, '');
+      const pdfHref = `pdfs/${slug}.pdf`;
       article.innerHTML = `
-        <h3><a href="view.html?slug=${encodeURIComponent(file.replace(/\.md$/, ''))}">${script.title}</a></h3>
+        <h3><a href="view.html?slug=${encodeURIComponent(slug)}">${script.title}</a></h3>
         ${script.subtitle ? '<div class="script-subtitle">' + script.subtitle + '</div>' : ''}
         ${script.description ? '<p class="script-description">' + script.description + '</p>' : ''}
+        <div class="script-card-actions">
+          <a class="script-download" href="${pdfHref}" download>Download PDF</a>
+        </div>
       `;
       return article;
     };

@@ -165,12 +165,16 @@
       .then(text => {
         const script = parseScriptFile(text);
         const detail = document.getElementById('scriptDetail');
+        const pdfHref = './pdfs/' + slug + '.pdf';
         detail.innerHTML = `
           <div class="script-header">
             <div class="script-kicker">Script</div>
             <h1>${escapeHtml(script.title)}</h1>
             ${script.subtitle ? '<h2>' + escapeHtml(script.subtitle) + '</h2>' : ''}
             ${script.description ? '<p class="script-lead">' + escapeHtml(script.description) + '</p>' : ''}
+            <div class="script-card-actions">
+              <a class="script-download" href="${pdfHref}" download>Download PDF</a>
+            </div>
           </div>
           <div class="script-body">${renderScriptBody(script.body)}</div>
         `;

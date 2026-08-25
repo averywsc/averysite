@@ -180,7 +180,15 @@ nav.mainnav a.active::before{
   letter-spacing:0.02em;
   text-transform:uppercase;
   color:var(--ink);
-  margin-bottom:36px;
+  margin-bottom:12px;
+}
+
+.small-label{
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:lowercase;
+  color:var(--muted);
+  margin-bottom:24px;
 }
 
 /* photo grid */

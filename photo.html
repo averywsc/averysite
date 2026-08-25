@@ -25,20 +25,109 @@
   <main id="stage">
     <div class="page-content">
       <div class="page-title">Photo</div>
-      <div class="photo-grid" id="photoGrid"></div>
+      <div class="small-label">click on any image to view it full size</div>
+
+      <div class="gallery-section">
+        <div class="gallery-label">Boards</div>
+        <div class="photo-grid" id="boardsGrid"></div>
+      </div>
+
+      <div class="gallery-section">
+        <div class="gallery-label">B &amp; W</div>
+        <div class="photo-grid placeholder-grid" id="bwGrid"></div>
+      </div>
+
+      <div class="gallery-section">
+        <div class="gallery-label">Portraits</div>
+        <div class="photo-grid placeholder-grid" id="portraitGrid"></div>
+      </div>
+
+      <div class="gallery-section">
+        <div class="gallery-label">Film Stills</div>
+        <div class="photo-grid placeholder-grid" id="filmStillGrid"></div>
+      </div>
+
+      <div class="gallery-section">
+        <div class="gallery-label">Travel</div>
+        <div class="photo-grid placeholder-grid" id="travelGrid"></div>
+      </div>
+
+      <div class="gallery-section">
+        <div class="gallery-label">All</div>
+        <div class="photo-grid" id="allGrid"></div>
+      </div>
+
       <script>
-        fetch('photos/title-strip.json').then(r=>r.json()).then(list => {
-          const grid = document.getElementById('photoGrid');
-          list.forEach(name => {
+        const buildImageGrid = (targetId, paths) => {
+          const grid = document.getElementById(targetId);
+          paths.forEach(path => {
             const fig = document.createElement('figure');
+            const link = document.createElement('a');
             const img = document.createElement('img');
-            const src = name.startsWith('films/') || name.startsWith('http') ? name : 'photos/' + name;
-            img.src = src;
-            img.alt = name;
-            fig.appendChild(img);
+            link.href = path;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            img.src = path;
+            img.alt = path;
+            link.appendChild(img);
+            fig.appendChild(link);
             grid.appendChild(fig);
           });
-        }).catch(e => console.error('Could not load photos/title-strip.json', e));
+        };
+
+        const addPlaceholder = (targetId, label) => {
+          const grid = document.getElementById(targetId);
+          const placeholder = document.createElement('div');
+          placeholder.className = 'placeholder-card';
+          placeholder.innerHTML = '<span>' + label + '</span><strong>Coming soon</strong>';
+          grid.appendChild(placeholder);
+        };
+
+        buildImageGrid('boardsGrid', [
+          'photos/1.png',
+          'photos/2 (1).png',
+          'photos/3.png',
+          'photos/4.png',
+          'photos/6.png'
+        ]);
+
+        ['bwGrid', 'portraitGrid', 'filmStillGrid', 'travelGrid'].forEach((id, index) => {
+          const label = ['B & W', 'Portraits', 'Film Stills', 'Travel'][index];
+          addPlaceholder(id, label);
+        });
+
+        buildImageGrid('allGrid', [
+          'photos/1.png',
+          'photos/2 (1).png',
+          'photos/3.png',
+          'photos/4.png',
+          'photos/6.png',
+          'photos/optimized/IMG_0781.jpg',
+          'photos/optimized/IMG_0782.jpg',
+          'photos/optimized/IMG_0804.jpg',
+          'photos/optimized/IMG_4975.jpg',
+          'photos/optimized/IMG_4987.jpg',
+          'photos/optimized/IMG_5325 (1).jpg',
+          'photos/optimized/IMG_5326.jpg',
+          'photos/optimized/IMG_5330.jpg',
+          'photos/optimized/IMG_5372.jpg',
+          'photos/optimized/IMG_5541.jpg',
+          'photos/optimized/IMG_5628.jpg',
+          'photos/optimized/IMG_5709.jpg',
+          'photos/optimized/IMG_5725.jpg',
+          'photos/optimized/IMG_5948.jpg',
+          'photos/optimized/IMG_5958.jpg',
+          'photos/optimized/IMG_6063.jpg',
+          'photos/optimized/IMG_6279.jpg',
+          'photos/optimized/IMG_6299.jpg',
+          'photos/optimized/IMG_6302-4.jpg',
+          'photos/optimized/IMG_6337.jpg',
+          'photos/optimized/IMG_6730.jpg',
+          'photos/optimized/IMG_6748.jpg',
+          'photos/optimized/IMG_6770.jpg',
+          'photos/optimized/IMG_6772.jpg',
+          'photos/optimized/IMG_6838.jpg'
+        ]);
       </script>
     </div>
   </main>

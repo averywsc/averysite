@@ -18,6 +18,16 @@
  --font-body:'Dotmatri', sans-serif;
 }
 
+body.light-mode{
+ --bg:#F3F0EA;
+ --stage-bg:#F3F0EA;
+ --ink:#111111;
+ --muted:#4E4E4E;
+ --line:rgba(17,17,17,0.14);
+ --accent:#111111;
+ --accent-dim:rgba(17,17,17,0.06);
+}
+
 *{ box-sizing:border-box; margin:0; padding:0; }
 html,body{ height:100%; }
 html, #stage { scroll-behavior:auto; }
@@ -45,7 +55,7 @@ a{ color:inherit; text-decoration:none; }
 /* divider between sidebar and stage */
 #sprockets{
   background:transparent;
-  border-left:1px solid rgba(255,255,255,0.08);
+  border-left:1px solid var(--line);
 }
 
 #sidebar{
@@ -105,6 +115,26 @@ nav.mainnav a.active::before{
   background:transparent;
 }
 
+.theme-toggle{
+  margin-top:22px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink);
+  font-family:var(--font-active);
+  font-size:12px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:10px 12px;
+  cursor:pointer;
+  width:max-content;
+  transition:border-color 0.2s ease, background 0.2s ease;
+}
+
+.theme-toggle:hover{
+  border-color:var(--accent);
+  background:var(--accent-dim);
+}
+
 #stage{
   position:relative;
   overflow-y:auto;
@@ -119,7 +149,7 @@ nav.mainnav a.active::before{
 #stage::-webkit-scrollbar{ width:8px; }
 #stage::-webkit-scrollbar-track{ background:transparent; }
 #stage::-webkit-scrollbar-thumb{
-  background:rgba(255,255,255,0.28);
+  background:var(--line);
   border-radius:999px;
 }
 
@@ -319,6 +349,23 @@ nav.mainnav a.active::before{
   color:var(--muted);
   max-width:520px;
   line-height:1.6;
+}
+
+.film-link{
+  display:inline-block;
+  margin-top:8px;
+  padding:10px 14px;
+  border:1px solid var(--line);
+  color:var(--ink);
+  background:transparent;
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+
+.film-link:hover{
+  border-color:var(--accent);
+  background:var(--accent-dim);
 }
 
 .film-section-label{

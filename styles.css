@@ -33,10 +33,6 @@ body.light-mode{
  --panel-border:rgba(17,17,17,0.12);
 }
 
-body[data-text-size="small"]{ --text-scale:0.9; }
-body[data-text-size="normal"]{ --text-scale:1; }
-body[data-text-size="large"]{ --text-scale:1.12; }
-
 *{ box-sizing:border-box; margin:0; padding:0; }
 html,body{ height:100%; }
 html, #stage { scroll-behavior:auto; }

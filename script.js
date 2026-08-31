@@ -14,20 +14,6 @@ const applyTheme = (isLight) => {
   });
 };
 
-const applyTextSize = (size) => {
-  const normalized = ['small', 'normal', 'large'].includes(size) ? size : 'normal';
-  document.body.dataset.textSize = normalized;
-  try {
-    localStorage.setItem('averysite-text-size', normalized);
-  } catch (error) {}
-  const buttons = document.querySelectorAll('[data-size-option]');
-  buttons.forEach(button => {
-    const active = button.dataset.sizeOption === normalized;
-    button.classList.toggle('active', active);
-    button.setAttribute('aria-pressed', String(active));
-  });
-};
-
 const loadSettings = () => {
   let themeIsLight = false;
   try {
@@ -39,13 +25,6 @@ const loadSettings = () => {
     }
   } catch (error) {}
   applyTheme(themeIsLight);
-
-  let size = 'normal';
-  try {
-    const storedSize = localStorage.getItem('averysite-text-size');
-    if (storedSize) size = storedSize;
-  } catch (error) {}
-  applyTextSize(size);
 };
 
 const createSettingsUI = () => {
@@ -78,14 +57,6 @@ const createSettingsUI = () => {
           <button type="button" class="settings-option" data-theme-option="light" aria-pressed="false">Light</button>
         </div>
       </div>
-      <div class="settings-group">
-        <div class="settings-label">Text Size</div>
-        <div class="settings-options">
-          <button type="button" class="settings-option" data-size-option="small" aria-pressed="false">Small</button>
-          <button type="button" class="settings-option" data-size-option="normal" aria-pressed="true">Normal</button>
-          <button type="button" class="settings-option" data-size-option="large" aria-pressed="false">Large</button>
-        </div>
-      </div>
     `;
     document.body.appendChild(newPanel);
     return newPanel;
@@ -97,11 +68,10 @@ const createSettingsUI = () => {
   });
 
   attachedPanel.querySelectorAll('[data-theme-option]').forEach(option => {
-    option.addEventListener('click', () => applyTheme(option.dataset.themeOption === 'light'));
-  });
-
-  attachedPanel.querySelectorAll('[data-size-option]').forEach(option => {
-    option.addEventListener('click', () => applyTextSize(option.dataset.sizeOption));
+    option.addEventListener('click', () => {
+      applyTheme(option.dataset.themeOption === 'light');
+      attachedPanel.classList.remove('open');
+    });
   });
 
   document.addEventListener('click', (event) => {

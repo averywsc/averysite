@@ -49,61 +49,78 @@ const loadSettings = () => {
 };
 
 const createSettingsUI = () => {
-  if (document.getElementById('site-settings-button')) return;
+  const button = document.getElementById('site-settings-button');
+  const panel = document.getElementById('site-settings-panel');
 
-  const button = document.createElement('button');
-  button.id = 'site-settings-button';
-  button.type = 'button';
-  button.setAttribute('aria-label', 'Open settings');
-  button.innerHTML = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/>
-    </svg>
-  `;
+  if (!button && !panel) {
+    const newButton = document.createElement('button');
+    newButton.id = 'site-settings-button';
+    newButton.type = 'button';
+    newButton.setAttribute('aria-label', 'Open settings');
+    newButton.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/>
+      </svg>
+    `;
+    document.body.appendChild(newButton);
+  }
 
-  const panel = document.createElement('div');
-  panel.id = 'site-settings-panel';
-  panel.innerHTML = `
-    <div class="settings-group">
-      <div class="settings-label">Theme</div>
-      <div class="settings-options">
-        <button type="button" class="settings-option" data-theme-option="dark" aria-pressed="true">Dark</button>
-        <button type="button" class="settings-option" data-theme-option="light" aria-pressed="false">Light</button>
+  const attachedButton = document.getElementById('site-settings-button');
+  const attachedPanel = document.getElementById('site-settings-panel') || (() => {
+    const newPanel = document.createElement('div');
+    newPanel.id = 'site-settings-panel';
+    newPanel.setAttribute('aria-live', 'polite');
+    newPanel.innerHTML = `
+      <div class="settings-group">
+        <div class="settings-label">Theme</div>
+        <div class="settings-options">
+          <button type="button" class="settings-option" data-theme-option="dark" aria-pressed="true">Dark</button>
+          <button type="button" class="settings-option" data-theme-option="light" aria-pressed="false">Light</button>
+        </div>
       </div>
-    </div>
-    <div class="settings-group">
-      <div class="settings-label">Text Size</div>
-      <div class="settings-options">
-        <button type="button" class="settings-option" data-size-option="small" aria-pressed="false">Small</button>
-        <button type="button" class="settings-option" data-size-option="normal" aria-pressed="true">Normal</button>
-        <button type="button" class="settings-option" data-size-option="large" aria-pressed="false">Large</button>
+      <div class="settings-group">
+        <div class="settings-label">Text Size</div>
+        <div class="settings-options">
+          <button type="button" class="settings-option" data-size-option="small" aria-pressed="false">Small</button>
+          <button type="button" class="settings-option" data-size-option="normal" aria-pressed="true">Normal</button>
+          <button type="button" class="settings-option" data-size-option="large" aria-pressed="false">Large</button>
+        </div>
       </div>
-    </div>
-  `;
+    `;
+    document.body.appendChild(newPanel);
+    return newPanel;
+  })();
 
-  document.body.appendChild(button);
-  document.body.appendChild(panel);
-
-  button.addEventListener('click', () => {
-    panel.classList.toggle('open');
+  attachedButton.addEventListener('click', (event) => {
+    event.stopPropagation();
+    attachedPanel.classList.toggle('open');
   });
 
-  panel.querySelectorAll('[data-theme-option]').forEach(option => {
+  attachedPanel.querySelectorAll('[data-theme-option]').forEach(option => {
     option.addEventListener('click', () => applyTheme(option.dataset.themeOption === 'light'));
   });
 
-  panel.querySelectorAll('[data-size-option]').forEach(option => {
+  attachedPanel.querySelectorAll('[data-size-option]').forEach(option => {
     option.addEventListener('click', () => applyTextSize(option.dataset.sizeOption));
   });
 
   document.addEventListener('click', (event) => {
-    if (!panel.contains(event.target) && !button.contains(event.target)) {
-      panel.classList.remove('open');
+    if (!attachedPanel.contains(event.target) && !attachedButton.contains(event.target)) {
+      attachedPanel.classList.remove('open');
     }
   });
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+let settingsInitialized = false;
+
+const initializeSettings = () => {
+  if (settingsInitialized) return;
+  settingsInitialized = true;
   createSettingsUI();
   loadSettings();
-});
+};
+
+document.addEventListener('DOMContentLoaded', initializeSettings);
+if (document.readyState !== 'loading') {
+  initializeSettings();
+}

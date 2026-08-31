@@ -76,6 +76,14 @@ a{ color:inherit; text-decoration:none; }
   background:var(--bg);
 }
 
+.sidebar-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+}
+
 .name{
   font-family:var(--font-active);
   font-size:24px;
@@ -83,6 +91,7 @@ a{ color:inherit; text-decoration:none; }
   letter-spacing:0.02em;
   cursor:pointer;
   color:var(--ink);
+  display:inline-block;
 }
 
 .tag{

@@ -16,6 +16,9 @@
  --accent-dim:rgba(255,255,255,0.06);
  --font-active:'Dotmatri', sans-serif;
  --font-body:'Dotmatri', sans-serif;
+ --text-scale:1;
+ --panel-bg:rgba(18,18,18,0.96);
+ --panel-border:rgba(255,255,255,0.12);
 }
 
 body.light-mode{
@@ -26,7 +29,13 @@ body.light-mode{
  --line:rgba(17,17,17,0.14);
  --accent:#111111;
  --accent-dim:rgba(17,17,17,0.06);
+ --panel-bg:rgba(255,255,255,0.96);
+ --panel-border:rgba(17,17,17,0.12);
 }
+
+body[data-text-size="small"]{ --text-scale:0.9; }
+body[data-text-size="normal"]{ --text-scale:1; }
+body[data-text-size="large"]{ --text-scale:1.12; }
 
 *{ box-sizing:border-box; margin:0; padding:0; }
 html,body{ height:100%; }
@@ -41,6 +50,7 @@ body{
  background:var(--bg);
  color:var(--ink);
  overflow:hidden;
+ font-size:calc(16px * var(--text-scale));
 }
 
 a{ color:inherit; text-decoration:none; }
@@ -115,22 +125,75 @@ nav.mainnav a.active::before{
   background:transparent;
 }
 
-.theme-toggle{
-  margin-top:22px;
+#site-settings-button{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:var(--panel-bg);
+  color:var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 12px 28px rgba(0,0,0,0.18);
+  z-index:20;
+}
+
+#site-settings-button svg{
+  width:20px;
+  height:20px;
+  stroke:currentColor;
+  stroke-width:1.8;
+  fill:none;
+}
+
+#site-settings-panel{
+  position:fixed;
+  right:22px;
+  bottom:80px;
+  width:min(260px, calc(100vw - 32px));
+  background:var(--panel-bg);
+  border:1px solid var(--panel-border);
+  box-shadow:0 18px 44px rgba(0,0,0,0.2);
+  padding:18px 16px 16px;
+  display:none;
+  z-index:21;
+}
+
+#site-settings-panel.open{ display:block; }
+
+.settings-group + .settings-group{ margin-top:16px; }
+
+.settings-label{
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+
+.settings-options{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.settings-option{
   border:1px solid var(--line);
   background:transparent;
   color:var(--ink);
-  font-family:var(--font-active);
-  font-size:12px;
-  letter-spacing:0.1em;
+  padding:7px 10px;
+  font-size:11px;
+  letter-spacing:0.08em;
   text-transform:uppercase;
-  padding:10px 12px;
   cursor:pointer;
-  width:max-content;
-  transition:border-color 0.2s ease, background 0.2s ease;
 }
 
-.theme-toggle:hover{
+.settings-option.active{
   border-color:var(--accent);
   background:var(--accent-dim);
 }

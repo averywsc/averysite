@@ -32,7 +32,7 @@ body.light-mode{
  --accent-dim:rgba(17,17,17,0.06);
  --panel-bg:rgba(255,255,255,0.96);
  --panel-border:rgba(17,17,17,0.12);
- --vignette:#000000;
+ --vignette:#FFFFFF;
 }
 
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -259,14 +259,14 @@ nav.mainnav a.active::before{
 }
 
 .fade-top, .fade-bottom{
- position:absolute;
- left:0; right:0;
+ position:fixed;
+ left:354px; right:0;
   height:120px;
   pointer-events:none;
   z-index:2;
 }
-.fade-top{ top:0; background:linear-gradient(to bottom, #000000, transparent); }
-.fade-bottom{ bottom:0; background:linear-gradient(to top, #000000, transparent); }
+.fade-top{ top:0; background:linear-gradient(to bottom, var(--vignette), transparent); }
+.fade-bottom{ bottom:0; background:linear-gradient(to top, var(--vignette), transparent); }
 
 /* ---------- inner pages (photo / film / code) ---------- */
 .page-content{
@@ -665,7 +665,7 @@ nav.mainnav a.active::before{
   .page-content{ padding:32px 22px 60px; }
   .page-title{ font-size:28px; }
   .film-row{ grid-template-columns:1fr; }
-  .fade-top{ top:0; }
+  .fade-top, .fade-bottom{ left:0; }
 }
 
 @media (prefers-reduced-motion: reduce){

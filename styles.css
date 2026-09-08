@@ -205,6 +205,23 @@ nav.mainnav a.active::before{
   background:var(--accent-dim);
 }
 
+.settings-links{
+  display:flex;
+  gap:14px;
+  margin-top:16px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+}
+
+.settings-links a{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+
+.settings-links a:hover{ color:var(--ink); }
+
 #stage{
   position:relative;
   overflow-y:auto;
@@ -592,6 +609,14 @@ nav.mainnav a.active::before{
 .script-body .script-dialogue p{
   margin:0 0 8px 30px;
   max-width:680px;
+}
+
+.privacy-copyright{
+  margin-top:32px;
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
 }
 
 .script-transition,

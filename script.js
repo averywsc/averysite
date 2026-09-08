@@ -57,6 +57,10 @@ const createSettingsUI = () => {
           <button type="button" class="settings-option" data-theme-option="light" aria-pressed="false">Light</button>
         </div>
       </div>
+      <div class="settings-links">
+        <a href="${window.location.pathname.includes('/scripts/') ? '../' : ''}privacy.html">Privacy</a>
+        <a href="${window.location.pathname.includes('/scripts/') ? '../' : ''}contact.html">Contact</a>
+      </div>
     `;
     document.body.appendChild(newPanel);
     return newPanel;

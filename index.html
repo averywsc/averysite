@@ -29,9 +29,7 @@
   <div id="sprockets"></div>
 
   <main id="stage">
-    <div class="fade-top"></div>
-    <div class="fade-bottom"></div>
-    <div class="strip" id="homeStrip"></div>
+  <div class="strip" id="homeStrip"></div>
     <script>
       fetch('photos/title-strip.json').then(r=>r.json()).then(list=>{
         const strip = document.getElementById('homeStrip');
@@ -50,6 +48,9 @@
     </script>
   </main>
 </div>
+
+<div class="fade-top" aria-hidden="true"></div>
+<div class="fade-bottom" aria-hidden="true"></div>
 
 <script src="script.js"></script>
 </body>

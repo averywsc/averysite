@@ -259,14 +259,15 @@ nav.mainnav a.active::before{
 }
 
 .fade-top, .fade-bottom{
- position:fixed;
- left:354px; right:0;
+  position:fixed !important;
+  left:354px;
+  right:0;
   height:120px;
   pointer-events:none;
-  z-index:2;
+  z-index:100;
 }
-.fade-top{ top:0; background:linear-gradient(to bottom, var(--vignette), transparent); }
-.fade-bottom{ bottom:0; background:linear-gradient(to top, var(--vignette), transparent); }
+.fade-top{ top:0; background:linear-gradient(to bottom, var(--vignette) 0%, transparent 100%); }
+.fade-bottom{ bottom:0; background:linear-gradient(to top, var(--vignette) 0%, transparent 100%); }
 
 /* ---------- inner pages (photo / film / code) ---------- */
 .page-content{

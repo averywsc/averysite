@@ -164,6 +164,41 @@
   </main>
 </div>
 
+<script>
+  const codeScreenshots = {
+    'Study.Hub': 'code-screenshots/study-hub.png',
+    'Locked In': 'code-screenshots/locked-in.png',
+    'Screen Writing': 'code-screenshots/screen-writing.png',
+    'My Tools': 'code-screenshots/my-tools.png',
+    'Halftone Studio': 'code-screenshots/halftone-studio.png',
+    'LUT Maker': 'code-screenshots/lut-maker.png',
+    'Color Palette Extractor': 'code-screenshots/color-palette-extractor.png',
+    'ASCII Camera': 'code-screenshots/ascii-camera.png',
+    'Aotearoa Interactive Map': 'code-screenshots/aotearoa-map.png',
+    'NCEA Math Study': 'code-screenshots/ncea-maths.png',
+    'Pixel Art Studio': 'code-screenshots/pixel-art-studio.png',
+    'VHS Effect': 'code-screenshots/vhs-effect.png',
+    'Golden Hour / Blue Hour Calculator': 'code-screenshots/golden-hour.png',
+    'Interactive CV': 'code-screenshots/interactive-cv.png',
+    'Typing Arcade': 'code-screenshots/typing-arcade.png',
+    'NCEA Countdown': 'code-screenshots/ncea-countdown.png',
+    'Macro Tracker': 'code-screenshots/macro-tracker.png',
+    'Lawnmow Quote': 'code-screenshots/lawnmow-quote.png'
+  };
+
+  document.querySelectorAll('.code-row').forEach(row => {
+    const heading = row.querySelector('h3');
+    const title = heading ? heading.textContent.trim() : '';
+    const screenshot = codeScreenshots[title];
+    if (!screenshot) return;
+    const image = document.createElement('img');
+    image.className = 'code-screenshot';
+    image.src = screenshot;
+    image.alt = title + ' screenshot';
+    image.loading = 'lazy';
+    row.appendChild(image);
+  });
+</script>
 <script src="script.js"></script>
 </body>
 </html>

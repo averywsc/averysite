@@ -31,44 +31,11 @@
   <main id="stage">
     <div class="page-content">
       <div class="page-title">Photos</div>
-      <div class="small-label">click on any image to view it full size</div>
-      <div class="jump-nav">
-        <a href="#boards">Boards</a>
-        <a href="#bw">B &amp; W</a>
-        <a href="#portraits">Portraits</a>
-        <a href="#film-stills">Film Stills</a>
-        <a href="#travel">Travel</a>
-        <a href="#all">All</a>
-      </div>
-
-      <div class="gallery-section" id="boards">
-        <div class="gallery-label"><a href="#boards">Boards</a></div>
-        <div class="photo-grid" id="boardsGrid"></div>
-      </div>
-
-      <div class="gallery-section" id="bw">
-        <div class="gallery-label"><a href="#bw">B &amp; W</a></div>
-        <div class="photo-grid" id="bwGrid"></div>
-      </div>
-
-      <div class="gallery-section" id="portraits">
-        <div class="gallery-label"><a href="#portraits">Portraits</a></div>
-        <div class="photo-grid" id="portraitGrid"></div>
-      </div>
-
-      <div class="gallery-section" id="film-stills">
-        <div class="gallery-label"><a href="#film-stills">Film Stills</a></div>
-        <div class="photo-grid placeholder-grid" id="filmStillGrid"></div>
-      </div>
-
-      <div class="gallery-section" id="travel">
-        <div class="gallery-label"><a href="#travel">Travel</a></div>
-        <div class="photo-grid" id="travelGrid"></div>
-      </div>
-
-      <div class="gallery-section" id="all">
-        <div class="gallery-label"><a href="#all">All</a></div>
-        <div class="photo-grid" id="allGrid"></div>
+      <div class="small-label">a colour-ordered archive · click any image to view it full size</div>
+      <div class="photo-grid color-gallery" id="imageWall"></div>
+      <div class="lightbox" id="photoLightbox" hidden>
+        <button class="lightbox-close" type="button" aria-label="Close image">&times;</button>
+        <img class="lightbox-image" alt="">
       </div>
 
       <script>
@@ -79,72 +46,29 @@
             const link = document.createElement('a');
             const img = document.createElement('img');
             link.href = path;
-            link.target = '_blank';
-            link.rel = 'noopener';
+            link.addEventListener('click', event => {
+              event.preventDefault();
+              openLightbox(path);
+            });
             img.src = path;
             img.alt = path;
+            img.loading = 'lazy';
             link.appendChild(img);
             fig.appendChild(link);
             grid.appendChild(fig);
           });
         };
 
-        const smoothStageScroll = (stage, to, duration = 320) => {
-          const start = stage.scrollTop;
-          const distance = to - start;
-          if (!distance) return;
-
-          let startTime = null;
-          const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
-
-          const step = timestamp => {
-            if (startTime === null) startTime = timestamp;
-            const elapsed = timestamp - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            stage.scrollTop = start + distance * easeOutCubic(progress);
-            if (progress < 1) requestAnimationFrame(step);
-          };
-
-          requestAnimationFrame(step);
-        };
-
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-          link.addEventListener('click', event => {
-            const hash = link.getAttribute('href');
-            if (!hash || hash === '#') return;
-            const target = document.getElementById(hash.substring(1));
-            const stage = document.getElementById('stage');
-            if (target && stage) {
-              event.preventDefault();
-              smoothStageScroll(stage, target.offsetTop - 16, 320);
-            }
-          });
-        });
-
-        const addPlaceholder = (targetId, label) => {
-          const grid = document.getElementById(targetId);
-          const placeholder = document.createElement('div');
-          placeholder.className = 'placeholder-card';
-          placeholder.innerHTML = '<span>' + label + '</span><strong>Coming soon</strong>';
-          grid.appendChild(placeholder);
-        };
-
-        const boards = [
+        const galleryImages = [...new Set([
           'photos/1.png',
           'photos/2 (1).png',
           'photos/3.png',
           'photos/4.png',
-          'photos/6.png'
-        ];
-
-        const bw = [
+          'photos/6.png',
           'photos/IMG_5578-2.jpg',
           'photos/IMG_5388.JPEG',
           'photos/IMG_0827.JPEG',
-          'photos/IMG_6110.jpg'
-        ];
-
-        const portraits = [
+          'photos/IMG_6110.jpg',
           'photos/IMG_5503.jpg',
           'photos/IMG_5644.jpg',
           'photos/IMG_6602.jpg',
@@ -159,10 +83,7 @@
           'photos/IMG_5745.jpg',
           'photos/IMG_2029-2.jpg',
           'photos/IMG_6861.jpg',
-          'photos/IMG_6761.jpg'
-        ];
-
-        const travel = [
+          'photos/IMG_6761.jpg',
           'photos/IMG_6895-3.jpg',
           'photos/IMG_6945.jpg',
           'photos/IMG_6953.jpg',
@@ -203,58 +124,118 @@
           'photos/IMG_6063.jpg',
           'photos/IMG_6279.jpg',
           'photos/IMG_6299.jpg',
-          'photos/IMG_6302.jpg',
           'photos/IMG_6302-4.jpg',
           'photos/IMG_6337.jpg',
           'photos/IMG_5948.jpg',
           'photos/IMG_5958.jpg',
           'photos/IMG_6752.jpg',
-          'photos/IMG_7015.JPEG'
-        ];
-
-        const filmStills = [
+          'photos/IMG_7015.JPEG',
+          'photos/IMG_2071.JPG',
+          'photos/IMG_1997.JPG',
+          'photos/IMG_1964.JPG',
           'photos/akl-h9-travis-1786593999729.jpg',
           'photos/Screenshot 2026-08-25 184225.png',
           'photos/Screenshot 2026-08-25 184331.png',
           'photos/Screenshot 2026-08-25 184317.png',
-          'photos/Screenshot 2026-08-14 124805.png'
-        ];
+          'photos/Screenshot 2026-08-14 124805.png',
+          'photos/IMG_2027.JPG',
+          'photos/IMG_2051.JPG',
+          'photos/IMG_5804.JPG',
+          'photos/IMG_5842.jpg',
+          'photos/IMG_5014.JPG',
+          'photos/IMG_4987.JPG',
+          'photos/IMG_4982.JPG',
+          'photos/IMG_4975.JPG',
+          'photos/IMG_5628.jpg',
+          'photos/IMG_5615.JPG',
+          'photos/IMG_5614.JPG',
+          'photos/IMG_4357.jpg',
+          'photos/IMG_5372.jpg',
+          'photos/IMG_5353.jpg',
+          'photos/IMG_5334.jpg',
+          'photos/IMG_5330.jpg',
+          'photos/IMG_5325 (1).jpg',
+          'photos/IMG_5021.JPG',
+          'photos/IMG_5017.JPG',
+          'photos/IMG_4089.jpg',
+          'photos/IMG_0771.jpg',
+          'photos/IMG_0804.jpg',
+          'photos/IMG_0782.jpg',
+          'photos/IMG_4995.JPG',
+          'photos/IMG_5002.JPG'
+        ])];
 
-        const homeStrip = [
-          'photos/optimized/IMG_0781.jpg',
-          'photos/optimized/IMG_0782.jpg',
-          'photos/optimized/IMG_0804.jpg',
-          'photos/optimized/IMG_4975.jpg',
-          'photos/optimized/IMG_4987.jpg',
-          'photos/optimized/IMG_5325 (1).jpg',
-          'photos/optimized/IMG_5326.jpg',
-          'photos/optimized/IMG_5330.jpg',
-          'photos/optimized/IMG_5372.jpg',
-          'photos/optimized/IMG_5628.jpg',
-          'photos/optimized/IMG_5709.jpg',
-          'photos/optimized/IMG_5725.jpg',
-          'photos/optimized/IMG_5948.jpg',
-          'photos/optimized/IMG_5958.jpg',
-          'photos/optimized/IMG_6063.jpg',
-          'photos/optimized/IMG_6279.jpg',
-          'photos/optimized/IMG_6299.jpg',
-          'photos/optimized/IMG_6302-4.jpg',
-          'photos/optimized/IMG_6337.jpg',
-          'photos/optimized/IMG_6730.jpg',
-          'photos/optimized/IMG_6748.jpg',
-          'photos/optimized/IMG_6770.jpg',
-          'photos/optimized/IMG_6772.jpg',
-          'photos/optimized/IMG_6838.jpg'
-        ];
+        const lightbox = document.getElementById('photoLightbox');
+        const lightboxImage = lightbox.querySelector('.lightbox-image');
+        const openLightbox = path => {
+          lightboxImage.src = path;
+          lightboxImage.alt = path;
+          lightbox.hidden = false;
+          document.body.classList.add('lightbox-open');
+        };
+        const closeLightbox = () => {
+          lightbox.hidden = true;
+          lightboxImage.src = '';
+          document.body.classList.remove('lightbox-open');
+        };
+        lightbox.addEventListener('click', event => {
+          if (event.target === lightbox || event.target.classList.contains('lightbox-close')) closeLightbox();
+        });
+        document.addEventListener('keydown', event => {
+          if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
+        });
 
-        const all = [...new Set([].concat(boards, bw, portraits, travel, filmStills, homeStrip))];
+        const hueForImage = path => new Promise(resolve => {
+          const image = new Image();
+          image.onload = () => {
+            const canvas = document.createElement('canvas');
+            const size = 32;
+            canvas.width = size;
+            canvas.height = size;
+            const context = canvas.getContext('2d', {willReadFrequently:true});
+            context.drawImage(image, 0, 0, size, size);
+            const pixels = context.getImageData(0, 0, size, size).data;
+            const bins = Array.from({length: 12}, () => ({weight: 0, hue: 0}));
+            let neutral = 0;
+            for (let i = 0; i < pixels.length; i += 4) {
+              const r = pixels[i] / 255;
+              const g = pixels[i + 1] / 255;
+              const b = pixels[i + 2] / 255;
+              const max = Math.max(r, g, b);
+              const min = Math.min(r, g, b);
+              const delta = max - min;
+              if (delta < 0.08) {
+                neutral += 1;
+                continue;
+              }
+              let hue = 0;
+              if (max === r) hue = ((g - b) / delta) % 6;
+              else if (max === g) hue = (b - r) / delta + 2;
+              else hue = (r - g) / delta + 4;
+              hue = (hue * 30 + 360) % 360;
+              const bin = Math.floor(hue / 30);
+              bins[bin].weight += delta * (0.5 + max);
+              bins[bin].hue = hue;
+            }
+            const dominant = bins.filter(bin => bin.weight).sort((a, b) => b.weight - a.weight).slice(0, 3);
+            if (!dominant.length || neutral > pixels.length * 0.8) {
+              resolve(360);
+              return;
+            }
+            resolve(dominant[0].hue);
+          };
+          image.onerror = () => resolve(360);
+          image.src = path;
+        });
 
-        buildImageGrid('boardsGrid', boards);
-        buildImageGrid('bwGrid', bw);
-        buildImageGrid('portraitGrid', portraits);
-        buildImageGrid('travelGrid', travel);
-        buildImageGrid('filmStillGrid', filmStills);
-        buildImageGrid('allGrid', all);
+        Promise.all(galleryImages.map(async (path, index) => ({
+          path,
+          index,
+          hue: await hueForImage(path)
+        }))).then(images => {
+          images.sort((a, b) => a.hue - b.hue || a.index - b.index);
+          buildImageGrid('imageWall', images.map(image => image.path));
+        });
       </script>
     </div>
   </main>

@@ -313,18 +313,17 @@ nav.mainnav a.active::before{
 
 /* photo grid */
 .photo-grid{
-  column-width:230px;
-  column-gap:14px;
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:14px;
 }
 
 .photo-grid figure{
   border:1px solid var(--line);
   overflow:hidden;
-  display:inline-block;
   width:100%;
-  margin:0 0 14px;
-  break-inside:avoid;
-  vertical-align:top;
+  aspect-ratio:4 / 3;
+  margin:0;
 }
 
 .photo-grid a{
@@ -334,8 +333,8 @@ nav.mainnav a.active::before{
 
 .photo-grid img{
   width:100%;
-  height:auto;
-  object-fit:contain;
+  height:100%;
+  object-fit:cover;
   display:block;
   transition:transform 0.5s ease;
   cursor:pointer;
@@ -350,7 +349,7 @@ nav.mainnav a.active::before{
 .lightbox{
   position:fixed;
   inset:0;
-  z-index:20;
+  z-index:1000;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -633,8 +632,9 @@ body.lightbox-open{ overflow:hidden; }
 
 /* code list */
 .code-list{
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:0 28px;
 }
 
 .code-row{
@@ -675,8 +675,8 @@ body.lightbox-open{ overflow:hidden; }
 
 .code-screenshot{
   display:block;
-  width:min(100%, 720px);
-  max-height:360px;
+  width:100%;
+  max-height:92px;
   object-fit:cover;
   object-position:top;
   margin-top:18px;
@@ -709,6 +709,12 @@ body.lightbox-open{ overflow:hidden; }
   .fade-top, .fade-bottom{ left:0; }
 }
 
+@media (min-width: 521px) and (max-width: 1000px){
+  .photo-grid{
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 520px){
   #sidebar{
     padding:14px 16px;
@@ -731,11 +737,8 @@ body.lightbox-open{ overflow:hidden; }
     font-size:24px;
   }
   .photo-grid{
-    column-width:calc(50vw - 24px);
-    column-gap:8px;
-  }
-  .photo-grid figure{
-    margin-bottom:8px;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:8px;
   }
   .lightbox{
     padding:16px;
@@ -746,6 +749,9 @@ body.lightbox-open{ overflow:hidden; }
   }
   .code-row{
     padding:18px 0;
+  }
+  .code-list{
+    grid-template-columns:1fr;
   }
   .code-row .row-top{
     display:block;

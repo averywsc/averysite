@@ -45,7 +45,7 @@
             const fig = document.createElement('figure');
             const link = document.createElement('a');
             const img = document.createElement('img');
-            link.href = path;
+            link.href = '#';
             link.addEventListener('click', event => {
               event.preventDefault();
               openLightbox(path);
@@ -222,7 +222,8 @@
               resolve(360);
               return;
             }
-            resolve(dominant[0].hue);
+            const hue = dominant[0].hue;
+            resolve((hue - 210 + 360) % 360);
           };
           image.onerror = () => resolve(360);
           image.src = path;

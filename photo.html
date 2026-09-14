@@ -34,11 +34,8 @@
       <div class="small-label">click on any image to view it full size</div>
       <div class="jump-nav">
         <a href="#boards">Boards</a>
-        <a href="#flowers">Flowers</a>
         <a href="#bw">B &amp; W</a>
         <a href="#portraits">Portraits</a>
-        <a href="#night">Night</a>
-        <a href="#objects">Objects</a>
         <a href="#film-stills">Film Stills</a>
         <a href="#travel">Travel</a>
         <a href="#all">All</a>
@@ -49,11 +46,6 @@
         <div class="photo-grid" id="boardsGrid"></div>
       </div>
 
-      <div class="gallery-section" id="flowers">
-        <div class="gallery-label"><a href="#flowers">Flowers</a></div>
-        <div class="photo-grid" id="flowersGrid"></div>
-      </div>
-
       <div class="gallery-section" id="bw">
         <div class="gallery-label"><a href="#bw">B &amp; W</a></div>
         <div class="photo-grid" id="bwGrid"></div>
@@ -62,16 +54,6 @@
       <div class="gallery-section" id="portraits">
         <div class="gallery-label"><a href="#portraits">Portraits</a></div>
         <div class="photo-grid" id="portraitGrid"></div>
-      </div>
-
-      <div class="gallery-section" id="night">
-        <div class="gallery-label"><a href="#night">Night</a></div>
-        <div class="photo-grid" id="nightGrid"></div>
-      </div>
-
-      <div class="gallery-section" id="objects">
-        <div class="gallery-label"><a href="#objects">Objects</a></div>
-        <div class="photo-grid" id="objectsGrid"></div>
       </div>
 
       <div class="gallery-section" id="film-stills">
@@ -162,24 +144,9 @@
           'photos/IMG_6110.jpg'
         ];
 
-        const flowers = [
-          'photos/IMG_6895-3.jpg',
-          'photos/IMG_6945.jpg',
-          'photos/IMG_6953.jpg',
-          'photos/IMG_6944.jpg',
-          'photos/IMG_4322-2.jpg',
-          'photos/IMG_4331-2.jpg',
-          'photos/IMG_4330-2.jpg',
-          'photos/IMG_4329-2.jpg',
-          'photos/IMG_5814.jpg',
-          'photos/IMG_5014-2.jpg',
-          'photos/IMG_4326-2.jpg',
-          'photos/IMG_1501.JPG',
-          'photos/IMG_1451.JPG'
-        ];
-
         const portraits = [
           'photos/IMG_5503.jpg',
+          'photos/IMG_5644.jpg',
           'photos/IMG_6602.jpg',
           'photos/IMG_6607.jpg',
           'photos/IMG_6520.jpg',
@@ -195,18 +162,24 @@
           'photos/IMG_6761.jpg'
         ];
 
-        const night = [
-          'photos/IMG_5644.jpg',
+        const travel = [
+          'photos/IMG_6895-3.jpg',
+          'photos/IMG_6945.jpg',
+          'photos/IMG_6953.jpg',
+          'photos/IMG_6944.jpg',
+          'photos/IMG_4322-2.jpg',
+          'photos/IMG_4331-2.jpg',
+          'photos/IMG_4330-2.jpg',
+          'photos/IMG_4329-2.jpg',
+          'photos/IMG_5814.jpg',
+          'photos/IMG_5014-2.jpg',
+          'photos/IMG_4326-2.jpg',
+          'photos/IMG_1501.JPG',
+          'photos/IMG_1451.JPG',
           'photos/IMG_5491.jpg',
           'photos/IMG_5278.jpg',
-          'photos/IMG_5631.jpg'
-        ];
-
-        const objects = [
-          'photos/IMG_6605.jpg'
-        ];
-
-        const travel = [
+          'photos/IMG_5631.jpg',
+          'photos/IMG_6605.jpg',
           'photos/IMG_0625-2.jpg',
           'photos/IMG_1167-2.jpg',
           'photos/IMG_0622-2.jpg',
@@ -274,14 +247,11 @@
           'photos/optimized/IMG_6838.jpg'
         ];
 
-        const all = [...new Set([].concat(boards, flowers, bw, portraits, night, objects, travel, filmStills, homeStrip))];
+        const all = [...new Set([].concat(boards, bw, portraits, travel, filmStills, homeStrip))];
 
         buildImageGrid('boardsGrid', boards);
-        buildImageGrid('flowersGrid', flowers);
         buildImageGrid('bwGrid', bw);
         buildImageGrid('portraitGrid', portraits);
-        buildImageGrid('nightGrid', night);
-        buildImageGrid('objectsGrid', objects);
         buildImageGrid('travelGrid', travel);
         buildImageGrid('filmStillGrid', filmStills);
         buildImageGrid('allGrid', all);

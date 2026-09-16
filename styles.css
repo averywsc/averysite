@@ -710,7 +710,7 @@ body.lightbox-open{ overflow:hidden; }
   .film-row{ grid-template-columns:1fr; }
   .fade-top, .fade-bottom{ left:0; }
   .fade-top{
-    top:48px;
+    top:49px;
     height:72px;
   }
   .fade-bottom{
@@ -726,18 +726,22 @@ body.lightbox-open{ overflow:hidden; }
 
 @media (max-width: 520px){
   #sidebar{
+    height:53px;
     padding:14px 16px;
   }
   .sidebar-top{
     width:100%;
+  }
+  .name{
+    font-size:20px;
   }
   .mainnav{
     gap:12px;
     width:100%;
     justify-content:space-between;
   }
-  .mainnav a{
-    font-size:10px;
+  nav.mainnav a{
+    font-size:9px;
   }
   .page-content{
     padding:24px 14px 48px;

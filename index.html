@@ -44,6 +44,7 @@
           item.appendChild(img);
           strip.appendChild(item);
         });
+        requestAnimationFrame(() => strip.classList.add('is-ready'));
       }).catch(e => console.error('Could not load photos/title-strip.json for home strip', e));
     </script>
   </main>

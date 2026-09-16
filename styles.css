@@ -247,11 +247,13 @@ nav.mainnav a.active::before{
   display:flex;
   flex-direction:column;
   animation: scrollStrip 52s linear infinite;
+  animation-play-state:paused;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   will-change: transform;
 }
 
+.strip.is-ready{ animation-play-state:running; }
 #stage:hover .strip{ animation-play-state:paused; }
 
 @keyframes scrollStrip{
@@ -730,15 +732,17 @@ body.lightbox-open{ overflow:hidden; }
     padding:14px 16px;
   }
   .sidebar-top{
-    width:100%;
+    width:auto;
   }
   .name{
     font-size:20px;
   }
   .mainnav{
-    gap:12px;
-    width:100%;
-    justify-content:space-between;
+    flex:0 0 auto;
+    gap:10px;
+    width:auto;
+    margin-left:18px;
+    justify-content:flex-end;
   }
   nav.mainnav a{
     font-size:9px;

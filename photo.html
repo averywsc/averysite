@@ -31,7 +31,7 @@
   <main id="stage">
     <div class="page-content">
       <div class="page-title">Photos</div>
-      <div class="small-label">a colour-ordered archive · click any image to view it full size</div>
+      <div class="small-label">colour-ordered archive · click any image to view it full size</div>
       <div class="photo-grid color-gallery" id="imageWall"></div>
       <div class="lightbox" id="photoLightbox" hidden>
         <button class="lightbox-close" type="button" aria-label="Close image">&times;</button>
@@ -53,6 +53,7 @@
             img.src = path;
             img.alt = path;
             img.loading = 'lazy';
+            if (focalPositions[path]) img.style.objectPosition = focalPositions[path];
             link.appendChild(img);
             fig.appendChild(link);
             grid.appendChild(fig);
@@ -68,7 +69,6 @@
           'photos/IMG_5578-2.jpg',
           'photos/IMG_5388.JPEG',
           'photos/IMG_0827.JPEG',
-          'photos/IMG_6110.jpg',
           'photos/IMG_5503.jpg',
           'photos/IMG_5644.jpg',
           'photos/IMG_6602.jpg',
@@ -176,9 +176,26 @@
           'photos/IMG_7931.jpg',
           'photos/IMG_7945.jpg',
           'photos/IMG_7997.jpg',
-          'photos/IMG_8023.jpg',
-          'photos/IMG_8033.jpg'
+          'photos/IMG_8023.jpg'
         ])];
+
+        const focalPositions = {
+          'photos/IMG_6952.jpg': '50% 45%',
+          'photos/IMG_7705.jpg': '50% 42%',
+          'photos/IMG_7734.jpg': '50% 46%',
+          'photos/IMG_7745.jpg': '52% 50%',
+          'photos/IMG_7765.jpg': '50% 50%',
+          'photos/IMG_7810.jpg': '53% 42%',
+          'photos/IMG_7814.jpg': '50% 55%',
+          'photos/IMG_7837.jpg': '50% 50%',
+          'photos/IMG_7921.jpg': '50% 50%',
+          'photos/IMG_7924.jpg': '50% 42%',
+          'photos/IMG_7931.jpg': '52% 45%',
+          'photos/IMG_7945.jpg': '50% 50%',
+          'photos/IMG_7997.jpg': '50% 55%',
+          'photos/IMG_8023.jpg': '50% 52%',
+          'photos/IMG_8033.jpg': '50% 55%'
+        };
 
         const lightbox = document.getElementById('photoLightbox');
         const lightboxImage = lightbox.querySelector('.lightbox-image');
@@ -200,7 +217,7 @@
           if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
         });
 
-        const hueForImage = path => new Promise(resolve => {
+        const colorOrderForImage = path => new Promise(resolve => {
           const image = new Image();
           image.onload = () => {
             const canvas = document.createElement('canvas');
@@ -210,8 +227,9 @@
             const context = canvas.getContext('2d', {willReadFrequently:true});
             context.drawImage(image, 0, 0, size, size);
             const pixels = context.getImageData(0, 0, size, size).data;
-            const bins = Array.from({length: 12}, () => ({weight: 0, hue: 0}));
-            let neutral = 0;
+            let chromaWeight = 0;
+            let hueX = 0;
+            let hueY = 0;
             for (let i = 0; i < pixels.length; i += 4) {
               const r = pixels[i] / 255;
               const g = pixels[i + 1] / 255;
@@ -219,8 +237,7 @@
               const max = Math.max(r, g, b);
               const min = Math.min(r, g, b);
               const delta = max - min;
-              if (delta < 0.08) {
-                neutral += 1;
+              if (delta < 0.06 || max < 0.1) {
                 continue;
               }
               let hue = 0;
@@ -228,28 +245,32 @@
               else if (max === g) hue = (b - r) / delta + 2;
               else hue = (r - g) / delta + 4;
               hue = (hue * 30 + 360) % 360;
-              const bin = Math.floor(hue / 30);
-              bins[bin].weight += delta * (0.5 + max);
-              bins[bin].hue = hue;
+              const radians = hue * Math.PI / 180;
+              const weight = delta * (0.35 + max);
+              hueX += Math.cos(radians) * weight;
+              hueY += Math.sin(radians) * weight;
+              chromaWeight += weight;
             }
-            const dominant = bins.filter(bin => bin.weight).sort((a, b) => b.weight - a.weight).slice(0, 3);
-            if (!dominant.length || neutral > pixels.length * 0.8) {
-              resolve(360);
+            if (!chromaWeight) {
+              resolve({group: 1, hue: 0});
               return;
             }
-            const hue = dominant[0].hue;
-            resolve((hue - 210 + 360) % 360);
+            const hue = (Math.atan2(hueY, hueX) * 180 / Math.PI + 360) % 360;
+            resolve({
+              group: 0,
+              hue: (hue - 210 + 360) % 360
+            });
           };
-          image.onerror = () => resolve(360);
+          image.onerror = () => resolve({group: 1, hue: 0});
           image.src = path;
         });
 
         Promise.all(galleryImages.map(async (path, index) => ({
           path,
           index,
-          hue: await hueForImage(path)
+          color: await colorOrderForImage(path)
         }))).then(images => {
-          images.sort((a, b) => a.hue - b.hue || a.index - b.index);
+          images.sort((a, b) => a.color.group - b.color.group || a.color.hue - b.color.hue || a.index - b.index);
           buildImageGrid('imageWall', images.map(image => image.path));
         });
       </script>

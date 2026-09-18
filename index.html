@@ -44,7 +44,16 @@
           item.appendChild(img);
           strip.appendChild(item);
         });
-        requestAnimationFrame(() => strip.classList.add('is-ready'));
+        requestAnimationFrame(() => {
+          strip.classList.add('is-ready');
+          if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            const animation = strip.getAnimations()[0];
+            if (animation) {
+              strip.addEventListener('mouseenter', () => animation.updatePlaybackRate(52 / 180));
+              strip.addEventListener('mouseleave', () => animation.updatePlaybackRate(1));
+            }
+          }
+        });
       }).catch(e => console.error('Could not load photos/title-strip.json for home strip', e));
     </script>
   </main>

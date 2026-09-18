@@ -254,7 +254,6 @@ nav.mainnav a.active::before{
 }
 
 .strip.is-ready{ animation-play-state:running; }
-#stage:hover .strip{ animation-play-state:paused; }
 
 @keyframes scrollStrip{
   0%{ transform:translateY(0); }

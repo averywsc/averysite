@@ -59,7 +59,6 @@ const createSettingsUI = () => {
       </div>
       <div class="settings-links">
         <a href="${window.location.pathname.includes('/scripts/') ? '../' : ''}privacy.html">Privacy</a>
-        <a href="${window.location.pathname.includes('/scripts/') ? '../' : ''}contact.html">Contact</a>
       </div>
     `;
     document.body.appendChild(newPanel);

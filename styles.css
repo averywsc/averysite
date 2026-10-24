@@ -748,6 +748,11 @@ body.lightbox-open{ overflow:hidden; }
   background:var(--panel-bg);
 }
 
+.code-screenshot.portrait-screenshot{
+  object-fit:contain;
+  background:#000;
+}
+
 .featured-project{
   overflow:hidden;
   border:1px solid var(--line);

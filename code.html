@@ -51,7 +51,7 @@
       <section class="code-section" aria-labelledby="featured-title">
         <div class="code-section-heading">
             <h2 id="featured-title">Selected Projects</h2>
-            <span>01 — 07</span>
+            <span>01 — 08</span>
         </div>
         <div class="code-list featured-projects">
             <article class="code-row featured-project">
@@ -117,13 +117,21 @@
                 <p>A free long-exposure astrophotography app, made to make night-sky photography tools accessible without a paid subscription.</p>
               </div>
             </article>
+            <article class="code-row featured-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/rollcamera/" target="_blank" rel="noopener noreferrer">Roll Camera</a></h3>
+                  <span class="pill">camera app</span>
+                </div>
+                <p>A camera app with realistic film grain, designed to help practise different composition techniques.</p>
+              </div>
+            </article>
         </div>
       </section>
 
       <section class="code-section additional-section" aria-labelledby="additional-title">
         <div class="code-section-heading">
             <h2 id="additional-title">Additional Projects</h2>
-            <span>MORE EXPERIMENTS &amp; TOOLS</span>
         </div>
         <div class="code-list additional-projects">
             <article class="code-row additional-project">
@@ -142,6 +150,15 @@
                   <span class="pill">outfit maker</span>
                 </div>
                 <p>An outfit maker for putting together and exploring clothing combinations.</p>
+              </div>
+            </article>
+            <article class="code-row additional-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/claudeskills/" target="_blank" rel="noopener noreferrer">Claude Skills</a></h3>
+                  <span class="pill">AI tools</span>
+                </div>
+                <p>A compiled library of Claude skills I’ve made to make working with AI more efficient and useful.</p>
               </div>
             </article>
             <article class="code-row additional-project">
@@ -289,6 +306,7 @@
   const codeScreenshots = {
     'File Converter': 'code-screenshots/file-converter.png',
     'Long Exposure 48': 'code-screenshots/long-exposure-48.jpeg',
+    'Roll Camera': 'code-screenshots/roll-camera.png',
     'Study.Hub': 'code-screenshots/study-hub.png',
     'Photo Editor': 'code-screenshots/photo-editor.png',
     'Minecraft Inventory Portfolio': 'code-screenshots/minecraft-inventory-portfolio.png',
@@ -310,7 +328,8 @@
     'NCEA Countdown': 'code-screenshots/ncea-countdown.png',
     'Macro Tracker': 'code-screenshots/macro-tracker.png',
     'Lawnmow Quote': 'code-screenshots/lawnmow-quote.png',
-    'Closet': 'code-screenshots/closet.png'
+    'Closet': 'code-screenshots/closet.png',
+    'Claude Skills': 'code-screenshots/claude-skills.png'
   };
 
   document.querySelectorAll('.code-row').forEach(row => {
@@ -323,7 +342,7 @@
     image.src = screenshot;
     image.alt = title + ' screenshot';
     image.loading = 'lazy';
-    if (title === 'Long Exposure 48') image.classList.add('portrait-screenshot');
+    if (title === 'Long Exposure 48' || title === 'Roll Camera') image.classList.add('portrait-screenshot');
     row.insertBefore(image, row.firstChild);
   });
 </script>

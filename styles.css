@@ -344,7 +344,78 @@ nav.mainnav a.active::before{
 }
 
 .color-gallery{
-  margin-top:30px;
+  margin-top:0;
+}
+
+.gallery-size-control{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:min(100%, 270px);
+  margin:0 0 14px auto;
+  padding:6px 10px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.015);
+}
+
+.gallery-size-label,
+.gallery-size-end{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:0.08em;
+}
+
+.gallery-size-label{
+  margin-right:2px;
+  font-size:9px;
+}
+
+.gallery-size-end{
+  width:10px;
+  text-align:center;
+}
+
+.gallery-size-control input{
+  flex:1;
+  min-width:40px;
+  height:16px;
+  margin:0;
+  appearance:none;
+  background:transparent;
+  cursor:pointer;
+}
+
+.gallery-size-control input::-webkit-slider-runnable-track{
+  height:2px;
+  background:var(--line);
+}
+
+.gallery-size-control input::-moz-range-track{
+  height:2px;
+  background:var(--line);
+}
+
+.gallery-size-control input::-webkit-slider-thumb{
+  width:11px;
+  height:11px;
+  margin-top:-4.5px;
+  appearance:none;
+  border:1px solid var(--accent);
+  border-radius:50%;
+  background:var(--bg);
+}
+
+.gallery-size-control input::-moz-range-thumb{
+  width:9px;
+  height:9px;
+  border:1px solid var(--accent);
+  border-radius:50%;
+  background:var(--bg);
+}
+
+.gallery-size-control input:focus-visible{
+  outline:1px solid var(--accent);
+  outline-offset:3px;
 }
 
 .lightbox{

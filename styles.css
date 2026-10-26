@@ -732,6 +732,23 @@ body.lightbox-open{ overflow:hidden; }
   line-height:1.7;
 }
 
+.code-open-source{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.code-open-source a{
+  color:var(--ink);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.code-open-source a:hover{
+  opacity:0.68;
+}
+
 .code-section + .code-section{
   margin-top:64px;
 }

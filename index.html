@@ -48,11 +48,7 @@
         const galleryBlock = photoPage.match(/const galleryImages = \[\.\.\.new Set\(\[(.*?)\]\)\];/s);
         if (!galleryBlock) throw new Error('Could not find the Photos page gallery list');
         const galleryImages = [...galleryBlock[1].matchAll(/'([^']+)'/g)].map(match => match[1]);
-        const list = [...new Set(galleryImages)].map(path => {
-          const filename = path.slice(path.lastIndexOf('/') + 1);
-          const baseName = filename.replace(/\.[^.]+$/, '');
-          return `thumbs/${baseName}.jpg`;
-        });
+        const list = [...new Set(galleryImages)];
         const strip = document.getElementById('homeStrip');
         const originalStripLength = 24;
         strip.style.animationDuration = `${52 * list.length / originalStripLength}s`;
@@ -80,7 +76,9 @@
           const item = document.createElement('div');
           item.className = 'strip-item';
           const img = document.createElement('img');
-          const src = name.startsWith('films/') || name.startsWith('http') ? name : 'photos/' + name;
+          const src = name.startsWith('photos/') || name.startsWith('films/') || name.startsWith('http')
+            ? name
+            : 'photos/' + name;
           img.src = src;
           img.alt = '';
           item.appendChild(img);

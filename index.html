@@ -44,9 +44,38 @@
   <main id="stage">
   <div class="strip" id="homeStrip"></div>
     <script>
-      fetch('photos/title-strip.json').then(r=>r.json()).then(list=>{
+      fetch('photo.html').then(response => response.text()).then(photoPage => {
+        const galleryBlock = photoPage.match(/const galleryImages = \[\.\.\.new Set\(\[(.*?)\]\)\];/s);
+        if (!galleryBlock) throw new Error('Could not find the Photos page gallery list');
+        const galleryImages = [...galleryBlock[1].matchAll(/'([^']+)'/g)].map(match => match[1]);
+        const list = [...new Set(galleryImages)].map(path => {
+          const filename = path.slice(path.lastIndexOf('/') + 1);
+          const baseName = filename.replace(/\.[^.]+$/, '');
+          return `thumbs/${baseName}.jpg`;
+        });
         const strip = document.getElementById('homeStrip');
-        const looped = [...list, ...list];
+        const originalStripLength = 24;
+        strip.style.animationDuration = `${52 * list.length / originalStripLength}s`;
+        const shuffled = [...list];
+        let previousOrder = '';
+        try {
+          previousOrder = localStorage.getItem('averysite-title-strip-order') || '';
+        } catch (error) {}
+
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const randomIndex = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+        }
+
+        if (shuffled.length > 1 && shuffled.join('|') === previousOrder) {
+          [shuffled[0], shuffled[1]] = [shuffled[1], shuffled[0]];
+        }
+
+        try {
+          localStorage.setItem('averysite-title-strip-order', shuffled.join('|'));
+        } catch (error) {}
+
+        const looped = [...shuffled, ...shuffled];
         looped.forEach(name => {
           const item = document.createElement('div');
           item.className = 'strip-item';
@@ -67,7 +96,7 @@
             }
           }
         });
-      }).catch(e => console.error('Could not load photos/title-strip.json for home strip', e));
+      }).catch(e => console.error('Could not load the Photos page gallery for home strip', e));
     </script>
   </main>
 </div>

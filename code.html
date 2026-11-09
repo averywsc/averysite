@@ -47,12 +47,20 @@
         <div class="page-title">Code</div>
         <p class="code-intro-copy">A few of the bigger things I’ve made, from tools I wanted to exist to projects built for people around me.</p>
         <p class="code-open-source">Everything here is open source. <a href="https://github.com/averywsc" target="_blank" rel="noopener noreferrer">Browse all my repositories on GitHub</a>.</p>
+        <nav class="code-filter" aria-label="Project categories">
+          <span>Browse</span>
+          <a href="code.html">All</a>
+          <a href="code.html?category=app">Apps</a>
+          <a href="code.html?category=game">Games</a>
+          <a href="code.html?category=tool">Tools</a>
+          <a href="code.html?category=website">Websites</a>
+        </nav>
       </header>
 
       <section class="code-section" aria-labelledby="featured-title">
         <div class="code-section-heading">
             <h2 id="featured-title">Selected Projects</h2>
-            <span>01 — 08</span>
+            <span>01 — 09</span>
         </div>
         <div class="code-list featured-projects">
             <article class="code-row featured-project">
@@ -125,6 +133,15 @@
                   <span class="pill">game</span>
                 </div>
                 <p>A browser-based low-poly 3D platformer where you carry a lantern across four biomes, collect crystals and light checkpoints while navigating varied platforming challenges.</p>
+              </div>
+            </article>
+            <article class="code-row featured-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/nighttape/" target="_blank" rel="noopener noreferrer">Night Tape</a></h3>
+                  <span class="pill">game</span>
+                </div>
+                <p>A browser-based found-footage horror game where you search a haunted forest for lost tapes while monsters stalk and chase you.</p>
               </div>
             </article>
         </div>
@@ -471,7 +488,8 @@
     'Composition Basics': 'code-screenshots/composition-basics.png',
     'PUMP STATION 9': 'code-screenshots/pump-station-9.png',
     'Collage Lab 95': 'code-screenshots/collage-lab-95.png',
-    'Highpass': 'code-screenshots/highpass.png'
+    'Highpass': 'code-screenshots/highpass.png',
+    'Night Tape': 'code-screenshots/night-tape.png'
   };
 
   document.querySelectorAll('.code-row').forEach(row => {
@@ -485,8 +503,64 @@
     image.alt = title + ' screenshot';
     image.loading = 'lazy';
     if (title === 'Long Exposure 48' || title === 'Roll Camera') image.classList.add('portrait-screenshot');
-    row.insertBefore(image, row.firstChild);
+    const projectLink = heading.querySelector('a');
+    if (projectLink) {
+      const imageLink = document.createElement('a');
+      imageLink.className = 'code-screenshot-link';
+      imageLink.href = projectLink.href;
+      imageLink.target = projectLink.target || '_blank';
+      imageLink.rel = projectLink.rel || 'noopener noreferrer';
+      imageLink.appendChild(image);
+      row.insertBefore(imageLink, row.firstChild);
+    } else {
+      row.insertBefore(image, row.firstChild);
+    }
   });
+
+  const validCategories = new Set(['all', 'app', 'game', 'tool', 'website']);
+  const requestedCategory = new URLSearchParams(window.location.search).get('category');
+  const selectedCategory = validCategories.has(requestedCategory) ? requestedCategory : 'all';
+  const categoryNames = {
+    all: 'All projects',
+    app: 'Apps',
+    game: 'Games',
+    tool: 'Tools',
+    website: 'Websites'
+  };
+  const sections = [...document.querySelectorAll('.code-section')];
+  const selectedSection = sections[0];
+  const additionalSection = sections[1];
+  const selectedList = selectedSection.querySelector('.code-list');
+
+  document.querySelectorAll('.code-filter a').forEach(link => {
+    const category = new URL(link.href).searchParams.get('category') || 'all';
+    if (category === selectedCategory) link.setAttribute('aria-current', 'page');
+  });
+
+  if (selectedCategory !== 'all') {
+    additionalSection.querySelectorAll('.code-row').forEach(row => selectedList.appendChild(row));
+    additionalSection.hidden = true;
+    selectedSection.querySelector('h2').textContent = categoryNames[selectedCategory];
+    selectedList.classList.add('category-projects');
+  }
+
+  document.querySelectorAll('.code-section').forEach(section => {
+    const rows = [...section.querySelectorAll('.code-row')];
+    const visibleRows = rows.filter(row => {
+      const pill = row.querySelector('.pill');
+      const category = pill ? pill.textContent.trim() : '';
+      const visible = selectedCategory === 'all' || category === selectedCategory;
+      row.hidden = !visible;
+      return visible;
+    });
+    section.hidden = visibleRows.length === 0;
+    const count = section.querySelector('.code-section-heading span');
+    if (count && visibleRows.length) count.textContent = `01 — ${String(visibleRows.length).padStart(2, '0')}`;
+  });
+
+  document.title = selectedCategory === 'all'
+    ? 'Avery Beuth | Code'
+    : `Avery Beuth | ${categoryNames[selectedCategory]}`;
 </script>
 <script src="script.js"></script>
 </body>

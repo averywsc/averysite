@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avery Beuth | Scripts</title>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -43,7 +45,7 @@
       let title = '';
       let subtitle = '';
       let description = '';
-      let bodyStart = 0;
+      let bodyStart = lines.length;
 
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trim();

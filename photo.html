@@ -90,7 +90,6 @@
         };
 
         const layoutPhoto = (figure, image) => {
-          if (!image.naturalWidth || !image.naturalHeight) return;
           const grid = figure.parentElement;
           const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
           const styles = getComputedStyle(grid);
@@ -101,13 +100,22 @@
           const maxSpan = Math.max(1, Math.ceil(columns * 2 / 3));
           const minSpan = 1;
           const targetPhotoWidth = Number(photoSizeControl.value);
-          const idealSpan = Math.round((targetPhotoWidth * image.naturalWidth / image.naturalHeight + gap) / (columnWidth + gap));
+          const aspectRatio = image.naturalWidth && image.naturalHeight
+            ? image.naturalWidth / image.naturalHeight
+            : Number(image.dataset.aspectRatio);
+          const idealSpan = Math.round((targetPhotoWidth * aspectRatio + gap) / (columnWidth + gap));
           const columnSpan = Math.max(minSpan, Math.min(maxSpan, idealSpan));
           const imageWidth = columnWidth * columnSpan + gap * (columnSpan - 1);
-          const imageHeight = imageWidth * image.naturalHeight / image.naturalWidth;
+          const imageHeight = imageWidth / aspectRatio;
 
           figure.style.gridColumn = `span ${columnSpan}`;
           figure.style.gridRowEnd = `span ${Math.ceil((imageHeight + 2 + rowGap) / (rowHeight + rowGap))}`;
+        };
+
+        const getThumbnailPath = path => {
+          const filename = path.slice(path.lastIndexOf('/') + 1);
+          const baseName = filename.replace(/\.[^.]+$/, '');
+          return `photos/thumbs/${baseName}.jpg`;
         };
 
         const buildImageGrid = (targetId, paths) => {
@@ -119,14 +127,17 @@
             link.href = '#';
             link.addEventListener('click', event => {
               event.preventDefault();
-              openLightbox(path);
+              openLightbox(img.dataset.fullSrc);
             });
-            img.dataset.src = path;
+            img.dataset.src = getThumbnailPath(path);
+            img.dataset.fullSrc = path;
+            img.dataset.aspectRatio = '1.5';
             img.alt = path;
             img.loading = 'lazy';
+            img.decoding = 'async';
             img.addEventListener('load', () => layoutPhoto(fig, img));
             if (photoObserver) photoObserver.observe(img);
-            else img.src = path;
+            else img.src = img.dataset.src;
             if (focalPositions[path]) img.style.objectPosition = focalPositions[path];
             link.appendChild(img);
             fig.appendChild(link);
@@ -356,7 +367,15 @@
           'photos/IMG_5578-2.jpg',
           'photos/IMG_5388.JPEG',
           'photos/IMG_0827.JPEG',
-          'photos/IMG_1095.JPG'
+          'photos/IMG_1095.JPG',
+          'photos/IMG_1017.jpg',
+          'photos/IMG_1019.jpg',
+          'photos/IMG_1025.jpg',
+          'photos/IMG_1026.jpg',
+          'photos/IMG_1057.jpg',
+          'photos/IMG_1071.jpg',
+          'photos/IMG_1087.jpg',
+          'photos/IMG_1093.jpg'
         ])];
 
         const focalPositions = {
@@ -382,6 +401,8 @@
         const openLightbox = path => {
           lightboxImage.src = path;
           lightboxImage.alt = path;
+          lightboxImage.decoding = 'async';
+          lightboxImage.fetchPriority = 'high';
           lightbox.hidden = false;
           document.body.classList.add('lightbox-open');
         };

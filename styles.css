@@ -984,6 +984,38 @@ body.lightbox-open{ overflow:hidden; }
   margin-bottom:16px;
 }
 
+.category-projects .additional-project{
+  display:block;
+  width:100%;
+  margin-bottom:16px;
+  padding:0;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.015);
+}
+
+.category-projects .additional-project .code-screenshot{
+  width:100%;
+  aspect-ratio:16 / 9;
+  object-fit:cover;
+}
+
+.category-projects .additional-project .project-copy{
+  padding:20px 20px 22px;
+}
+
+.category-projects .additional-project .row-top{
+  margin-bottom:10px;
+}
+
+.category-projects .additional-project h3{
+  font-size:19px;
+}
+
+.category-projects .additional-project p{
+  font-size:14px;
+  line-height:1.6;
+}
+
 /* ---------- mobile ---------- */
 @media (max-width: 760px){
   #shell{

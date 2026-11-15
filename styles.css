@@ -973,6 +973,17 @@ body.lightbox-open{ overflow:hidden; }
   line-height:1.5;
 }
 
+.code-list.category-projects{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+.category-projects .featured-project{
+  width:100%;
+  margin-bottom:16px;
+}
+
 /* ---------- mobile ---------- */
 @media (max-width: 760px){
   #shell{

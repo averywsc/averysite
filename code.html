@@ -50,7 +50,8 @@
         <nav class="code-filter" aria-label="Project categories">
           <span>Browse</span>
           <a href="code.html">All</a>
-          <a href="code.html?category=app">Apps</a>
+          <a href="code.html?category=apps">Apps</a>
+          <a href="code.html?category=app">Web Apps</a>
           <a href="code.html?category=game">Games</a>
           <a href="code.html?category=tool">Tools</a>
           <a href="code.html?category=website">Websites</a>
@@ -112,18 +113,9 @@
               <div class="project-copy">
                 <div class="row-top">
                   <h3><a href="https://github.com/averywsc/livewall" target="_blank" rel="noopener noreferrer">Live Wall</a></h3>
-                  <span class="pill">app</span>
+                  <span class="pill">apps</span>
                 </div>
                 <p>An open-source live wallpaper app inspired by Wallpaper Engine, with built-in performance optimization and support for overlays and video wallpapers.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/pumpstation9/" target="_blank" rel="noopener noreferrer">Raycaster Episodes</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A browser-based retro first-person shooter with three episodes: Pump Station 9, Oakridge Mall and Timberline Lodge (in progress). Each has its own setting, monsters and weapons, with all graphics and sound generated in code.</p>
               </div>
             </article>
             <article class="code-row featured-project">
@@ -157,9 +149,27 @@
               <div class="project-copy">
                 <div class="row-top">
                   <h3><a href="https://github.com/averywsc/wifi-fixer" target="_blank" rel="noopener noreferrer">WiFi Fixer</a></h3>
-                  <span class="pill">app</span>
+                  <span class="pill">apps</span>
                 </div>
                 <p>WiFi Fixer is a Windows desktop app built in Python that tests your internet speed against the speed you pay for, then works out why it’s slow by comparing the connection to your router with the connection to the internet and checking your computer’s CPU, memory and disk, and it can apply fixes, scan your network for unknown devices, and pause background apps so a download gets priority.</p>
+              </div>
+            </article>
+            <article class="code-row featured-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://github.com/averywsc/loop" target="_blank" rel="noopener noreferrer">Loop</a></h3>
+                  <span class="pill">apps</span>
+                </div>
+                <p>A desktop practice player for musicians that slows songs down without changing the pitch, loops any section you drag across the waveform, and saves named loops for each song, built with Electron in a GarageBand-inspired interface.</p>
+              </div>
+            </article>
+            <article class="code-row featured-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://github.com/averywsc/cull" target="_blank" rel="noopener noreferrer">Cull</a></h3>
+                  <span class="pill">apps</span>
+                </div>
+                <p>A keyboard-driven photo culling app for Windows that lets you keep, reject and star-rate a whole folder in minutes with a filmstrip and compare mode.</p>
               </div>
             </article>
         </div>
@@ -171,6 +181,15 @@
             <span>09 — 50</span>
         </div>
         <div class="code-list additional-projects">
+            <article class="code-row additional-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/pumpstation9/" target="_blank" rel="noopener noreferrer">Raycaster Episodes</a></h3>
+                  <span class="pill">game</span>
+                </div>
+                <p>A browser-based retro first-person shooter with three episodes: Pump Station 9, Oakridge Mall and Timberline Lodge (in progress). Each has its own setting, monsters and weapons, with all graphics and sound generated in code.</p>
+              </div>
+            </article>
             <article class="code-row additional-project">
               <div class="project-copy">
                 <div class="row-top">
@@ -594,6 +613,8 @@
 <script>
   const codeScreenshots = {
     'Ashfox': 'code-screenshots/ashfox.png',
+    'Loop': 'code-screenshots/loop.png',
+    'Cull': 'code-screenshots/cull.png',
     'WiFi Fixer': 'code-screenshots/wifi-fixer.png',
     'File Converter': 'code-screenshots/file-converter.png',
     'Long Exposure 48': 'code-screenshots/long-exposure-48.jpeg',
@@ -677,12 +698,13 @@
     }
   });
 
-  const validCategories = new Set(['all', 'app', 'game', 'tool', 'website']);
+  const validCategories = new Set(['all', 'apps', 'app', 'game', 'tool', 'website']);
   const requestedCategory = new URLSearchParams(window.location.search).get('category');
   const selectedCategory = validCategories.has(requestedCategory) ? requestedCategory : 'all';
   const categoryNames = {
     all: 'All projects',
-    app: 'Apps',
+    apps: 'Apps',
+    app: 'Web Apps',
     game: 'Games',
     tool: 'Tools',
     website: 'Websites'

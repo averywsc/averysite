@@ -610,6 +610,47 @@ body.lightbox-open{ overflow:hidden; }
   max-width:900px;
 }
 
+.music-page{
+  max-width:900px;
+  padding-bottom:32px;
+}
+
+.music-section{
+  padding:22px 0;
+  border-top:1px solid var(--line);
+}
+
+.music-section h2{
+  font-family:var(--font-active);
+  font-size:18px;
+  font-weight:400;
+  letter-spacing:0.06em;
+  margin-bottom:10px;
+}
+
+.music-section p,
+.music-feedback{
+  max-width:820px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.75;
+}
+
+.music-section a{
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.music-section a:hover{
+  color:var(--ink);
+}
+
+.music-feedback{
+  padding-top:24px;
+  border-top:1px solid var(--line);
+  font-style:italic;
+}
+
 .back-link{
   display:inline-block;
   margin-bottom:22px;

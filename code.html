@@ -34,6 +34,7 @@
     <nav class="mainnav">
       <a href="photo.html">Photos</a>
       <a href="film.html">Films</a>
+      <a href="music.html">Music</a>
       <a href="scripts/index.html">Scripts</a>
       <a href="code.html" class="active">Code</a>
     </nav>
@@ -200,6 +201,33 @@
             <span>09 — 50</span>
         </div>
         <div class="code-list additional-projects">
+            <article class="code-row additional-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/CodeBeats/" target="_blank" rel="noopener noreferrer">CodeBeats</a></h3>
+                  <span class="pill">app</span>
+                </div>
+                <p>A web app that teaches JavaScript and music theory through 28 interactive lessons, where students write code that plays real music with a piano, ear training and a live track view, built in plain JavaScript with the Web Audio API.</p>
+              </div>
+            </article>
+            <article class="code-row additional-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/The-Gallery/" target="_blank" rel="noopener noreferrer">The Gallery</a></h3>
+                  <span class="pill">vr</span>
+                </div>
+                <p>A walkable 3D photo museum you can explore in VR or a browser, with a new room for every few photos you upload, a retro pixel filter, and local multiplayer for friends on the same Wi-Fi.</p>
+              </div>
+            </article>
+            <article class="code-row additional-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/OrbDrift/" target="_blank" rel="noopener noreferrer">Orb Drift</a></h3>
+                  <span class="pill">vr</span>
+                </div>
+                <p>A VR arena shooter built on WebXR that works in a headset, with hand-held blasters, three hard modes, boss fights and spatial audio, and it also plays in any browser.</p>
+              </div>
+            </article>
             <article class="code-row additional-project">
               <div class="project-copy">
                 <div class="row-top">
@@ -414,6 +442,15 @@
                   <span class="pill">tool</span>
                 </div>
                 <p>Composition Basics is a learning tool made for WSCW students to learn the fundamentals of composition and how to compose photos and videos through interactive lessons and real photo grids.</p>
+              </div>
+            </article>
+            <article class="code-row additional-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/blank-music/" target="_blank" rel="noopener noreferrer">Blank Music</a></h3>
+                  <span class="pill">app</span>
+                </div>
+                <p>A minimal, distraction-free web page where you write a few lines of JavaScript and hear them play as a song, built from scratch with the Web Audio API and no libraries.</p>
               </div>
             </article>
             <article class="code-row additional-project">
@@ -686,6 +723,9 @@
     'Worldloom': 'code-screenshots/worldloom.png',
     'Meetpoint': 'code-screenshots/meetpoint.png',
     'Reel Street Video': 'code-screenshots/reel-street-video.png',
+    'Orb Drift': 'code-screenshots/orb-drift.png',
+    'The Gallery': 'code-screenshots/the-gallery.png',
+    'CodeBeats': 'code-screenshots/codebeats.png',
     'WiFi Fixer': 'code-screenshots/wifi-fixer.png',
     'File Converter': 'code-screenshots/file-converter.png',
     'Long Exposure 48': 'code-screenshots/long-exposure-48.jpeg',
@@ -727,6 +767,7 @@
     'Switchback': 'code-screenshots/switchback.png',
     'Totone': 'code-screenshots/totone.png',
     'Composition Basics': 'code-screenshots/composition-basics.png',
+    'Blank Music': 'code-screenshots/blank-music.png',
     'Raycaster Episodes': 'code-screenshots/pump-station-9.png',
     'Collage Lab 95': 'code-screenshots/collage-lab-95.png',
     'Highpass': 'code-screenshots/highpass.png',
@@ -785,6 +826,7 @@
   const selectedSection = sections[0];
   const additionalSection = sections[1];
   const selectedList = selectedSection.querySelector('.code-list');
+  const projectRows = sections.flatMap(section => [...section.querySelectorAll('.code-row')]);
 
   document.querySelectorAll('.code-filter a').forEach(link => {
     const category = new URL(link.href).searchParams.get('category') || 'all';
@@ -792,25 +834,31 @@
   });
 
   if (selectedCategory !== 'all') {
-    additionalSection.querySelectorAll('.code-row').forEach(row => selectedList.appendChild(row));
+    projectRows.forEach(row => selectedList.appendChild(row));
     additionalSection.hidden = true;
     selectedSection.querySelector('h2').textContent = categoryNames[selectedCategory];
     selectedList.classList.add('category-projects');
   }
 
-  document.querySelectorAll('.code-section').forEach(section => {
-    const rows = [...section.querySelectorAll('.code-row')];
-    const visibleRows = rows.filter(row => {
-      const pill = row.querySelector('.pill');
-      const category = pill ? pill.textContent.trim() : '';
-      const visible = selectedCategory === 'all' || category === selectedCategory;
-      row.hidden = !visible;
-      return visible;
-    });
-    section.hidden = visibleRows.length === 0;
-    const count = section.querySelector('.code-section-heading span');
-    if (count && visibleRows.length) count.textContent = `01 — ${String(visibleRows.length).padStart(2, '0')}`;
+  const visibleRows = projectRows.filter(row => {
+    const pill = row.querySelector('.pill');
+    const category = pill ? pill.textContent.trim().toLowerCase() : '';
+    const visible = selectedCategory === 'all' || category === selectedCategory;
+    row.hidden = !visible;
+    return visible;
   });
+
+  if (selectedCategory === 'all') {
+    sections.forEach(section => {
+      const rows = [...section.querySelectorAll('.code-row')];
+      const count = section.querySelector('.code-section-heading span');
+      if (count && rows.length) count.textContent = `01 — ${String(rows.length).padStart(2, '0')}`;
+    });
+  } else {
+    selectedSection.hidden = visibleRows.length === 0;
+    const count = selectedSection.querySelector('.code-section-heading span');
+    if (count) count.textContent = `01 — ${String(visibleRows.length).padStart(2, '0')}`;
+  }
 
   document.title = selectedCategory === 'all'
     ? 'Avery Beuth | Code'

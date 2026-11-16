@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="How Avery Beuth creates original music with JavaScript and shares it for free.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Avery Beuth | Music">
+<meta property="og:description" content="How Avery Beuth creates original music with JavaScript and shares it for free.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="logo.png">
+<meta property="og:image:alt" content="Avery Beuth AB logo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Avery Beuth | Music">
+<meta name="twitter:description" content="How Avery Beuth creates original music with JavaScript and shares it for free.">
+<meta name="twitter:image" content="logo.png">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<title>Avery Beuth | Music</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="shell">
+  <aside id="sidebar">
+    <div class="sidebar-top">
+      <a class="name" href="index.html">Avery Beuth</a>
+      <button id="site-settings-button" type="button" aria-label="Open settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mainnav">
+      <a href="photo.html">Photos</a>
+      <a href="film.html">Films</a>
+      <a href="music.html" class="active">Music</a>
+      <a href="scripts/index.html">Scripts</a>
+      <a href="code.html">Code</a>
+    </nav>
+  </aside>
+  <div id="sprockets"></div>
+  <main id="stage">
+    <div class="page-content">
+      <div class="music-page">
+        <div class="page-title">Music</div>
+
+        <section class="music-section">
+          <h2>How it works</h2>
+          <p>All music on this site is created with JavaScript, a programming language normally used to build websites. Instead of playing instruments or using a music app, I write instructions in code that tell the computer which notes to play, when to play them, and what each sound should be like. Your browser follows those instructions and turns them into music, and the same instructions are used to produce the downloadable audio files.</p>
+        </section>
+
+        <section class="music-section">
+          <h2>Where the sounds come from</h2>
+          <p>There are no recordings or samples. Every sound is generated from scratch. Each note is a number, and the computer converts that number into a pitch, which is how fast the speaker vibrates. The sound then gets shaped, like turning a dial to make it softer or brighter, quieter or louder. Bells and electric piano are made by letting one tone wobble another, which creates a rich, metallic sound. Drums are built the same way: the kick drum is a low tone that drops quickly in pitch, and the snare and hi-hats are bursts of filtered static.</p>
+        </section>
+
+        <section class="music-section">
+          <h2>How a song is put together</h2>
+          <p>Each song is a list of instructions that is read one tiny beat at a time, like sheet music for a computer. At each beat the code decides what plays: which drums hit, which chords sound, and when new instruments join or drop out. Small timing tweaks, like making every second beat land a little late, give the music a relaxed groove.</p>
+        </section>
+
+        <section class="music-section">
+          <h2>The finishing touches</h2>
+          <p>Like a studio, the sound goes through some final effects. Reverb makes it feel like it’s in a big room, an echo repeats notes in rhythm, and the bass ducks out of the way each time the kick drum hits so it stays punchy. A little warmth and gentle volume control tie everything together.</p>
+        </section>
+
+        <section class="music-section">
+          <h2>Free to use</h2>
+          <p>All of the music is copyright free :)</p>
+        </section>
+
+        <section class="music-section">
+          <h2>Where to listen</h2>
+          <p>All of the music can be found on my <a href="https://www.youtube.com/@ave7090" target="_blank" rel="noopener noreferrer">YouTube channel</a> and on <a href="https://soundcloud.com/avery-150458966" target="_blank" rel="noopener noreferrer">SoundCloud</a>.</p>
+        </section>
+
+        <section class="music-section">
+          <h2>See how each song was made</h2>
+          <p>Each song has a link to its page on this site, which shows the code behind it so you can see exactly how it was built. You don’t need to understand code to enjoy it, but if you’re curious, it’s all there to explore.</p>
+        </section>
+
+        <p class="music-feedback">I’m still very new to this and any feedback would be appreciated, thank you!</p>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

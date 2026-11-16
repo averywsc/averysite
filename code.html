@@ -52,6 +52,7 @@
           <a href="code.html">All</a>
           <a href="code.html?category=apps">Apps</a>
           <a href="code.html?category=app">Web Apps</a>
+          <a href="code.html?category=vr">VR</a>
           <a href="code.html?category=game">Games</a>
           <a href="code.html?category=tool">Tools</a>
           <a href="code.html?category=website">Websites</a>
@@ -181,6 +182,15 @@
                 <p>A keyboard-driven photo culling app for Windows that lets you keep, reject and star-rate a whole folder in minutes with a filmstrip and compare mode.</p>
               </div>
             </article>
+            <article class="code-row featured-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/drift/" target="_blank" rel="noopener noreferrer">Drift</a></h3>
+                  <span class="pill">tool</span>
+                </div>
+                <p>Drift is a collection of 25 interactive generative art modes I built from scratch, with flowing light, smearable ink and patterns you can play with, plus a live gallery of every mode, a soundtrack that changes with each one, and a custom icon.</p>
+              </div>
+            </article>
         </div>
       </section>
 
@@ -190,6 +200,15 @@
             <span>09 — 50</span>
         </div>
         <div class="code-list additional-projects">
+            <article class="code-row additional-project">
+              <div class="project-copy">
+                <div class="row-top">
+                  <h3><a href="https://averywsc.github.io/Reel-Street-Video/" target="_blank" rel="noopener noreferrer">Reel Street Video</a></h3>
+                  <span class="pill">vr</span>
+                </div>
+                <p>Reel Street Video is a WebXR movie store built with Three.js and the TMDB API, where you can walk through a 7,000 square metre world of live-stocked shelves on desktop or in VR, import your Letterboxd lists, and view it all through a custom retro CRT shader.</p>
+              </div>
+            </article>
             <article class="code-row additional-project">
               <div class="project-copy">
                 <div class="row-top">
@@ -660,11 +679,13 @@
     'Ashfox': 'code-screenshots/ashfox.png',
     'Loop': 'code-screenshots/loop.png',
     'Cull': 'code-screenshots/cull.png',
+    'Drift': 'code-screenshots/drift.png',
     'Movie Night Cinema': 'code-screenshots/movie-night-cinema.png',
     'Daily12': 'code-screenshots/daily12.png',
     'Cardbox': 'code-screenshots/cardbox.png',
     'Worldloom': 'code-screenshots/worldloom.png',
     'Meetpoint': 'code-screenshots/meetpoint.png',
+    'Reel Street Video': 'code-screenshots/reel-street-video.png',
     'WiFi Fixer': 'code-screenshots/wifi-fixer.png',
     'File Converter': 'code-screenshots/file-converter.png',
     'Long Exposure 48': 'code-screenshots/long-exposure-48.jpeg',
@@ -748,13 +769,14 @@
     }
   });
 
-  const validCategories = new Set(['all', 'apps', 'app', 'game', 'tool', 'website']);
+  const validCategories = new Set(['all', 'apps', 'app', 'vr', 'game', 'tool', 'website']);
   const requestedCategory = new URLSearchParams(window.location.search).get('category');
   const selectedCategory = validCategories.has(requestedCategory) ? requestedCategory : 'all';
   const categoryNames = {
     all: 'All projects',
     apps: 'Apps',
     app: 'Web Apps',
+    vr: 'VR',
     game: 'Games',
     tool: 'Tools',
     website: 'Websites'

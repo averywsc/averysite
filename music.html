@@ -42,44 +42,80 @@
   <main id="stage">
     <div class="page-content">
       <div class="music-page">
-        <div class="page-title">Music</div>
+      <div class="page-title">Music</div>
 
-        <section class="music-section">
-          <h2>How it works</h2>
-          <p>All music on this site is created with JavaScript, a programming language normally used to build websites. Instead of playing instruments or using a music app, I write instructions in code that tell the computer which notes to play, when to play them, and what each sound should be like. Your browser follows those instructions and turns them into music, and the same instructions are used to produce the downloadable audio files.</p>
+        <section class="music-album" aria-labelledby="glasswater-title">
+          <div class="music-album-art">
+            <a class="music-album-cover-link" href="https://on.soundcloud.com/HdTTWYDbj6JHY7Dun7" target="_blank" rel="noopener noreferrer" aria-label="Listen to Glasswater on SoundCloud">
+              <img class="music-album-cover" src="music/glasswater.png" alt="Glasswater cover artwork">
+            </a>
+            <p class="music-album-listen-hint">Click cover to listen on SoundCloud</p>
+          </div>
+          <div class="music-album-info">
+            <h2 id="glasswater-title">Glasswater</h2>
+            <p>Glasswater is a song I made for walks along the coast with that overcoming sense of hope.</p>
+            <a class="music-album-code-link" href="https://averywsc.github.io/glasswater/" target="_blank" rel="noopener noreferrer">Code and downloads</a>
+          </div>
         </section>
 
-        <section class="music-section">
-          <h2>Where the sounds come from</h2>
-          <p>There are no recordings or samples. Every sound is generated from scratch. Each note is a number, and the computer converts that number into a pitch, which is how fast the speaker vibrates. The sound then gets shaped, like turning a dial to make it softer or brighter, quieter or louder. Bells and electric piano are made by letting one tone wobble another, which creates a rich, metallic sound. Drums are built the same way: the kick drum is a low tone that drops quickly in pitch, and the snare and hi-hats are bursts of filtered static.</p>
+        <section class="music-coming-soon" aria-labelledby="coming-soon-title">
+          <h2 id="coming-soon-title">Coming soon</h2>
+          <div class="music-album music-coming-soon-album">
+            <div class="music-album-art">
+              <img class="music-album-cover" src="music/thaw.png" alt="thaw cover artwork">
+            </div>
+            <div class="music-album-info">
+              <h2 id="thaw-title">thaw</h2>
+            </div>
+          </div>
+          <div class="music-album music-coming-soon-album" aria-labelledby="between-signals-title">
+            <div class="music-album-art">
+              <img class="music-album-cover" src="music/between-signals.png" alt="Between Signals cover artwork">
+            </div>
+            <div class="music-album-info">
+              <h2 id="between-signals-title">Between Signals</h2>
+            </div>
+          </div>
         </section>
 
-        <section class="music-section">
-          <h2>How a song is put together</h2>
-          <p>Each song is a list of instructions that is read one tiny beat at a time, like sheet music for a computer. At each beat the code decides what plays: which drums hit, which chords sound, and when new instruments join or drop out. Small timing tweaks, like making every second beat land a little late, give the music a relaxed groove.</p>
-        </section>
+        <div class="music-explanation">
+          <section class="music-section">
+            <h2>How it works</h2>
+            <p>All music on this site is created with JavaScript, a programming language normally used to build websites. Instead of playing instruments or using a music app, I write instructions in code that tell the computer which notes to play, when to play them, and what each sound should be like. Your browser follows those instructions and turns them into music, and the same instructions are used to produce the downloadable audio files.</p>
+          </section>
 
-        <section class="music-section">
-          <h2>The finishing touches</h2>
-          <p>Like a studio, the sound goes through some final effects. Reverb makes it feel like it’s in a big room, an echo repeats notes in rhythm, and the bass ducks out of the way each time the kick drum hits so it stays punchy. A little warmth and gentle volume control tie everything together.</p>
-        </section>
+          <section class="music-section">
+            <h3>Where the sounds come from</h3>
+            <p>There are no recordings or samples. Every sound is generated from scratch. Each note is a number, and the computer converts that number into a pitch, which is how fast the speaker vibrates. The sound then gets shaped, like turning a dial to make it softer or brighter, quieter or louder. Bells and electric piano are made by letting one tone wobble another, which creates a rich, metallic sound. Drums are built the same way: the kick drum is a low tone that drops quickly in pitch, and the snare and hi-hats are bursts of filtered static.</p>
+          </section>
 
-        <section class="music-section">
-          <h2>Free to use</h2>
-          <p>All of the music is copyright free :)</p>
-        </section>
+          <section class="music-section">
+            <h3>How a song is put together</h3>
+            <p>Each song is a list of instructions that is read one tiny beat at a time, like sheet music for a computer. At each beat the code decides what plays: which drums hit, which chords sound, and when new instruments join or drop out. Small timing tweaks, like making every second beat land a little late, give the music a relaxed groove.</p>
+          </section>
 
-        <section class="music-section">
-          <h2>Where to listen</h2>
-          <p>All of the music can be found on my <a href="https://www.youtube.com/@ave7090" target="_blank" rel="noopener noreferrer">YouTube channel</a> and on <a href="https://soundcloud.com/avery-150458966" target="_blank" rel="noopener noreferrer">SoundCloud</a>.</p>
-        </section>
+          <section class="music-section">
+            <h3>The finishing touches</h3>
+            <p>Like a studio, the sound goes through some final effects. Reverb makes it feel like it’s in a big room, an echo repeats notes in rhythm, and the bass ducks out of the way each time the kick drum hits so it stays punchy. A little warmth and gentle volume control tie everything together.</p>
+          </section>
 
-        <section class="music-section">
-          <h2>See how each song was made</h2>
-          <p>Each song has a link to its page on this site, which shows the code behind it so you can see exactly how it was built. You don’t need to understand code to enjoy it, but if you’re curious, it’s all there to explore.</p>
-        </section>
+          <section class="music-section">
+            <h3>Free to use</h3>
+            <p>All of the music is copyright free :)</p>
+          </section>
 
-        <p class="music-feedback">I’m still very new to this and any feedback would be appreciated, thank you!</p>
+          <section class="music-section">
+            <h3>Where to listen</h3>
+            <p>Glasswater is available now; more music will be here soon.</p>
+          </section>
+
+          <section class="music-section">
+            <h3>See how each song was made</h3>
+            <p>The code behind each song will be available on its page, so you can see exactly how it was built. You don’t need to understand code to enjoy it, but if you’re curious, it’ll be there to explore.</p>
+          </section>
+
+          <p class="music-feedback">I’m still very new to this and any feedback would be appreciated, thank you!</p>
+        </div>
       </div>
     </div>
   </main>

@@ -615,17 +615,113 @@ body.lightbox-open{ overflow:hidden; }
   padding-bottom:32px;
 }
 
+.music-album{
+  display:grid;
+  grid-template-columns:minmax(0, 280px) minmax(0, 1fr);
+  align-items:center;
+  gap:48px;
+  padding:0;
+  scroll-margin-top:24px;
+}
+
+.music-album-cover-link{
+  display:block;
+  border:1px solid var(--line);
+  transition:opacity 0.18s ease, transform 0.18s ease;
+}
+
+.music-album-cover-link:hover{
+  opacity:0.86;
+  transform:translateY(-2px);
+}
+
+.music-album-cover{
+  display:block;
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+}
+
+.music-album-listen-hint{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:0.08em;
+  text-align:center;
+  text-transform:uppercase;
+}
+
+.music-album-info h2{
+  font-family:'Dotmatri', var(--font-active);
+  font-size:24px;
+  font-weight:400;
+  letter-spacing:0.04em;
+  margin-bottom:12px;
+}
+
+.music-album-info p{
+  max-width:560px;
+  color:var(--muted);
+  font-family:'Dotmatri', sans-serif;
+  font-size:14px;
+  line-height:1.75;
+}
+
+.music-album-code-link{
+  display:inline-block;
+  margin-top:18px;
+  border:1px solid var(--line);
+  padding:9px 12px;
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  transition:border-color 0.18s ease, background 0.18s ease;
+}
+
+.music-album-code-link:hover{
+  border-color:var(--accent);
+  background:var(--accent-dim);
+}
+
+.music-coming-soon{
+  margin-top:48px;
+  text-align:center;
+}
+
+.music-coming-soon-album{
+  margin-top:24px;
+  text-align:left;
+}
+
+.music-coming-soon h2{
+  font-family:'Dotmatri', var(--font-active);
+  font-size:24px;
+  font-weight:400;
+  letter-spacing:0.04em;
+}
+
 .music-section{
-  padding:22px 0;
-  border-top:1px solid var(--line);
+  padding:12px 0;
+}
+
+.music-explanation{
+  margin-top:72px;
 }
 
 .music-section h2{
-  font-family:var(--font-active);
-  font-size:18px;
+  font-family:'Dotmatri', var(--font-active);
+  font-size:22px;
   font-weight:400;
   letter-spacing:0.06em;
-  margin-bottom:10px;
+  margin-bottom:12px;
+}
+
+.music-section h3{
+  font-family:'Dotmatri', var(--font-active);
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:0.06em;
+  margin-bottom:8px;
 }
 
 .music-section p,
@@ -646,8 +742,7 @@ body.lightbox-open{ overflow:hidden; }
 }
 
 .music-feedback{
-  padding-top:24px;
-  border-top:1px solid var(--line);
+  padding-top:8px;
   font-style:italic;
 }
 
@@ -1099,6 +1194,10 @@ body.lightbox-open{ overflow:hidden; }
   .code-section + .code-section{
     margin-top:48px;
   }
+  .music-album{
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    gap:32px;
+  }
   .featured-projects,
   .additional-projects{
     grid-template-columns:1fr;
@@ -1108,6 +1207,21 @@ body.lightbox-open{ overflow:hidden; }
 @media (min-width: 521px) and (max-width: 1000px){
   .photo-grid{
     grid-template-columns:repeat(8, minmax(0, 1fr));
+  }
+  .music-album{
+    grid-template-columns:1fr;
+  }
+  .music-album-cover-link{
+    max-width:320px;
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1100px){
+  .music-album{
+    grid-template-columns:1fr;
+  }
+  .music-album-cover-link{
+    max-width:320px;
   }
 }
 
@@ -1150,6 +1264,12 @@ body.lightbox-open{ overflow:hidden; }
   }
   .code-intro-copy{
     font-size:14px;
+  }
+  .music-album{
+    grid-template-columns:1fr;
+  }
+  .music-album-cover-link{
+    max-width:320px;
   }
   .code-section-heading h2{
     font-size:15px;

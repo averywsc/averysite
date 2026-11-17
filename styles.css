@@ -624,6 +624,10 @@ body.lightbox-open{ overflow:hidden; }
   scroll-margin-top:24px;
 }
 
+.music-album + .music-album{
+  margin-top:48px;
+}
+
 .music-album-cover-link{
   display:block;
   border:1px solid var(--line);
@@ -664,6 +668,16 @@ body.lightbox-open{ overflow:hidden; }
   color:var(--muted);
   font-family:'Dotmatri', sans-serif;
   font-size:14px;
+  line-height:1.75;
+}
+
+.music-album-quote{
+  max-width:560px;
+  margin:0;
+  color:var(--muted);
+  font-family:'Dotmatri', sans-serif;
+  font-size:14px;
+  font-style:italic;
   line-height:1.75;
 }
 

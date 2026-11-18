@@ -266,6 +266,8 @@ nav.mainnav a.active::before{
   flex-shrink:0;
   position:relative;
   overflow:hidden;
+  content-visibility:auto;
+  contain:layout paint;
 }
 
 .strip-item img{

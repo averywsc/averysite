@@ -77,11 +77,19 @@
           const item = document.createElement('div');
           item.className = 'strip-item';
           const img = document.createElement('img');
-          const src = name.startsWith('photos/') || name.startsWith('films/') || name.startsWith('http')
+          let src = name.startsWith('photos/') || name.startsWith('films/') || name.startsWith('http')
             ? name
             : 'photos/' + name;
+          if (src.startsWith('photos/') && !src.startsWith('photos/optimized/') && !src.startsWith('photos/thumbs/')) {
+            const filename = src.slice(src.lastIndexOf('/') + 1);
+            const baseName = filename.replace(/\.[^.]+$/, '');
+            src = `photos/thumbs/${baseName}.jpg`;
+          }
           img.src = src;
           img.alt = '';
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.fetchPriority = 'low';
           item.appendChild(img);
           strip.appendChild(item);
         });

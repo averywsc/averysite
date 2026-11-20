@@ -549,6 +549,14 @@ img {
   color: rgba(242, 236, 226, 0.94);
 }
 
+.album-title--afterimage {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-weight: 400;
+  font-size: 31px;
+  letter-spacing: 0.01em;
+  color: #e6d3de;
+}
+
 .album-title--sunburnt {
   font-family: 'Courier Prime', 'Courier New', monospace;
   font-weight: 700;

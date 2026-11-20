@@ -1,899 +1,885 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Short films, screenplays, code projects and photography.">
-<meta name="theme-color" content="#000000">
-<meta property="og:title" content="Avery Beuth | Code">
-<meta property="og:description" content="Short films, screenplays, code projects and photography.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="logo.png">
-<meta property="og:image:alt" content="Avery Beuth AB logo">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Avery Beuth | Code">
-<meta name="twitter:description" content="Short films, screenplays, code projects and photography.">
-<meta name="twitter:image" content="logo.png">
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<title>Avery Beuth | Code</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0c0f" />
+    <meta name="description" content="Open source software, tools, games, VR projects, and websites by Avery Beuth." />
+    <meta property="og:title" content="averybeuth.xyz / code" />
+    <meta property="og:description" content="Open source software, tools, games, VR projects, and websites by Avery Beuth." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="logo.png" />
+    <link rel="icon" type="image/png" href="./favicon.png?v=11" />
+    <link rel="apple-touch-icon" href="./favicon.png?v=11" />
+    <title>averybeuth.xyz / code</title>
+    <link rel="stylesheet" href="./assets/pages.css?v=11" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <aside class="site-rail">
+        <div class="rail-top">
+          <div class="rail-top-row">
+            <a class="rail-brand" href="./">averybeuth.xyz</a>
+            <a class="rail-handle" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          </div>
+          <nav class="rail-nav" aria-label="Portfolio">
+            <a href="./?zoom=1">photos</a>
+            <a href="./code.html" class="is-active">code</a>
+            <a href="./scripts/index.html">scripts</a>
+            <a href="./music.html">music</a>
+            <a href="./film.html">films</a>
+          </nav>
+        </div>
+        <div class="rail-meta">
+          <a href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          <a href="./privacy.html">privacy</a>
+        </div>
+      </aside>
 
-<div id="shell">
-  <aside id="sidebar">
-    <div class="sidebar-top">
-      <a class="name" href="index.html">Avery Beuth</a>
-      <button id="site-settings-button" type="button" aria-label="Open settings">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/>
-        </svg>
-      </button>
+      <main class="site-main">
+        <div class="page-wrap">
+          <header class="page-header">
+            <h1 class="page-title">Code</h1>
+            <p class="page-intro">A few of the bigger things I’ve made, from tools I wanted to exist to projects built for people around me. Everything here is open source on <a class="text-link" href="https://github.com/averywsc" target="_blank" rel="noopener noreferrer">github.com/averywsc</a>.</p>
+          </header>
+
+          <nav class="filter-bar" aria-label="Project categories">
+            <a href="code.html" data-cat="all">All</a>
+            <a href="code.html?category=apps" data-cat="apps">Apps</a>
+            <a href="code.html?category=app" data-cat="app">Web Apps</a>
+            <a href="code.html?category=vr" data-cat="vr">VR</a>
+            <a href="code.html?category=game" data-cat="game">Games</a>
+            <a href="code.html?category=tool" data-cat="tool">Tools</a>
+            <a href="code.html?category=website" data-cat="website">Websites</a>
+          </nav>
+
+          <section class="code-section" id="featuredSection" aria-labelledby="featured-title">
+            <div class="section-heading">
+              <h2 id="featured-title">Selected Projects</h2>
+              <span id="featuredCount">14</span>
+            </div>
+            <div class="featured-grid" id="featuredGrid">
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Daily12/" target="_blank" rel="noopener noreferrer" aria-label="Open Daily12"><img class="project-thumb" src="./code-screenshots/daily12.png" alt="Daily12 screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Daily12/" target="_blank" rel="noopener noreferrer">Daily12</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A cork-board home for twelve small puzzles, each with a fresh board every day and an endless mode for when one isn’t enough.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/totone/" target="_blank" rel="noopener noreferrer" aria-label="Open Totone"><img class="project-thumb" src="./code-screenshots/totone.png" alt="Totone screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/totone/" target="_blank" rel="noopener noreferrer">Totone</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">A browser-based image editor for recolouring and designing, with tone mapping, area selection, warp brushes, and layered images, text and effects.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/switchback/" target="_blank" rel="noopener noreferrer" aria-label="Open Switchback"><img class="project-thumb" src="./code-screenshots/switchback.png" alt="Switchback screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/switchback/" target="_blank" rel="noopener noreferrer">Switchback</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A browser rhythm game that analyses a song’s beats and builds a chart across seven play styles, with five difficulties up to Impossible.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Study.Hub/" target="_blank" rel="noopener noreferrer" aria-label="Open Study.Hub"><img class="project-thumb" src="./code-screenshots/study-hub.png" alt="Study.Hub screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Study.Hub/" target="_blank" rel="noopener noreferrer">Study.Hub</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A study platform built for Year 12 and 13 students preparing for NCEA externals. Combines a subject-organised resource library with a study group finder.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/screenwriting/" target="_blank" rel="noopener noreferrer" aria-label="Open Screen Writing"><img class="project-thumb" src="./code-screenshots/screen-writing.png" alt="Screen Writing screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/screenwriting/" target="_blank" rel="noopener noreferrer">Screen Writing</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A screenwriting tool that automatically formats scenes, action, character names and dialogue, saves work locally, and exports properly formatted PDFs.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/longexpos48/" target="_blank" rel="noopener noreferrer" aria-label="Open Long Exposure 48"><img class="project-thumb is-portrait" src="./code-screenshots/long-exposure-48.jpeg" alt="Long Exposure 48 screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/longexpos48/" target="_blank" rel="noopener noreferrer">Long Exposure 48</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A free long-exposure astrophotography app, made to make night-sky photography tools accessible without a paid subscription.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="apps">
+              <a class="project-thumb-wrap" href="https://github.com/averywsc/livewall" target="_blank" rel="noopener noreferrer" aria-label="Open Live Wall"><img class="project-thumb" src="./code-screenshots/live-wall.png" alt="Live Wall screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://github.com/averywsc/livewall" target="_blank" rel="noopener noreferrer">Live Wall</a></h3>
+                  <span class="project-tag">apps</span>
+                </div>
+                <p class="project-desc">An open-source live wallpaper app inspired by Wallpaper Engine, with built-in performance optimization and support for overlays and video wallpapers.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Highpass/" target="_blank" rel="noopener noreferrer" aria-label="Open Highpass"><img class="project-thumb" src="./code-screenshots/highpass.png" alt="Highpass screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Highpass/" target="_blank" rel="noopener noreferrer">Highpass</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A browser-based low-poly 3D platformer where you carry a lantern across four biomes, collect crystals and light checkpoints while navigating varied platforming challenges.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/nighttape/" target="_blank" rel="noopener noreferrer" aria-label="Open Night Tape"><img class="project-thumb" src="./code-screenshots/night-tape.png" alt="Night Tape screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/nighttape/" target="_blank" rel="noopener noreferrer">Night Tape</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A browser-based found-footage horror game where you search a haunted forest for lost tapes while monsters stalk and chase you.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/beatbrawl/" target="_blank" rel="noopener noreferrer" aria-label="Open Beat Brawl"><img class="project-thumb" src="./code-screenshots/beat-brawl.png" alt="Beat Brawl screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/beatbrawl/" target="_blank" rel="noopener noreferrer">Beat Brawl</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A retro pixel-art rhythm fighting game with custom assets, seven fighters, an arcade ladder, upgrades, local two-player versus and a two-versus-one final boss.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="apps">
+              <a class="project-thumb-wrap" href="https://github.com/averywsc/wifi-fixer" target="_blank" rel="noopener noreferrer" aria-label="Open WiFi Fixer"><img class="project-thumb" src="./code-screenshots/wifi-fixer.png" alt="WiFi Fixer screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://github.com/averywsc/wifi-fixer" target="_blank" rel="noopener noreferrer">WiFi Fixer</a></h3>
+                  <span class="project-tag">apps</span>
+                </div>
+                <p class="project-desc">WiFi Fixer is a Windows desktop app built in Python that tests your internet speed against the speed you pay for, then works out why it’s slow by comparing the connection to your router with the connection to the internet and checking your computer’s CPU, memory and disk, and it can apply fixes, scan your network for unknown devices, and pause background apps so a download gets priority.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="apps">
+              <a class="project-thumb-wrap" href="https://github.com/averywsc/loop" target="_blank" rel="noopener noreferrer" aria-label="Open Loop"><img class="project-thumb" src="./code-screenshots/loop.png" alt="Loop screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://github.com/averywsc/loop" target="_blank" rel="noopener noreferrer">Loop</a></h3>
+                  <span class="project-tag">apps</span>
+                </div>
+                <p class="project-desc">A desktop practice player for musicians that slows songs down without changing the pitch, loops any section you drag across the waveform, and saves named loops for each song, built with Electron in a GarageBand-inspired interface.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="apps">
+              <a class="project-thumb-wrap" href="https://github.com/averywsc/cull" target="_blank" rel="noopener noreferrer" aria-label="Open Cull"><img class="project-thumb" src="./code-screenshots/cull.png" alt="Cull screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://github.com/averywsc/cull" target="_blank" rel="noopener noreferrer">Cull</a></h3>
+                  <span class="project-tag">apps</span>
+                </div>
+                <p class="project-desc">A keyboard-driven photo culling app for Windows that lets you keep, reject and star-rate a whole folder in minutes with a filmstrip and compare mode.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/drift/" target="_blank" rel="noopener noreferrer" aria-label="Open Drift"><img class="project-thumb" src="./code-screenshots/drift.png" alt="Drift screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/drift/" target="_blank" rel="noopener noreferrer">Drift</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Drift is a collection of 25 interactive generative art modes I built from scratch, with flowing light, smearable ink and patterns you can play with, plus a live gallery of every mode, a soundtrack that changes with each one, and a custom icon.</p>
+              </div>
+            </article>
+            </div>
+          </section>
+
+          <section class="code-section" id="archiveSection" aria-labelledby="additional-title">
+            <div class="section-heading">
+              <h2 id="additional-title">Archive</h2>
+              <span id="archiveCount">59</span>
+            </div>
+            <div class="archive-grid" id="archiveGrid">
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Image-to-Song/" target="_blank" rel="noopener noreferrer" aria-label="Open Image to Song"><img class="project-thumb" src="./code-screenshots/image-to-song.png" alt="Image to Song screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Image-to-Song/" target="_blank" rel="noopener noreferrer">Image to Song</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">An app that reads a picture’s colours, light and fine detail across 24,576 points, shows its analysis over the image as the colour is revealed, and turns it into a full song you can download.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Orrery-Score/" target="_blank" rel="noopener noreferrer" aria-label="Open Orrery Score"><img class="project-thumb" src="./code-screenshots/orrery-score.png" alt="Orrery Score screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Orrery-Score/" target="_blank" rel="noopener noreferrer">Orrery Score</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A sky planner built from scratch that works out where the Sun, Moon, planets and tens of thousands of stars are for any place and time, shows them in a dome view and a 3D look-up view with 64 constellations, and turns the planets’ movements into live music.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/CodeBeats/" target="_blank" rel="noopener noreferrer" aria-label="Open CodeBeats"><img class="project-thumb" src="./code-screenshots/codebeats.png" alt="CodeBeats screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/CodeBeats/" target="_blank" rel="noopener noreferrer">CodeBeats</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A web app that teaches JavaScript and music theory through 28 interactive lessons, where students write code that plays real music with a piano, ear training and a live track view, built in plain JavaScript with the Web Audio API.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="vr">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/The-Gallery/" target="_blank" rel="noopener noreferrer" aria-label="Open The Gallery"><img class="project-thumb" src="./code-screenshots/the-gallery.png" alt="The Gallery screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/The-Gallery/" target="_blank" rel="noopener noreferrer">The Gallery</a></h3>
+                  <span class="project-tag">vr</span>
+                </div>
+                <p class="project-desc">A walkable 3D photo museum you can explore in VR or a browser, with a new room for every few photos you upload, a retro pixel filter, and local multiplayer for friends on the same Wi-Fi.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="vr">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/OrbDrift/" target="_blank" rel="noopener noreferrer" aria-label="Open Orb Drift"><img class="project-thumb" src="./code-screenshots/orb-drift.png" alt="Orb Drift screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/OrbDrift/" target="_blank" rel="noopener noreferrer">Orb Drift</a></h3>
+                  <span class="project-tag">vr</span>
+                </div>
+                <p class="project-desc">A VR arena shooter built on WebXR that works in a headset, with hand-held blasters, three hard modes, boss fights and spatial audio, and it also plays in any browser.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="vr">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Reel-Street-Video/" target="_blank" rel="noopener noreferrer" aria-label="Open Reel Street Video"><img class="project-thumb" src="./code-screenshots/reel-street-video.png" alt="Reel Street Video screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Reel-Street-Video/" target="_blank" rel="noopener noreferrer">Reel Street Video</a></h3>
+                  <span class="project-tag">vr</span>
+                </div>
+                <p class="project-desc">Reel Street Video is a WebXR movie store built with Three.js and the TMDB API, where you can walk through a 7,000 square metre world of live-stocked shelves on desktop or in VR, import your Letterboxd lists, and view it all through a custom retro CRT shader.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/meetpoint/" target="_blank" rel="noopener noreferrer" aria-label="Open Meetpoint"><img class="project-thumb" src="./code-screenshots/meetpoint.png" alt="Meetpoint screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/meetpoint/" target="_blank" rel="noopener noreferrer">Meetpoint</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">Meetpoint is a map app where a group enters where everyone is, or drops a pin on each location, and it finds the fairest meeting spot using real road routes and shows each person’s shortest path there with a smooth animated map.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Worldloom/" target="_blank" rel="noopener noreferrer" aria-label="Open Worldloom"><img class="project-thumb" src="./code-screenshots/worldloom.png" alt="Worldloom screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Worldloom/" target="_blank" rel="noopener noreferrer">Worldloom</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">Worldloom is a fully offline browser god game where you shape a seeded fantasy world of over 160,000 hexes and watch its villages grow into roaded, walled cities, send ships and rockets out, and fight over land as the map slowly charts itself.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Cardbox/" target="_blank" rel="noopener noreferrer" aria-label="Open Cardbox"><img class="project-thumb" src="./code-screenshots/cardbox.png" alt="Cardbox screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Cardbox/" target="_blank" rel="noopener noreferrer">Cardbox</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A spaced-repetition flashcard app that brings each card back just before you’d forget it, with cloze and reverse cards, stats, and backup and import.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/movie-night-cinema/" target="_blank" rel="noopener noreferrer" aria-label="Open Movie Night Cinema"><img class="project-thumb" src="./code-screenshots/movie-night-cinema.png" alt="Movie Night Cinema screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/movie-night-cinema/" target="_blank" rel="noopener noreferrer">Movie Night Cinema</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">Movie Night Cinema is a web app that lets users find a random film to watch by mood, genre, length, actors and crew using TMDB.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/landmovwingquote/" target="_blank" rel="noopener noreferrer" aria-label="Open Cut Sheet"><img class="project-thumb" src="./code-screenshots/lawnmow-quote.png" alt="Cut Sheet screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/landmovwingquote/" target="_blank" rel="noopener noreferrer">Cut Sheet</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">Cut Sheet is a lawn quoting and invoicing tool I designed and coded from scratch, where you upload a photo to measure the grass, watch the job get mowed in an animation, and turn the price into a printable invoice.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/lensbench/" target="_blank" rel="noopener noreferrer" aria-label="Open Lens Bench"><img class="project-thumb" src="./code-screenshots/lens-bench.png" alt="Lens Bench screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/lensbench/" target="_blank" rel="noopener noreferrer">Lens Bench</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Lens Bench is a camera calculator I designed that shows depth of field, angle of view and background blur live as you change lens and exposure settings, so you can see what a setup will do before you shoot.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/callsheet/" target="_blank" rel="noopener noreferrer" aria-label="Open Call Sheet"><img class="project-thumb" src="./code-screenshots/call-sheet.png" alt="Call Sheet screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/callsheet/" target="_blank" rel="noopener noreferrer">Call Sheet</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">Call Sheet is an offline-first film production planner that turns a pasted screenplay into a scene breakdown, shot list, daylight-aware shooting schedule with a draggable animated timeline, and print-ready call sheets.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/ledgerline/" target="_blank" rel="noopener noreferrer" aria-label="Open Ledgerline"><img class="project-thumb" src="./code-screenshots/ledgerline.png" alt="Ledgerline screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/ledgerline/" target="_blank" rel="noopener noreferrer">Ledgerline</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">Ledgerline is a money tracker I built for my lawnmowing business that charts income and spending by month, sets tax aside, and works out how soon I can reach a savings goal.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/pumpstation9/" target="_blank" rel="noopener noreferrer" aria-label="Open Raycaster Episodes"><img class="project-thumb" src="./code-screenshots/pump-station-9.png" alt="Raycaster Episodes screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/pumpstation9/" target="_blank" rel="noopener noreferrer">Raycaster Episodes</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A browser-based retro first-person shooter with three episodes: Pump Station 9, Oakridge Mall and Timberline Lodge (in progress). Each has its own setting, monsters and weapons, with all graphics and sound generated in code.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/ashfox/" target="_blank" rel="noopener noreferrer" aria-label="Open Ashfox"><img class="project-thumb" src="./code-screenshots/ashfox.png" alt="Ashfox screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/ashfox/" target="_blank" rel="noopener noreferrer">Ashfox</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A calm, hand-drawn swing-and-glide game where a scarfed fox swings between paper lanterns across six atmospheric stages.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Tessera/" target="_blank" rel="noopener noreferrer" aria-label="Open Tessera"><img class="project-thumb" src="./code-screenshots/tessera.png" alt="Tessera screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Tessera/" target="_blank" rel="noopener noreferrer">Tessera</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A daily mosaic puzzle where number clues carved in limestone tell you where to lay each stone tile, until the finished picture takes its colours.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Sampler/" target="_blank" rel="noopener noreferrer" aria-label="Open Sampler"><img class="project-thumb" src="./code-screenshots/sampler.png" alt="Sampler screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Sampler/" target="_blank" rel="noopener noreferrer">Sampler</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A daily embroidery puzzle where you stitch four-colour guesses onto a linen cloth and read the gold dots and rings to crack the hidden row in nine tries.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/zipline/" target="_blank" rel="noopener noreferrer" aria-label="Open Zipline"><img class="project-thumb" src="./code-screenshots/zipline.png" alt="Zipline screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/zipline/" target="_blank" rel="noopener noreferrer">Zipline</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A browser-based first-person grapple-and-sniper game built in Three.js, with four playable agents, distinct weapons and abilities, moving bots and a retro pixel-art look and HUD.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/tally/" target="_blank" rel="noopener noreferrer" aria-label="Open Tally"><img class="project-thumb" src="./code-screenshots/tally.png" alt="Tally screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/tally/" target="_blank" rel="noopener noreferrer">Tally</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A daily numbers puzzle on a worn chalkboard, where you combine six wooden tokens to hit a target in as few steps as you can.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Plumb/" target="_blank" rel="noopener noreferrer" aria-label="Open Plumb"><img class="project-thumb" src="./code-screenshots/plumb.png" alt="Plumb screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Plumb/" target="_blank" rel="noopener noreferrer">Plumb</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A daily word hunt set in an old dictionary, where a swinging plumb bob and before-and-after clues narrow down a secret five-letter word.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/leadline/" target="_blank" rel="noopener noreferrer" aria-label="Open Leadline"><img class="project-thumb" src="./code-screenshots/leadline.png" alt="Leadline screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/leadline/" target="_blank" rel="noopener noreferrer">Leadline</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A daily sea-chart puzzle where you cast a lead line, read the depth rings and triangulate a hidden wreck in six casts.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/StudyPal/" target="_blank" rel="noopener noreferrer" aria-label="Open StudyPal"><img class="project-thumb" src="./code-screenshots/studypal.png" alt="StudyPal screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/StudyPal/" target="_blank" rel="noopener noreferrer">StudyPal</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">StudyPal v3.3 is an open-source, single-file Socratic AI tutoring app and system prompt framework that turns generic language models into active exam coaches with specimen inspection and interactive rubric evaluation.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/chromechase/" target="_blank" rel="noopener noreferrer" aria-label="Open Chrome Chase"><img class="project-thumb" src="./code-screenshots/chrome-chase.png" alt="Chrome Chase screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/chromechase/" target="_blank" rel="noopener noreferrer">Chrome Chase</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">A browser-based top-down 3D night police chase where you outrun patrols, vault traffic and use a time-slowing power, with procedural visuals, lighting and a live-synthesized soundtrack.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/bigpasta/" target="_blank" rel="noopener noreferrer" aria-label="Open Bigpasta"><img class="project-thumb" src="./code-screenshots/bigpasta.png" alt="Bigpasta screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/bigpasta/" target="_blank" rel="noopener noreferrer">Bigpasta</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A web app that turns pasted text into giant symbol art or weird fonts, chopped to fit the chat character limit of whichever game you pick, with game-themed copy-and-paste text ready to use.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/KrillionPratice/" target="_blank" rel="noopener noreferrer" aria-label="Open Krillion Practice"><img class="project-thumb" src="./code-screenshots/krillion-practice.png" alt="Krillion Practice screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/KrillionPratice/" target="_blank" rel="noopener noreferrer">Krillion Practice</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">An endless pixel-art ocean game where you name something for each prompt, rarer answers score more, and the questions never run out.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/collagelab95/" target="_blank" rel="noopener noreferrer" aria-label="Open Collage Lab 95"><img class="project-thumb" src="./code-screenshots/collage-lab-95.png" alt="Collage Lab 95 screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/collagelab95/" target="_blank" rel="noopener noreferrer">Collage Lab 95</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">A browser-based animation studio that turns video clips and photos into hand-made, mixed-media animations with frame-by-frame drawing, stamps, lettering and automatic ink, paper, paint and collage looks.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/primaryschooleducaiton/" target="_blank" rel="noopener noreferrer" aria-label="Open Digital Citizens Aotearoa"><img class="project-thumb" src="./code-screenshots/digital-citizens-aotearoa.png" alt="Digital Citizens Aotearoa screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/primaryschooleducaiton/" target="_blank" rel="noopener noreferrer">Digital Citizens Aotearoa</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">An interactive digital citizenship and technology portal for New Zealand students in Years 1 to 8. It covers computer basics, school apps, online safety, social media and AI through quizzes and safe practice sandboxes, with a printable certificate when all modules are complete.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/CompositionBasics/" target="_blank" rel="noopener noreferrer" aria-label="Open Composition Basics"><img class="project-thumb" src="./code-screenshots/composition-basics.png" alt="Composition Basics screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/CompositionBasics/" target="_blank" rel="noopener noreferrer">Composition Basics</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Composition Basics is a learning tool made for WSCW students to learn the fundamentals of composition and how to compose photos and videos through interactive lessons and real photo grids.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/blank-music/" target="_blank" rel="noopener noreferrer" aria-label="Open Blank Music"><img class="project-thumb" src="./code-screenshots/blank-music.png" alt="Blank Music screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/blank-music/" target="_blank" rel="noopener noreferrer">Blank Music</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A minimal, distraction-free web page where you write a few lines of JavaScript and hear them play as a song, built from scratch with the Web Audio API and no libraries.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/glow/" target="_blank" rel="noopener noreferrer" aria-label="Open Glow"><img class="project-thumb" src="./code-screenshots/glow.png" alt="Glow screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/glow/" target="_blank" rel="noopener noreferrer">Glow</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A web-based, iOS-style camera app that turns your iPhone into a long-exposure camera for light sticks, fireworks and light trails, with lens choice and shot saving.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/photoediter/" target="_blank" rel="noopener noreferrer" aria-label="Open Photo Editor"><img class="project-thumb" src="./code-screenshots/photo-editor.png" alt="Photo Editor screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/photoediter/" target="_blank" rel="noopener noreferrer">Photo Editor</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A lightweight Lightroom-style photo editor made for quick, easy editing on the go, with filters, presets and fast exports.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/My-Tools/index.html" target="_blank" rel="noopener noreferrer" aria-label="Open My Tools"><img class="project-thumb" src="./code-screenshots/my-tools.png" alt="My Tools screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/My-Tools/index.html" target="_blank" rel="noopener noreferrer">My Tools</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">A collection of free, browser-based tools for shooting and editing: golden hour timing, color extraction, pixel art, VHS effects, ASCII conversion and halftone printing. Images stay on your device.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/fileconvert/" target="_blank" rel="noopener noreferrer" aria-label="Open File Converter"><img class="project-thumb" src="./code-screenshots/file-converter.png" alt="File Converter screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/fileconvert/" target="_blank" rel="noopener noreferrer">File Converter</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A fast, browser-based converter for images, audio and video. Files are processed locally on your device instead of being uploaded.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/rollcamera/" target="_blank" rel="noopener noreferrer" aria-label="Open Roll Camera"><img class="project-thumb is-portrait" src="./code-screenshots/roll-camera.png" alt="Roll Camera screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/rollcamera/" target="_blank" rel="noopener noreferrer">Roll Camera</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A camera app that emulates different types of real film, designed to help practise different composition techniques.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="website">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/digiwise/index.html" target="_blank" rel="noopener noreferrer" aria-label="Open WSCW Digiwise"><img class="project-thumb" src="./code-screenshots/digiwise.png" alt="WSCW Digiwise screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/digiwise/index.html" target="_blank" rel="noopener noreferrer">WSCW Digiwise</a></h3>
+                  <span class="project-tag">website</span>
+                </div>
+                <p class="project-desc">A work-in-progress home page for the Digiwise club at Western Springs College.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/afterglow/" target="_blank" rel="noopener noreferrer" aria-label="Open Afterglow"><img class="project-thumb" src="./code-screenshots/afterglow.png" alt="Afterglow screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/afterglow/" target="_blank" rel="noopener noreferrer">Afterglow</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A visualizer that reacts to whatever song you give it, with support for adding your own photos too.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/trim/" target="_blank" rel="noopener noreferrer" aria-label="Open Trim"><img class="project-thumb" src="./code-screenshots/trim.png" alt="Trim screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/trim/" target="_blank" rel="noopener noreferrer">Trim</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Trim is a browser-based audio and video trimmer with a waveform editor, exact start and end controls, and instant MP3 and WAV export.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="website">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/opendoorlearning/" target="_blank" rel="noopener noreferrer" aria-label="Open Open Door Learning"><img class="project-thumb" src="./code-screenshots/open-door-learning.png" alt="Open Door Learning screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/opendoorlearning/" target="_blank" rel="noopener noreferrer">Open Door Learning</a></h3>
+                  <span class="project-tag">website</span>
+                </div>
+                <p class="project-desc">An informal, non-registered community project in Aotearoa New Zealand, providing children with free online learning tools, local places and community events through a bilingual website in English and te reo Māori.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/ytmp34/" target="_blank" rel="noopener noreferrer" aria-label="Open YouTube to MP3/MP4"><img class="project-thumb" src="./code-screenshots/youtube-converter.png" alt="YouTube to MP3/MP4 screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/ytmp34/" target="_blank" rel="noopener noreferrer">YouTube to MP3/MP4</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">A simple desktop app that converts YouTube videos you’re allowed to download into MP3 or MP4 at your chosen quality, then saves the file to your device.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://cute-narwhal-b280a8.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Locked In"><img class="project-thumb" src="./code-screenshots/locked-in.png" alt="Locked In screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://cute-narwhal-b280a8.netlify.app/" target="_blank" rel="noopener noreferrer">Locked In</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">An offline-capable gym tracker you can install on your phone, with workout logging, calendar planning and progress photos that work without a signal.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/closet/" target="_blank" rel="noopener noreferrer" aria-label="Open Closet"><img class="project-thumb" src="./code-screenshots/closet.png" alt="Closet screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/closet/" target="_blank" rel="noopener noreferrer">Closet</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">An outfit maker for putting together and exploring clothing combinations.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/claudeskills/" target="_blank" rel="noopener noreferrer" aria-label="Open Claude Skills"><img class="project-thumb" src="./code-screenshots/claude-skills.png" alt="Claude Skills screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/claudeskills/" target="_blank" rel="noopener noreferrer">Claude Skills</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">A compiled library of Claude skills I’ve made to make working with AI more efficient and useful.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/strech-filters/" target="_blank" rel="noopener noreferrer" aria-label="Open Strech"><img class="project-thumb" src="./code-screenshots/strech.png" alt="Strech screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/strech-filters/" target="_blank" rel="noopener noreferrer">Strech</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">A playful camera experiment that lets you bend and distort your image with hand-tracked effects.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="website">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/minecraftinventory/#/" target="_blank" rel="noopener noreferrer" aria-label="Open Minecraft Inventory Portfolio"><img class="project-thumb" src="./code-screenshots/minecraft-inventory-portfolio.png" alt="Minecraft Inventory Portfolio screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/minecraftinventory/#/" target="_blank" rel="noopener noreferrer">Minecraft Inventory Portfolio</a></h3>
+                  <span class="project-tag">website</span>
+                </div>
+                <p class="project-desc">A playful portfolio experience that reimagines my work as items inside a Minecraft-inspired inventory.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/My-Tools/halftone.html" target="_blank" rel="noopener noreferrer" aria-label="Open Halftone Studio"><img class="project-thumb" src="./code-screenshots/halftone-studio.png" alt="Halftone Studio screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/My-Tools/halftone.html" target="_blank" rel="noopener noreferrer">Halftone Studio</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Turn images into newsprint-style halftone patterns, with adjustable dot size, screen angle, contrast and CMYK color separation. Export as PNG.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/LUTmaker/" target="_blank" rel="noopener noreferrer" aria-label="Open LUT Maker"><img class="project-thumb" src="./code-screenshots/lut-maker.png" alt="LUT Maker screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/LUTmaker/" target="_blank" rel="noopener noreferrer">LUT Maker</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Sample a reference image, shape its shadows, midtones and highlights, then export a .cube LUT for Lightroom, Premiere or Resolve.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/colorextractor/" target="_blank" rel="noopener noreferrer" aria-label="Open Color Palette Extractor"><img class="project-thumb" src="./code-screenshots/color-palette-extractor.png" alt="Color Palette Extractor screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/colorextractor/" target="_blank" rel="noopener noreferrer">Color Palette Extractor</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Extract dominant colors from a photo with k-means clustering, copy hex codes, and export a moodboard card with the image and swatches.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/ASCII-Camera/" target="_blank" rel="noopener noreferrer" aria-label="Open ASCII Camera"><img class="project-thumb" src="./code-screenshots/ascii-camera.png" alt="ASCII Camera screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/ASCII-Camera/" target="_blank" rel="noopener noreferrer">ASCII Camera</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Convert a live webcam feed into adjustable text-character art, then save a snapshot as a PNG or text file.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/aotearoa-map/" target="_blank" rel="noopener noreferrer" aria-label="Open Aotearoa Interactive Map"><img class="project-thumb" src="./code-screenshots/aotearoa-map.png" alt="Aotearoa Interactive Map screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/aotearoa-map/" target="_blank" rel="noopener noreferrer">Aotearoa Interactive Map</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">An antique-style gazetteer of Aotearoa’s cities, with an interactive index of pins revealing iwi, founding histories and verified facts.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/ManaMaths/" target="_blank" rel="noopener noreferrer" aria-label="Open NCEA Math Study"><img class="project-thumb" src="./code-screenshots/ncea-maths.png" alt="NCEA Math Study screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/ManaMaths/" target="_blank" rel="noopener noreferrer">NCEA Math Study</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A study platform for NCEA Level 2 Maths with worked examples, practice questions and quizzes that track progress locally.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/pixelartstudio/" target="_blank" rel="noopener noreferrer" aria-label="Open Pixel Art Studio"><img class="project-thumb" src="./code-screenshots/pixel-art-studio.png" alt="Pixel Art Studio screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/pixelartstudio/" target="_blank" rel="noopener noreferrer">Pixel Art Studio</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Turn photos into palette-limited pixel art with live controls, retro presets and custom colors, then export the result as a PNG.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/VHS-Effect/" target="_blank" rel="noopener noreferrer" aria-label="Open VHS Effect"><img class="project-thumb" src="./code-screenshots/vhs-effect.png" alt="VHS Effect screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/VHS-Effect/" target="_blank" rel="noopener noreferrer">VHS Effect</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Add grain, chromatic aberration, scanlines and tracking distortion to an image, with effects presets and a REC/timecode overlay.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="tool">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/goldenhourcalc/" target="_blank" rel="noopener noreferrer" aria-label="Open Golden Hour / Blue Hour Calculator"><img class="project-thumb" src="./code-screenshots/golden-hour.png" alt="Golden Hour / Blue Hour Calculator screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/goldenhourcalc/" target="_blank" rel="noopener noreferrer">Golden Hour / Blue Hour Calculator</a></h3>
+                  <span class="project-tag">tool</span>
+                </div>
+                <p class="project-desc">Find shoot-ready golden and blue hour windows based on location, date and sun position.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="website">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/CV/" target="_blank" rel="noopener noreferrer" aria-label="Open Interactive CV"><img class="project-thumb" src="./code-screenshots/interactive-cv.png" alt="Interactive CV screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/CV/" target="_blank" rel="noopener noreferrer">Interactive CV</a></h3>
+                  <span class="project-tag">website</span>
+                </div>
+                <p class="project-desc">A one-page interactive resume with photos, expandable work history, filterable skills and certifications.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="game">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/typingarcade/" target="_blank" rel="noopener noreferrer" aria-label="Open Typing Arcade"><img class="project-thumb" src="./code-screenshots/typing-arcade.png" alt="Typing Arcade screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/typingarcade/" target="_blank" rel="noopener noreferrer">Typing Arcade</a></h3>
+                  <span class="project-tag">game</span>
+                </div>
+                <p class="project-desc">Six quick typing games, from falling letters to sentence sprints, with a score tracked for each round.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/nceacountdown/" target="_blank" rel="noopener noreferrer" aria-label="Open NCEA Countdown"><img class="project-thumb" src="./code-screenshots/ncea-countdown.png" alt="NCEA Countdown screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/nceacountdown/" target="_blank" rel="noopener noreferrer">NCEA Countdown</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">An assessment dashboard that tracks NCEA due dates and sorts them by urgency.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/macrotracker/" target="_blank" rel="noopener noreferrer" aria-label="Open Macro Tracker"><img class="project-thumb" src="./code-screenshots/macro-tracker.png" alt="Macro Tracker screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/macrotracker/" target="_blank" rel="noopener noreferrer">Macro Tracker</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">An offline-friendly meal logger that tracks calories and macros against daily targets without an account.</p>
+              </div>
+            </article>
+            <article class="project-card project-item" data-category="app">
+              <a class="project-thumb-wrap" href="https://averywsc.github.io/Riverbed/" target="_blank" rel="noopener noreferrer" aria-label="Open Riverbed"><img class="project-thumb" src="./code-screenshots/riverbed.png" alt="Riverbed screenshot" loading="lazy" /></a>
+              <div class="project-copy">
+                <div class="project-meta">
+                  <h3 class="project-title"><a href="https://averywsc.github.io/Riverbed/" target="_blank" rel="noopener noreferrer">Riverbed</a></h3>
+                  <span class="project-tag">app</span>
+                </div>
+                <p class="project-desc">A retirement and investing simulator that runs 2,000 possible futures at once, draws them as a flowing river, and projects real stock price histories forward.</p>
+              </div>
+            </article>
+            </div>
+          </section>
+        </div>
+      </main>
     </div>
-    <nav class="mainnav">
-      <a href="photo.html">Photos</a>
-      <a href="film.html">Films</a>
-      <a href="music.html">Music</a>
-      <a href="scripts/index.html">Scripts</a>
-      <a href="code.html" class="active">Code</a>
-    </nav>
-  </aside>
 
-  <div id="sprockets"></div>
+    <script>
+      (() => {
+        const categoryNames = {
+          all: 'Selected Projects',
+          apps: 'Apps',
+          app: 'Web Apps',
+          vr: 'VR',
+          game: 'Games',
+          tool: 'Tools',
+          website: 'Websites'
+        };
+        const valid = new Set(Object.keys(categoryNames));
+        const filterLinks = [...document.querySelectorAll('.filter-bar a')];
+        const featuredSection = document.getElementById('featuredSection');
+        const archiveSection = document.getElementById('archiveSection');
+        const featuredGrid = document.getElementById('featuredGrid');
+        const archiveGrid = document.getElementById('archiveGrid');
+        const featuredTitle = document.getElementById('featured-title');
+        const featuredCount = document.getElementById('featuredCount');
+        const archiveCount = document.getElementById('archiveCount');
 
-  <main id="stage">
-    <div class="page-content code-page">
-      <header class="code-intro">
-        <div class="page-title">Code</div>
-        <p class="code-intro-copy">A few of the bigger things I’ve made, from tools I wanted to exist to projects built for people around me.</p>
-        <p class="code-open-source">Everything here is open source. <a href="https://github.com/averywsc" target="_blank" rel="noopener noreferrer">Browse all my repositories on GitHub</a>.</p>
-        <nav class="code-filter" aria-label="Project categories">
-          <span>Browse</span>
-          <a href="code.html">All</a>
-          <a href="code.html?category=apps">Apps</a>
-          <a href="code.html?category=app">Web Apps</a>
-          <a href="code.html?category=vr">VR</a>
-          <a href="code.html?category=game">Games</a>
-          <a href="code.html?category=tool">Tools</a>
-          <a href="code.html?category=website">Websites</a>
-        </nav>
-      </header>
+        const featuredCards = [...featuredGrid.children];
+        const archiveCards = [...archiveGrid.children];
+        const allCards = [...featuredCards, ...archiveCards];
+        const pad2 = (n) => String(n).padStart(2, '0');
 
-      <section class="code-section" aria-labelledby="featured-title">
-        <div class="code-section-heading">
-            <h2 id="featured-title">Selected Projects</h2>
-            <span>01 — 10</span>
-        </div>
-        <div class="code-list featured-projects">
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Daily12/" target="_blank" rel="noopener noreferrer">Daily12</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A cork-board home for twelve small puzzles, each with a fresh board every day and an endless mode for when one isn’t enough.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/totone/" target="_blank" rel="noopener noreferrer">Totone</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>A browser-based image editor for recolouring and designing, with tone mapping, area selection, warp brushes, and layered images, text and effects.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/switchback/" target="_blank" rel="noopener noreferrer">Switchback</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A browser rhythm game that analyses a song’s beats and builds a chart across seven play styles, with five difficulties up to Impossible.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Study.Hub/" target="_blank" rel="noopener noreferrer">Study.Hub</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A study platform built for Year 12 and 13 students preparing for NCEA externals. Combines a subject-organised resource library with a study group finder.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/screenwriting/" target="_blank" rel="noopener noreferrer">Screen Writing</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A screenwriting tool that automatically formats scenes, action, character names and dialogue, saves work locally, and exports properly formatted PDFs.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/longexpos48/" target="_blank" rel="noopener noreferrer">Long Exposure 48</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A free long-exposure astrophotography app, made to make night-sky photography tools accessible without a paid subscription.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://github.com/averywsc/livewall" target="_blank" rel="noopener noreferrer">Live Wall</a></h3>
-                  <span class="pill">apps</span>
-                </div>
-                <p>An open-source live wallpaper app inspired by Wallpaper Engine, with built-in performance optimization and support for overlays and video wallpapers.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Highpass/" target="_blank" rel="noopener noreferrer">Highpass</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A browser-based low-poly 3D platformer where you carry a lantern across four biomes, collect crystals and light checkpoints while navigating varied platforming challenges.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/nighttape/" target="_blank" rel="noopener noreferrer">Night Tape</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A browser-based found-footage horror game where you search a haunted forest for lost tapes while monsters stalk and chase you.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/beatbrawl/" target="_blank" rel="noopener noreferrer">Beat Brawl</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A retro pixel-art rhythm fighting game with custom assets, seven fighters, an arcade ladder, upgrades, local two-player versus and a two-versus-one final boss.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://github.com/averywsc/wifi-fixer" target="_blank" rel="noopener noreferrer">WiFi Fixer</a></h3>
-                  <span class="pill">apps</span>
-                </div>
-                <p>WiFi Fixer is a Windows desktop app built in Python that tests your internet speed against the speed you pay for, then works out why it’s slow by comparing the connection to your router with the connection to the internet and checking your computer’s CPU, memory and disk, and it can apply fixes, scan your network for unknown devices, and pause background apps so a download gets priority.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://github.com/averywsc/loop" target="_blank" rel="noopener noreferrer">Loop</a></h3>
-                  <span class="pill">apps</span>
-                </div>
-                <p>A desktop practice player for musicians that slows songs down without changing the pitch, loops any section you drag across the waveform, and saves named loops for each song, built with Electron in a GarageBand-inspired interface.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://github.com/averywsc/cull" target="_blank" rel="noopener noreferrer">Cull</a></h3>
-                  <span class="pill">apps</span>
-                </div>
-                <p>A keyboard-driven photo culling app for Windows that lets you keep, reject and star-rate a whole folder in minutes with a filmstrip and compare mode.</p>
-              </div>
-            </article>
-            <article class="code-row featured-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/drift/" target="_blank" rel="noopener noreferrer">Drift</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Drift is a collection of 25 interactive generative art modes I built from scratch, with flowing light, smearable ink and patterns you can play with, plus a live gallery of every mode, a soundtrack that changes with each one, and a custom icon.</p>
-              </div>
-            </article>
-        </div>
-      </section>
+        const applyCategory = (cat) => {
+          const selected = valid.has(cat) ? cat : 'all';
+          filterLinks.forEach((link) => {
+            if (link.dataset.cat === selected) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+          });
 
-      <section class="code-section additional-section" aria-labelledby="additional-title">
-        <div class="code-section-heading">
-            <h2 id="additional-title">Additional Projects</h2>
-            <span>09 — 50</span>
-        </div>
-        <div class="code-list additional-projects">
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Image-to-Song/" target="_blank" rel="noopener noreferrer">Image to Song</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>An app that reads a picture’s colours, light and fine detail across 24,576 points, shows its analysis over the image as the colour is revealed, and turns it into a full song you can download.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Orrery-Score/" target="_blank" rel="noopener noreferrer">Orrery Score</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A sky planner built from scratch that works out where the Sun, Moon, planets and tens of thousands of stars are for any place and time, shows them in a dome view and a 3D look-up view with 64 constellations, and turns the planets’ movements into live music.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/CodeBeats/" target="_blank" rel="noopener noreferrer">CodeBeats</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A web app that teaches JavaScript and music theory through 28 interactive lessons, where students write code that plays real music with a piano, ear training and a live track view, built in plain JavaScript with the Web Audio API.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/The-Gallery/" target="_blank" rel="noopener noreferrer">The Gallery</a></h3>
-                  <span class="pill">vr</span>
-                </div>
-                <p>A walkable 3D photo museum you can explore in VR or a browser, with a new room for every few photos you upload, a retro pixel filter, and local multiplayer for friends on the same Wi-Fi.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/OrbDrift/" target="_blank" rel="noopener noreferrer">Orb Drift</a></h3>
-                  <span class="pill">vr</span>
-                </div>
-                <p>A VR arena shooter built on WebXR that works in a headset, with hand-held blasters, three hard modes, boss fights and spatial audio, and it also plays in any browser.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Reel-Street-Video/" target="_blank" rel="noopener noreferrer">Reel Street Video</a></h3>
-                  <span class="pill">vr</span>
-                </div>
-                <p>Reel Street Video is a WebXR movie store built with Three.js and the TMDB API, where you can walk through a 7,000 square metre world of live-stocked shelves on desktop or in VR, import your Letterboxd lists, and view it all through a custom retro CRT shader.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/meetpoint/" target="_blank" rel="noopener noreferrer">Meetpoint</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>Meetpoint is a map app where a group enters where everyone is, or drops a pin on each location, and it finds the fairest meeting spot using real road routes and shows each person’s shortest path there with a smooth animated map.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Worldloom/" target="_blank" rel="noopener noreferrer">Worldloom</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>Worldloom is a fully offline browser god game where you shape a seeded fantasy world of over 160,000 hexes and watch its villages grow into roaded, walled cities, send ships and rockets out, and fight over land as the map slowly charts itself.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Cardbox/" target="_blank" rel="noopener noreferrer">Cardbox</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A spaced-repetition flashcard app that brings each card back just before you’d forget it, with cloze and reverse cards, stats, and backup and import.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/movie-night-cinema/" target="_blank" rel="noopener noreferrer">Movie Night Cinema</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>Movie Night Cinema is a web app that lets users find a random film to watch by mood, genre, length, actors and crew using TMDB.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/landmovwingquote/" target="_blank" rel="noopener noreferrer">Cut Sheet</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>Cut Sheet is a lawn quoting and invoicing tool I designed and coded from scratch, where you upload a photo to measure the grass, watch the job get mowed in an animation, and turn the price into a printable invoice.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/lensbench/" target="_blank" rel="noopener noreferrer">Lens Bench</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Lens Bench is a camera calculator I designed that shows depth of field, angle of view and background blur live as you change lens and exposure settings, so you can see what a setup will do before you shoot.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/callsheet/" target="_blank" rel="noopener noreferrer">Call Sheet</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>Call Sheet is an offline-first film production planner that turns a pasted screenplay into a scene breakdown, shot list, daylight-aware shooting schedule with a draggable animated timeline, and print-ready call sheets.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/ledgerline/" target="_blank" rel="noopener noreferrer">Ledgerline</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>Ledgerline is a money tracker I built for my lawnmowing business that charts income and spending by month, sets tax aside, and works out how soon I can reach a savings goal.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/pumpstation9/" target="_blank" rel="noopener noreferrer">Raycaster Episodes</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A browser-based retro first-person shooter with three episodes: Pump Station 9, Oakridge Mall and Timberline Lodge (in progress). Each has its own setting, monsters and weapons, with all graphics and sound generated in code.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/ashfox/" target="_blank" rel="noopener noreferrer">Ashfox</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A calm, hand-drawn swing-and-glide game where a scarfed fox swings between paper lanterns across six atmospheric stages.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Tessera/" target="_blank" rel="noopener noreferrer">Tessera</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A daily mosaic puzzle where number clues carved in limestone tell you where to lay each stone tile, until the finished picture takes its colours.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Sampler/" target="_blank" rel="noopener noreferrer">Sampler</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A daily embroidery puzzle where you stitch four-colour guesses onto a linen cloth and read the gold dots and rings to crack the hidden row in nine tries.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/zipline/" target="_blank" rel="noopener noreferrer">Zipline</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A browser-based first-person grapple-and-sniper game built in Three.js, with four playable agents, distinct weapons and abilities, moving bots and a retro pixel-art look and HUD.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/tally/" target="_blank" rel="noopener noreferrer">Tally</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A daily numbers puzzle on a worn chalkboard, where you combine six wooden tokens to hit a target in as few steps as you can.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Plumb/" target="_blank" rel="noopener noreferrer">Plumb</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A daily word hunt set in an old dictionary, where a swinging plumb bob and before-and-after clues narrow down a secret five-letter word.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/leadline/" target="_blank" rel="noopener noreferrer">Leadline</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A daily sea-chart puzzle where you cast a lead line, read the depth rings and triangulate a hidden wreck in six casts.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/StudyPal/" target="_blank" rel="noopener noreferrer">StudyPal</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>StudyPal v3.3 is an open-source, single-file Socratic AI tutoring app and system prompt framework that turns generic language models into active exam coaches with specimen inspection and interactive rubric evaluation.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/chromechase/" target="_blank" rel="noopener noreferrer">Chrome Chase</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>A browser-based top-down 3D night police chase where you outrun patrols, vault traffic and use a time-slowing power, with procedural visuals, lighting and a live-synthesized soundtrack.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/bigpasta/" target="_blank" rel="noopener noreferrer">Bigpasta</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A web app that turns pasted text into giant symbol art or weird fonts, chopped to fit the chat character limit of whichever game you pick, with game-themed copy-and-paste text ready to use.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/KrillionPratice/" target="_blank" rel="noopener noreferrer">Krillion Practice</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>An endless pixel-art ocean game where you name something for each prompt, rarer answers score more, and the questions never run out.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/collagelab95/" target="_blank" rel="noopener noreferrer">Collage Lab 95</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>A browser-based animation studio that turns video clips and photos into hand-made, mixed-media animations with frame-by-frame drawing, stamps, lettering and automatic ink, paper, paint and collage looks.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/primaryschooleducaiton/" target="_blank" rel="noopener noreferrer">Digital Citizens Aotearoa</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>An interactive digital citizenship and technology portal for New Zealand students in Years 1 to 8. It covers computer basics, school apps, online safety, social media and AI through quizzes and safe practice sandboxes, with a printable certificate when all modules are complete.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/CompositionBasics/" target="_blank" rel="noopener noreferrer">Composition Basics</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Composition Basics is a learning tool made for WSCW students to learn the fundamentals of composition and how to compose photos and videos through interactive lessons and real photo grids.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/blank-music/" target="_blank" rel="noopener noreferrer">Blank Music</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A minimal, distraction-free web page where you write a few lines of JavaScript and hear them play as a song, built from scratch with the Web Audio API and no libraries.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/glow/" target="_blank" rel="noopener noreferrer">Glow</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A web-based, iOS-style camera app that turns your iPhone into a long-exposure camera for light sticks, fireworks and light trails, with lens choice and shot saving.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/photoediter/" target="_blank" rel="noopener noreferrer">Photo Editor</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A lightweight Lightroom-style photo editor made for quick, easy editing on the go, with filters, presets and fast exports.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/My-Tools/index.html" target="_blank" rel="noopener noreferrer">My Tools</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>A collection of free, browser-based tools for shooting and editing: golden hour timing, color extraction, pixel art, VHS effects, ASCII conversion and halftone printing. Images stay on your device.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/fileconvert/" target="_blank" rel="noopener noreferrer">File Converter</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A fast, browser-based converter for images, audio and video. Files are processed locally on your device instead of being uploaded.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/rollcamera/" target="_blank" rel="noopener noreferrer">Roll Camera</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A camera app that emulates different types of real film, designed to help practise different composition techniques.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/digiwise/index.html" target="_blank" rel="noopener noreferrer">WSCW Digiwise</a></h3>
-                  <span class="pill">website</span>
-                </div>
-                <p>A work-in-progress home page for the Digiwise club at Western Springs College.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/afterglow/" target="_blank" rel="noopener noreferrer">Afterglow</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A visualizer that reacts to whatever song you give it, with support for adding your own photos too.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/trim/" target="_blank" rel="noopener noreferrer">Trim</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Trim is a browser-based audio and video trimmer with a waveform editor, exact start and end controls, and instant MP3 and WAV export.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/opendoorlearning/" target="_blank" rel="noopener noreferrer">Open Door Learning</a></h3>
-                  <span class="pill">website</span>
-                </div>
-                <p>An informal, non-registered community project in Aotearoa New Zealand, providing children with free online learning tools, local places and community events through a bilingual website in English and te reo Māori.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/ytmp34/" target="_blank" rel="noopener noreferrer">YouTube to MP3/MP4</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>A simple desktop app that converts YouTube videos you’re allowed to download into MP3 or MP4 at your chosen quality, then saves the file to your device.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://cute-narwhal-b280a8.netlify.app/" target="_blank" rel="noopener noreferrer">Locked In</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>An offline-capable gym tracker you can install on your phone, with workout logging, calendar planning and progress photos that work without a signal.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/closet/" target="_blank" rel="noopener noreferrer">Closet</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>An outfit maker for putting together and exploring clothing combinations.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/claudeskills/" target="_blank" rel="noopener noreferrer">Claude Skills</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>A compiled library of Claude skills I’ve made to make working with AI more efficient and useful.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/strech-filters/" target="_blank" rel="noopener noreferrer">Strech</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>A playful camera experiment that lets you bend and distort your image with hand-tracked effects.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/minecraftinventory/#/" target="_blank" rel="noopener noreferrer">Minecraft Inventory Portfolio</a></h3>
-                  <span class="pill">website</span>
-                </div>
-                <p>A playful portfolio experience that reimagines my work as items inside a Minecraft-inspired inventory.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/My-Tools/halftone.html" target="_blank" rel="noopener noreferrer">Halftone Studio</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Turn images into newsprint-style halftone patterns, with adjustable dot size, screen angle, contrast and CMYK color separation. Export as PNG.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/LUTmaker/" target="_blank" rel="noopener noreferrer">LUT Maker</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Sample a reference image, shape its shadows, midtones and highlights, then export a .cube LUT for Lightroom, Premiere or Resolve.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/colorextractor/" target="_blank" rel="noopener noreferrer">Color Palette Extractor</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Extract dominant colors from a photo with k-means clustering, copy hex codes, and export a moodboard card with the image and swatches.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/ASCII-Camera/" target="_blank" rel="noopener noreferrer">ASCII Camera</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Convert a live webcam feed into adjustable text-character art, then save a snapshot as a PNG or text file.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/aotearoa-map/" target="_blank" rel="noopener noreferrer">Aotearoa Interactive Map</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>An antique-style gazetteer of Aotearoa’s cities, with an interactive index of pins revealing iwi, founding histories and verified facts.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/ManaMaths/" target="_blank" rel="noopener noreferrer">NCEA Math Study</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A study platform for NCEA Level 2 Maths with worked examples, practice questions and quizzes that track progress locally.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/pixelartstudio/" target="_blank" rel="noopener noreferrer">Pixel Art Studio</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Turn photos into palette-limited pixel art with live controls, retro presets and custom colors, then export the result as a PNG.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/VHS-Effect/" target="_blank" rel="noopener noreferrer">VHS Effect</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Add grain, chromatic aberration, scanlines and tracking distortion to an image, with effects presets and a REC/timecode overlay.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/goldenhourcalc/" target="_blank" rel="noopener noreferrer">Golden Hour / Blue Hour Calculator</a></h3>
-                  <span class="pill">tool</span>
-                </div>
-                <p>Find shoot-ready golden and blue hour windows based on location, date and sun position.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/CV/" target="_blank" rel="noopener noreferrer">Interactive CV</a></h3>
-                  <span class="pill">website</span>
-                </div>
-                <p>A one-page interactive resume with photos, expandable work history, filterable skills and certifications.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/typingarcade/" target="_blank" rel="noopener noreferrer">Typing Arcade</a></h3>
-                  <span class="pill">game</span>
-                </div>
-                <p>Six quick typing games, from falling letters to sentence sprints, with a score tracked for each round.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/nceacountdown/" target="_blank" rel="noopener noreferrer">NCEA Countdown</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>An assessment dashboard that tracks NCEA due dates and sorts them by urgency.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/macrotracker/" target="_blank" rel="noopener noreferrer">Macro Tracker</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>An offline-friendly meal logger that tracks calories and macros against daily targets without an account.</p>
-              </div>
-            </article>
-            <article class="code-row additional-project">
-              <div class="project-copy">
-                <div class="row-top">
-                  <h3><a href="https://averywsc.github.io/Riverbed/" target="_blank" rel="noopener noreferrer">Riverbed</a></h3>
-                  <span class="pill">app</span>
-                </div>
-                <p>A retirement and investing simulator that runs 2,000 possible futures at once, draws them as a flowing river, and projects real stock price histories forward.</p>
-              </div>
-            </article>
-        </div>
-      </section>
-    </div>
-  </main>
-</div>
+          if (selected === 'all') {
+            featuredCards.forEach((el) => { el.hidden = false; featuredGrid.appendChild(el); });
+            archiveCards.forEach((el) => {
+              el.hidden = false;
+              el.className = 'project-card project-item';
+              archiveGrid.appendChild(el);
+            });
+            featuredSection.hidden = false;
+            archiveSection.hidden = false;
+            featuredTitle.textContent = categoryNames.all;
+            featuredCount.textContent = String(featuredCards.length);
+            archiveCount.textContent = String(archiveCards.length);
+            document.title = 'averybeuth.xyz / code';
+          } else {
+            let shown = 0;
+            allCards.forEach((el) => {
+              const match = el.dataset.category === selected;
+              el.hidden = !match;
+              el.className = 'project-card project-item';
+              if (match) shown++;
+              featuredGrid.appendChild(el);
+            });
+            archiveSection.hidden = true;
+            featuredSection.hidden = shown === 0;
+            featuredTitle.textContent = categoryNames[selected];
+            featuredCount.textContent = String(shown);
+            document.title = 'averybeuth.xyz / ' + categoryNames[selected].toLowerCase();
+          }
+        };
 
-<script>
-  const codeScreenshots = {
-    'Ashfox': 'code-screenshots/ashfox.png',
-    'Loop': 'code-screenshots/loop.png',
-    'Cull': 'code-screenshots/cull.png',
-    'Drift': 'code-screenshots/drift.png',
-    'Movie Night Cinema': 'code-screenshots/movie-night-cinema.png',
-    'Daily12': 'code-screenshots/daily12.png',
-    'Cardbox': 'code-screenshots/cardbox.png',
-    'Worldloom': 'code-screenshots/worldloom.png',
-    'Meetpoint': 'code-screenshots/meetpoint.png',
-    'Reel Street Video': 'code-screenshots/reel-street-video.png',
-    'Orb Drift': 'code-screenshots/orb-drift.png',
-    'The Gallery': 'code-screenshots/the-gallery.png',
-    'CodeBeats': 'code-screenshots/codebeats.png',
-    'WiFi Fixer': 'code-screenshots/wifi-fixer.png',
-    'File Converter': 'code-screenshots/file-converter.png',
-    'Long Exposure 48': 'code-screenshots/long-exposure-48.jpeg',
-    'Live Wall': 'code-screenshots/live-wall.png',
-    'Roll Camera': 'code-screenshots/roll-camera.png',
-    'Study.Hub': 'code-screenshots/study-hub.png',
-    'Photo Editor': 'code-screenshots/photo-editor.png',
-    'Minecraft Inventory Portfolio': 'code-screenshots/minecraft-inventory-portfolio.png',
-    'Digital Citizens Aotearoa': 'code-screenshots/digital-citizens-aotearoa.png',
-    'Locked In': 'code-screenshots/locked-in.png',
-    'Screen Writing': 'code-screenshots/screen-writing.png',
-    'My Tools': 'code-screenshots/my-tools.png',
-    'Halftone Studio': 'code-screenshots/halftone-studio.png',
-    'LUT Maker': 'code-screenshots/lut-maker.png',
-    'Color Palette Extractor': 'code-screenshots/color-palette-extractor.png',
-    'ASCII Camera': 'code-screenshots/ascii-camera.png',
-    'Aotearoa Interactive Map': 'code-screenshots/aotearoa-map.png',
-    'NCEA Math Study': 'code-screenshots/ncea-maths.png',
-    'Pixel Art Studio': 'code-screenshots/pixel-art-studio.png',
-    'VHS Effect': 'code-screenshots/vhs-effect.png',
-    'Golden Hour / Blue Hour Calculator': 'code-screenshots/golden-hour.png',
-    'Interactive CV': 'code-screenshots/interactive-cv.png',
-    'Typing Arcade': 'code-screenshots/typing-arcade.png',
-    'NCEA Countdown': 'code-screenshots/ncea-countdown.png',
-    'Macro Tracker': 'code-screenshots/macro-tracker.png',
-    'Image to Song': 'code-screenshots/image-to-song.png',
-    'Riverbed': 'code-screenshots/riverbed.png',
-    'Orrery Score': 'code-screenshots/orrery-score.png',
-    'Cut Sheet': 'code-screenshots/lawnmow-quote.png',
-    'Lens Bench': 'code-screenshots/lens-bench.png',
-    'Ledgerline': 'code-screenshots/ledgerline.png',
-    'Call Sheet': 'code-screenshots/call-sheet.png',
-    'Closet': 'code-screenshots/closet.png',
-    'Claude Skills': 'code-screenshots/claude-skills.png',
-    'Strech': 'code-screenshots/strech.png',
-    'YouTube to MP3/MP4': 'code-screenshots/youtube-converter.png',
-    'Open Door Learning': 'code-screenshots/open-door-learning.png',
-    'Afterglow': 'code-screenshots/afterglow.png',
-    'Trim': 'code-screenshots/trim.png',
-    'Glow': 'code-screenshots/glow.png',
-    'WSCW Digiwise': 'code-screenshots/digiwise.png',
-    'Switchback': 'code-screenshots/switchback.png',
-    'Totone': 'code-screenshots/totone.png',
-    'Composition Basics': 'code-screenshots/composition-basics.png',
-    'Blank Music': 'code-screenshots/blank-music.png',
-    'Raycaster Episodes': 'code-screenshots/pump-station-9.png',
-    'Collage Lab 95': 'code-screenshots/collage-lab-95.png',
-    'Highpass': 'code-screenshots/highpass.png',
-    'Night Tape': 'code-screenshots/night-tape.png',
-    'Krillion Practice': 'code-screenshots/krillion-practice.png',
-    'Beat Brawl': 'code-screenshots/beat-brawl.png',
-    'Bigpasta': 'code-screenshots/bigpasta.png',
-    'Chrome Chase': 'code-screenshots/chrome-chase.png',
-    'StudyPal': 'code-screenshots/studypal.png',
-    'Leadline': 'code-screenshots/leadline.png',
-    'Plumb': 'code-screenshots/plumb.png',
-    'Tally': 'code-screenshots/tally.png',
-    'Zipline': 'code-screenshots/zipline.png',
-    'Sampler': 'code-screenshots/sampler.png',
-    'Tessera': 'code-screenshots/tessera.png'
-  };
+        const initCat = new URLSearchParams(window.location.search).get('category') || 'all';
+        applyCategory(initCat);
 
-  document.querySelectorAll('.code-row').forEach(row => {
-    const heading = row.querySelector('h3');
-    const title = heading ? heading.textContent.trim() : '';
-    const screenshot = codeScreenshots[title];
-    if (!screenshot) return;
-    const image = document.createElement('img');
-    image.className = 'code-screenshot';
-    image.src = screenshot;
-    image.alt = title + ' screenshot';
-    image.loading = 'lazy';
-    if (title === 'Long Exposure 48' || title === 'Roll Camera') image.classList.add('portrait-screenshot');
-    const projectLink = heading.querySelector('a');
-    if (projectLink) {
-      const imageLink = document.createElement('a');
-      imageLink.className = 'code-screenshot-link';
-      imageLink.href = projectLink.href;
-      imageLink.target = projectLink.target || '_blank';
-      imageLink.rel = projectLink.rel || 'noopener noreferrer';
-      imageLink.appendChild(image);
-      row.insertBefore(imageLink, row.firstChild);
-    } else {
-      row.insertBefore(image, row.firstChild);
-    }
-  });
-
-  const validCategories = new Set(['all', 'apps', 'app', 'vr', 'game', 'tool', 'website']);
-  const requestedCategory = new URLSearchParams(window.location.search).get('category');
-  const selectedCategory = validCategories.has(requestedCategory) ? requestedCategory : 'all';
-  const categoryNames = {
-    all: 'All projects',
-    apps: 'Apps',
-    app: 'Web Apps',
-    vr: 'VR',
-    game: 'Games',
-    tool: 'Tools',
-    website: 'Websites'
-  };
-  const sections = [...document.querySelectorAll('.code-section')];
-  const selectedSection = sections[0];
-  const additionalSection = sections[1];
-  const selectedList = selectedSection.querySelector('.code-list');
-  const projectRows = sections.flatMap(section => [...section.querySelectorAll('.code-row')]);
-
-  document.querySelectorAll('.code-filter a').forEach(link => {
-    const category = new URL(link.href).searchParams.get('category') || 'all';
-    if (category === selectedCategory) link.setAttribute('aria-current', 'page');
-  });
-
-  if (selectedCategory !== 'all') {
-    projectRows.forEach(row => selectedList.appendChild(row));
-    additionalSection.hidden = true;
-    selectedSection.querySelector('h2').textContent = categoryNames[selectedCategory];
-    selectedList.classList.add('category-projects');
-  }
-
-  const visibleRows = projectRows.filter(row => {
-    const pill = row.querySelector('.pill');
-    const category = pill ? pill.textContent.trim().toLowerCase() : '';
-    const visible = selectedCategory === 'all' || category === selectedCategory;
-    row.hidden = !visible;
-    return visible;
-  });
-
-  if (selectedCategory === 'all') {
-    sections.forEach(section => {
-      const rows = [...section.querySelectorAll('.code-row')];
-      const count = section.querySelector('.code-section-heading span');
-      if (count && rows.length) count.textContent = `01 — ${String(rows.length).padStart(2, '0')}`;
-    });
-  } else {
-    selectedSection.hidden = visibleRows.length === 0;
-    const count = selectedSection.querySelector('.code-section-heading span');
-    if (count) count.textContent = `01 — ${String(visibleRows.length).padStart(2, '0')}`;
-  }
-
-  document.title = selectedCategory === 'all'
-    ? 'Avery Beuth | Code'
-    : `Avery Beuth | ${categoryNames[selectedCategory]}`;
-</script>
-<script src="script.js"></script>
-</body>
+        filterLinks.forEach((link) => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const cat = link.dataset.cat || 'all';
+            const nextUrl = cat === 'all' ? 'code.html' : 'code.html?category=' + encodeURIComponent(cat);
+            history.replaceState(null, '', nextUrl);
+            applyCategory(cat);
+          });
+        });
+      })();
+    </script>
+  </body>
 </html>

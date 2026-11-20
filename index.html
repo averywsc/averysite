@@ -1,116 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Short films, screenplays, code projects and photography.">
-<meta name="theme-color" content="#000000">
-<meta property="og:title" content="Avery Beuth | Home">
-<meta property="og:description" content="Short films, screenplays, code projects and photography.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="logo.png">
-<meta property="og:image:alt" content="Avery Beuth AB logo">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Avery Beuth | Home">
-<meta name="twitter:description" content="Short films, screenplays, code projects and photography.">
-<meta name="twitter:image" content="logo.png">
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<title>Avery Beuth | Home</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<div id="shell">
-  <aside id="sidebar">
-    <div class="sidebar-top">
-      <a class="name" href="index.html">Avery Beuth</a>
-      <button id="site-settings-button" type="button" aria-label="Open settings">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/>
-        </svg>
-      </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0c0f" />
+    <meta name="description" content="Photographs, films, screenplays, music, and software by Avery Beuth." />
+    <meta property="og:title" content="averybeuth.xyz" />
+    <meta property="og:description" content="Photographs, films, screenplays, music, and software by Avery Beuth." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="logo.png" />
+    <link rel="icon" type="image/png" href="./favicon.png?v=11" />
+    <link rel="apple-touch-icon" href="./favicon.png?v=11" />
+    <title>averybeuth.xyz</title>
+    <link rel="stylesheet" href="./assets/gallery.css?v=11" />
+  </head>
+  <body>
+    <div id="loader" aria-hidden="true">
+      <div class="loader__line"><i></i></div>
     </div>
-    <nav class="mainnav">
-      <a href="photo.html">Photos</a>
-      <a href="film.html">Films</a>
-      <a href="music.html">Music</a>
-      <a href="scripts/index.html">Scripts</a>
-      <a href="code.html">Code</a>
+
+    <main id="stage">
+      <canvas id="gl" aria-hidden="true"></canvas>
+    </main>
+    <div id="scroll" aria-hidden="true"></div>
+
+    <a class="mark" id="mark" href="./">averybeuth.xyz</a>
+    <nav class="side-nav" aria-label="Portfolio">
+      <a href="./code.html">code</a>
+      <a href="./scripts/index.html">scripts</a>
+      <a href="./music.html">music</a>
+      <a href="./film.html">films</a>
+      <button type="button" id="sidePhotos">photos</button>
     </nav>
-  </aside>
 
-  <div id="sprockets"></div>
+    <nav class="nav-right" aria-label="Controls">
+      <button class="zoom-btn" id="zoomBtn" type="button">zoom</button>
+      <button class="all-photos" id="allPhotos" type="button">all photos</button>
+      <button class="sound" id="sound" type="button" aria-pressed="false">
+        <span class="sound__label">sound</span>
+      </button>
+    </nav>
 
-  <main id="stage">
-  <div class="strip" id="homeStrip"></div>
-    <script>
-      fetch('photo.html').then(response => response.text()).then(photoPage => {
-        const galleryBlock = photoPage.match(/const galleryImages = \[\.\.\.new Set\(\[(.*?)\]\)\];/s);
-        if (!galleryBlock) throw new Error('Could not find the Photos page gallery list');
-        const galleryImages = [...galleryBlock[1].matchAll(/'([^']+)'/g)].map(match => match[1]);
-        const list = [...new Set(galleryImages)];
-        const strip = document.getElementById('homeStrip');
-        const originalStripLength = 24;
-        strip.style.animationDuration = `${52 * list.length / originalStripLength}s`;
-        const shuffled = [...list];
-        let previousOrder = '';
-        try {
-          previousOrder = localStorage.getItem('averysite-title-strip-order') || '';
-        } catch (error) {}
+    <div class="progress" aria-hidden="true"><i></i></div>
+    <div class="hint" id="hint" aria-hidden="true"><span>hold space or scroll</span><i></i></div>
 
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const randomIndex = Math.floor(Math.random() * (i + 1));
-          [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
-        }
+    <section class="finale" id="finale">
+      <a class="finale__name" id="finaleName" href="./">
+        <img class="finale__wordmark" src="./wordmark.png" alt="avery beuth" />
+      </a>
+      <div class="finale__links">
+        <a class="finale__contact" id="finaleContact" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+      </div>
+      <nav class="finale__nav" aria-label="Portfolio sections">
+        <a href="./code.html">code</a>
+        <a href="./scripts/index.html">scripts</a>
+        <a href="./music.html">music</a>
+        <a href="./film.html">films</a>
+        <button type="button" id="finalePhotos">photos</button>
+      </nav>
+      <div class="finale__prompt" id="finalePrompt">click anywhere to browse photos</div>
+    </section>
 
-        if (shuffled.length > 1 && shuffled.join('|') === previousOrder) {
-          [shuffled[0], shuffled[1]] = [shuffled[1], shuffled[0]];
-        }
+    <div class="calm" id="calm" hidden></div>
+    <ul class="sr-only" id="srList" aria-label="Photographs"></ul>
+    <div class="cursor" id="cursor" aria-hidden="true"><i class="cursor__ring"></i><i class="cursor__dot"></i></div>
 
-        try {
-          localStorage.setItem('averysite-title-strip-order', shuffled.join('|'));
-        } catch (error) {}
-
-        const looped = [...shuffled, ...shuffled];
-        looped.forEach(name => {
-          const item = document.createElement('div');
-          item.className = 'strip-item';
-          const img = document.createElement('img');
-          let src = name.startsWith('photos/') || name.startsWith('films/') || name.startsWith('http')
-            ? name
-            : 'photos/' + name;
-          if (src.startsWith('photos/') && !src.startsWith('photos/optimized/') && !src.startsWith('photos/thumbs/')) {
-            const filename = src.slice(src.lastIndexOf('/') + 1);
-            const baseName = filename.replace(/\.[^.]+$/, '');
-            src = `photos/thumbs/${baseName}.jpg`;
-          }
-          img.src = src;
-          img.alt = '';
-          img.loading = 'lazy';
-          img.decoding = 'async';
-          img.fetchPriority = 'low';
-          item.appendChild(img);
-          strip.appendChild(item);
-        });
-        requestAnimationFrame(() => {
-          strip.classList.add('is-ready');
-          if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-            const animation = strip.getAnimations()[0];
-            if (animation) {
-              strip.addEventListener('mouseenter', () => animation.updatePlaybackRate(52 / 180));
-              strip.addEventListener('mouseleave', () => animation.updatePlaybackRate(1));
-            }
-          }
-        });
-      }).catch(e => console.error('Could not load the Photos page gallery for home strip', e));
-    </script>
-  </main>
-</div>
-
-<div class="fade-top" aria-hidden="true"></div>
-<div class="fade-bottom" aria-hidden="true"></div>
-
-<script src="script.js"></script>
-</body>
+    <script type="module" src="./assets/gallery.js?v=11"></script>
+  </body>
 </html>

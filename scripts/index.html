@@ -1,114 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avery Beuth | Scripts</title>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="apple-touch-icon" href="../logo.png">
-  <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
-  <div id="shell">
-    <aside id="sidebar">
-      <div class="sidebar-top">
-        <a class="name" href="../index.html">Avery Beuth</a>
-        <button id="site-settings-button" type="button" aria-label="Open settings">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/>
-          </svg>
-        </button>
-      </div>
-      <nav class="mainnav">
-        <a href="../photo.html">Photos</a>
-        <a href="../film.html">Films</a>
-        <a href="../music.html">Music</a>
-        <a href="index.html" class="active">Scripts</a>
-        <a href="../code.html">Code</a>
-      </nav>
-    </aside>
-
-    <div id="sprockets"></div>
-
-    <main id="stage">
-      <div class="page-content">
-        <div class="page-title">Scripts</div>
-        <div class="small-label">screenplay pieces, click on the title to view</div>
-        <div id="scriptCards" class="script-grid"></div>
-      </div>
-    </main>
-  </div>
-
-  <script src="../script.js"></script>
-  <script>
-    const parseScriptFile = (text) => {
-      const lines = text.split(/\r?\n/);
-      let title = '';
-      let subtitle = '';
-      let description = '';
-      let bodyStart = lines.length;
-
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (!title && /^#\s+/.test(line)) {
-          title = line.replace(/^#\s+/, '').trim();
-          continue;
-        }
-        if (!subtitle && /^###\s+/.test(line) && !/^(?:###\s+)?(?:FADE IN:|INT\.|EXT\.|SUPER:|CUT TO:|CUT TO BLACK|INSERT:|END\.)/i.test(line)) {
-          subtitle = line.replace(/^###\s+/, '').trim();
-          continue;
-        }
-        if (!description && /^\*.*\*$/.test(line)) {
-          description = line.replace(/^\*|\*$/g, '').trim();
-          continue;
-        }
-        if (line === 'FADE IN:' || /^###\s+/.test(line) || /^CUT\s+TO:/.test(line) || /^CUT\s+TO\s+BLACK/i.test(line) || /^INSERT:/.test(line) || /^SUPER:/.test(line)) {
-          bodyStart = i;
-          break;
-        }
-      }
-
-      return {
-        title,
-        subtitle,
-        description,
-        body: lines.slice(bodyStart).join('\n')
-      };
-    };
-
-    const buildScriptCard = (file, script) => {
-      const article = document.createElement('article');
-      article.className = 'script-card';
-      const slug = file.replace(/\.md$/, '');
-      const pdfHref = `pdfs/${slug}.pdf`;
-      article.innerHTML = `
-        <h3><a href="view.html?slug=${encodeURIComponent(slug)}">${script.title}</a></h3>
-        ${script.subtitle ? '<div class="script-subtitle">' + script.subtitle + '</div>' : ''}
-        ${script.description ? '<p class="script-description">' + script.description + '</p>' : ''}
-        <div class="script-card-actions">
-          <a class="script-download" href="${pdfHref}" download>Download PDF</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0c0f" />
+    <meta name="description" content="Screenplays written by Avery Beuth." />
+    <link rel="icon" type="image/png" href="../favicon.png?v=11" />
+    <link rel="apple-touch-icon" href="../favicon.png?v=11" />
+    <title>averybeuth.xyz / scripts</title>
+    <link rel="stylesheet" href="../assets/pages.css?v=11" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <aside class="site-rail">
+        <div class="rail-top">
+          <div class="rail-top-row">
+            <a class="rail-brand" href="../">averybeuth.xyz</a>
+            <a class="rail-handle" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          </div>
+          <nav class="rail-nav" aria-label="Portfolio">
+            <a href="../?zoom=1">photos</a>
+            <a href="../code.html">code</a>
+            <a href="./index.html" class="is-active">scripts</a>
+            <a href="../music.html">music</a>
+            <a href="../film.html">films</a>
+          </nav>
         </div>
-      `;
-      return article;
-    };
+        <div class="rail-meta">
+          <a href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          <a href="../privacy.html">privacy</a>
+        </div>
+      </aside>
 
-    fetch('manifest.json')
-      .then(res => res.json())
-      .then(files => Promise.all(files.map(async (file) => {
-        const text = await fetch(file).then(r => r.text());
-        return { file, ...parseScriptFile(text) };
-      })))
-      .then(scripts => {
-        const grid = document.getElementById('scriptCards');
-        scripts.forEach(script => {
-          grid.appendChild(buildScriptCard(script.file, script));
+      <main class="site-main">
+        <div class="page-wrap">
+          <header class="page-header">
+            <h1 class="page-title">Scripts</h1>
+            <p class="page-subtitle">screenplay pieces. click any title to read or download the pdf.</p>
+          </header>
+
+          <div id="scriptCards" class="script-grid"></div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const escapeHtml = (value) => String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+      const parseScriptFile = (text) => {
+        const lines = text.split(/\r?\n/);
+        let title = '';
+        let subtitle = '';
+        let description = '';
+
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (!title && /^#\s+/.test(line)) {
+            title = line.replace(/^#\s+/, '').trim();
+            continue;
+          }
+          if (!subtitle && /^###\s+/.test(line) && !/^(?:###\s+)?(?:FADE IN:|INT\.|EXT\.|SUPER:|CUT TO:|CUT TO BLACK|INSERT:|END\.)/i.test(line)) {
+            subtitle = line.replace(/^###\s+/, '').trim();
+            continue;
+          }
+          if (!description && /^\*.*\*$/.test(line)) {
+            description = line.replace(/^\*|\*$/g, '').trim();
+            continue;
+          }
+          if (line === 'FADE IN:' || /^###\s+/.test(line) || /^CUT\s+TO:/.test(line) || /^CUT\s+TO\s+BLACK/i.test(line) || /^INSERT:/.test(line) || /^SUPER:/.test(line)) {
+            break;
+          }
+        }
+        return { title, subtitle, description };
+      };
+
+      const buildScriptCard = (file, script) => {
+        const article = document.createElement('article');
+        article.className = 'script-card';
+        const slug = file.replace(/\.md$/, '');
+        const viewHref = 'view.html?slug=' + encodeURIComponent(slug);
+        const pdfHref = 'pdfs/' + slug + '.pdf';
+        article.innerHTML = `
+          <div>
+            <h3><a href="${viewHref}">${escapeHtml(script.title || slug)}</a></h3>
+            ${script.subtitle ? `<div class="script-card-sub">${escapeHtml(script.subtitle)}</div>` : ''}
+            ${script.description ? `<p class="script-card-desc">${escapeHtml(script.description)}</p>` : ''}
+          </div>
+          <div class="script-card-actions">
+            <a class="text-link" href="${viewHref}">read script</a>
+            <a class="text-link" href="${pdfHref}" download>download pdf</a>
+          </div>
+        `;
+        return article;
+      };
+
+      fetch('manifest.json')
+        .then((res) => res.json())
+        .then((files) => Promise.all(files.map(async (file) => {
+          const text = await fetch(file).then((r) => r.text());
+          return { file, ...parseScriptFile(text) };
+        })))
+        .then((scripts) => {
+          const grid = document.getElementById('scriptCards');
+          scripts.forEach((script) => grid.appendChild(buildScriptCard(script.file, script)));
+        })
+        .catch((err) => {
+          document.getElementById('scriptCards').innerHTML = '<div class="empty-state">Unable to load script files.</div>';
+          console.error(err);
         });
-      })
-      .catch(err => {
-        const grid = document.getElementById('scriptCards');
-        grid.innerHTML = '<div class="placeholder-card"><span>Scripts</span><strong>Unable to load script files.</strong></div>';
-        console.error(err);
-      });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

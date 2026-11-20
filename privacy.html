@@ -1,44 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avery Beuth | Privacy</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<div id="shell">
-  <aside id="sidebar">
-    <div class="sidebar-top">
-      <a class="name" href="index.html">Avery Beuth</a>
-      <button id="site-settings-button" type="button" aria-label="Open settings">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/></svg>
-      </button>
-    </div>
-    <nav class="mainnav">
-      <a href="photo.html">Photos</a>
-      <a href="film.html">Films</a>
-      <a href="music.html">Music</a>
-      <a href="scripts/index.html">Scripts</a>
-      <a href="code.html">Code</a>
-    </nav>
-  </aside>
-  <div id="sprockets"></div>
-  <main id="stage">
-    <div class="page-content">
-      <div class="script-page">
-        <div class="page-title">Privacy</div>
-        <div class="small-label">a short version</div>
-        <div class="script-body">
-          <p>I built and maintain this portfolio as a static website. It does not require an account and I do not intentionally collect or sell personal information.</p>
-          <p>Some projects linked from the Code page are hosted separately and may have their own privacy practices. Please check those sites directly.</p>
-          <p>Theme preferences are stored locally in your browser so the site can remember your display choice. No personal data is sent to me for that setting.</p>
-          <p class="privacy-copyright">&copy; 2026 Avery Beuth. All rights reserved.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0c0f" />
+    <link rel="icon" type="image/png" href="./favicon.png?v=11" />
+    <link rel="apple-touch-icon" href="./favicon.png?v=11" />
+    <title>averybeuth.xyz / privacy</title>
+    <link rel="stylesheet" href="./assets/pages.css?v=11" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <aside class="site-rail">
+        <div class="rail-top">
+          <div class="rail-top-row">
+            <a class="rail-brand" href="./">averybeuth.xyz</a>
+            <a class="rail-handle" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          </div>
+          <nav class="rail-nav" aria-label="Portfolio">
+            <a href="./?zoom=1">photos</a>
+            <a href="./code.html">code</a>
+            <a href="./scripts/index.html">scripts</a>
+            <a href="./music.html">music</a>
+            <a href="./film.html">films</a>
+          </nav>
         </div>
-      </div>
+        <div class="rail-meta">
+          <a href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          <a href="./privacy.html" class="is-active">privacy</a>
+        </div>
+      </aside>
+
+      <main class="site-main">
+        <div class="page-wrap page-wrap--narrow">
+          <header class="page-header">
+            <h1 class="page-title">Privacy</h1>
+            <p class="page-subtitle">a short version</p>
+          </header>
+
+          <div class="prose-body">
+            <p>I built and maintain this portfolio as a static website. It does not require an account and I do not intentionally collect, track, or sell personal information.</p>
+            <p>Some projects linked from the Code page are hosted separately and may have their own privacy practices. Please check those sites directly if you visit them.</p>
+            <p class="prose-note">&copy; 2026 Avery Beuth. All rights reserved.</p>
+          </div>
+        </div>
+      </main>
     </div>
-  </main>
-</div>
-<script src="script.js"></script>
-</body>
+  </body>
 </html>

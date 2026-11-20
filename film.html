@@ -1,79 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Short films, screenplays, code projects and photography.">
-<meta name="theme-color" content="#000000">
-<meta property="og:title" content="Avery Beuth | Film">
-<meta property="og:description" content="Short films, screenplays, code projects and photography.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="logo.png">
-<meta property="og:image:alt" content="Avery Beuth AB logo">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Avery Beuth | Film">
-<meta name="twitter:description" content="Short films, screenplays, code projects and photography.">
-<meta name="twitter:image" content="logo.png">
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<title>Avery Beuth | Film</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0c0f" />
+    <meta name="description" content="Short films and moving image work by Avery Beuth." />
+    <meta property="og:title" content="averybeuth.xyz / films" />
+    <meta property="og:description" content="Short films and moving image work by Avery Beuth." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="logo.png" />
+    <link rel="icon" type="image/png" href="./favicon.png?v=11" />
+    <link rel="apple-touch-icon" href="./favicon.png?v=11" />
+    <title>averybeuth.xyz / films</title>
+    <link rel="stylesheet" href="./assets/pages.css?v=11" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <aside class="site-rail">
+        <div class="rail-top">
+          <div class="rail-top-row">
+            <a class="rail-brand" href="./">averybeuth.xyz</a>
+            <a class="rail-handle" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          </div>
+          <nav class="rail-nav" aria-label="Portfolio">
+            <a href="./?zoom=1">photos</a>
+            <a href="./code.html">code</a>
+            <a href="./scripts/index.html">scripts</a>
+            <a href="./music.html">music</a>
+            <a href="./film.html" class="is-active">films</a>
+          </nav>
+        </div>
+        <div class="rail-meta">
+          <a href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">@avery.beuth</a>
+          <a href="./privacy.html">privacy</a>
+        </div>
+      </aside>
 
-<div id="shell">
-  <aside id="sidebar">
-    <div class="sidebar-top">
-      <a class="name" href="index.html">Avery Beuth</a>
-      <button id="site-settings-button" type="button" aria-label="Open settings">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3.5v2.3M12 18.2v2.3M4.93 4.93l1.63 1.63M17.44 17.44l1.63 1.63M3.5 12h2.3M18.2 12h2.3M4.93 19.07l1.63-1.63M17.44 6.56l1.63-1.63M12 7.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Z"/>
-        </svg>
-      </button>
-    </div>
-    <nav class="mainnav">
-      <a href="photo.html">Photos</a>
-      <a href="film.html" class="active">Films</a>
-      <a href="music.html">Music</a>
-      <a href="scripts/index.html">Scripts</a>
-      <a href="code.html">Code</a>
-    </nav>
-  </aside>
+      <main class="site-main">
+        <div class="page-wrap">
+          <header class="page-header">
+            <h1 class="page-title">Films</h1>
+            <p class="page-subtitle">short films and moving image</p>
+          </header>
 
-  <div id="sprockets"></div>
+          <div class="film-list">
+            <article class="film-entry">
+              <div class="film-frame">
+                <iframe
+                  src="https://www.youtube.com/embed/oQ_QTfFc2fk"
+                  title="Not Again"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="film-info">
+                <div>
+                  <h2 class="film-title film-title--not-again">Not Again</h2>
+                  <div class="film-credit">Nominated for Best School Team 2026</div>
+                </div>
+                <p class="film-notes">A 48 Hour Film Challenge short film by me and my friends’ team (Team Travis) in Auckland, following the mundane cycle of modern life and the quiet impact it can have on mental health.</p>
+              </div>
+            </article>
 
-  <main id="stage">
-    <div class="page-content">
-      <div class="page-title">Films</div>
-
-      <div class="film-list">
-        <div class="film-row">
-          <div>
-            <h3>Not Again</h3>
-            <div class="film-note">Nominated for Best School Team 2026</div>
-            <p>A 48 Hour Film Challenge entry made by Team Travis in Auckland, this escape film follows the mundane cycle of modern life and the quiet impact it can have on mental health.</p>
-            <div style="margin-top:12px; max-width:700px;">
-              <iframe width="100%" height="395" src="https://www.youtube.com/embed/oQ_QTfFc2fk" title="Not Again" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+            <article class="film-entry">
+              <div class="film-frame">
+                <iframe
+                  src="https://www.youtube.com/embed/vKKcA1aaA58?rel=0&amp;modestbranding=1"
+                  title="Not With a Bang"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="film-info">
+                <div>
+                  <h2 class="film-title film-title--not-with-a-bang">Not With a Bang</h2>
+                  <div class="film-credit">Best Cinematography Award, WSCW Media</div>
+                </div>
+                <p class="film-notes">A short film by me and Leo Rhind about the dangers of AI and the fragile nature of human connection, looking at how technology can reshape relationships while making genuine understanding harder to hold onto.</p>
+              </div>
+            </article>
           </div>
         </div>
-
-        <div class="film-row">
-          <div>
-            <h3>Not With a Bang</h3>
-            <div class="film-note">Best Cinematography Award, WSCW Media</div>
-            <p>A short film by Avery Beuth and Leo Rhind about the dangers of AI and the fragile nature of human connection, exploring how technology can reshape relationships while making genuine understanding harder to hold onto.</p>
-            <div style="margin-top:12px; max-width:700px;">
-              <iframe width="100%" height="395" src="https://www.youtube.com/embed/vKKcA1aaA58?rel=0&modestbranding=1" title="Not With a Bang" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      </main>
     </div>
-  </main>
-</div>
-
-<script src="script.js"></script>
-</body>
+  </body>
 </html>

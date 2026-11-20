@@ -12,6 +12,7 @@ import { World } from './scene.js'
 import { createLoaderUI, loadAtlases, createTexturePool } from './loader.js'
 import { Sound } from './sound.js'
 import { rgbToCss, linearToSrgb, luma } from './colors.js'
+import { createCursor } from './cursor.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -412,29 +413,19 @@ async function boot() {
   const finale = document.getElementById('finale')
 
   // ---- cursor ----
-  const cursor = document.getElementById('cursor')
-  const ring = cursor.querySelector('.cursor__ring'), dot = cursor.querySelector('.cursor__dot')
-  const cur = { x: innerWidth / 2, y: innerHeight / 2, rx: innerWidth / 2, ry: innerHeight / 2, dx: innerWidth / 2, dy: innerHeight / 2, hover: 0, ht: 0 }
-  if (finePointer && !isMobile()) {
-    document.documentElement.classList.add('has-cursor')
-    window.addEventListener('pointermove', (e) => {
-      if (e.pointerType && e.pointerType !== 'mouse') return
-      cur.x = e.clientX; cur.y = e.clientY
-      world.pointerActive = true
-      world.mouse.tx = (e.clientX / innerWidth) * 2 - 1
-      world.mouse.ty = (e.clientY / innerHeight) * 2 - 1
-      cursor.classList.add('is-on')
-    })
-    document.addEventListener('pointerleave', () => {
-      cursor.classList.remove('is-on')
-      world.pointerActive = false
-      world.mouse.tx = world.mouse.ty = 0
-    })
-    document.querySelectorAll('a, button').forEach((el) => {
-      el.addEventListener('pointerenter', () => (cur.ht = 1))
-      el.addEventListener('pointerleave', () => (cur.ht = 0))
-    })
-  }
+  const cursor = !isMobile()
+    ? createCursor({
+        onMove: (e) => {
+          world.pointerActive = true
+          world.mouse.tx = (e.clientX / innerWidth) * 2 - 1
+          world.mouse.ty = (e.clientY / innerHeight) * 2 - 1
+        },
+        onLeave: () => {
+          world.pointerActive = false
+          world.mouse.tx = world.mouse.ty = 0
+        },
+      })
+    : null
 
   // ---- resize ----
   let rt
@@ -513,7 +504,7 @@ async function boot() {
     const live = !finaleDismissed && state.text > 0.45
     const targetText = locked ? 1 : (finaleDismissed ? 0 : state.text)
     textMix += (targetText - textMix) * (1 - Math.exp(-8.5 * dt))
-    const hoverDim = locked || cur.ht > 0 ? 0 : out.hoverAmount * 0.22
+    const hoverDim = locked || cursor?.state.uiHover ? 0 : out.hoverAmount * 0.22
     const tx = textMix * (1 - hoverDim)
     finale.style.opacity = tx.toFixed(3)
     finale.style.transform = locked ? 'none' : `translate3d(0, ${((1 - state.text) * 14).toFixed(2)}px, 0)`
@@ -521,20 +512,14 @@ async function boot() {
     document.body.classList.toggle('nav-aside', !live)
     if (zoomBtn) zoomBtn.classList.toggle('is-hidden', out.mosaicMode <= 0.65)
 
-    // Cursor reacts softly to both interactive UI and hovered prints on the wall
-    if (finePointer && !isMobile()) {
-      const k = 1 - Math.exp(-dt * 9), k2 = 1 - Math.exp(-dt * 26)
-      cur.rx += (cur.x - cur.rx) * k; cur.ry += (cur.y - cur.ry) * k
-      cur.dx += (cur.x - cur.dx) * k2; cur.dy += (cur.y - cur.dy) * k2
-      const targetHover = Math.max(cur.ht, out.hoveredIdx >= 0 ? 0.65 : 0)
-      cur.hover += (targetHover - cur.hover) * (1 - Math.exp(-dt * 8))
-      const v = Math.min(1, Math.abs(lenis.velocity || 0) / 40)
-      const s = 1 + cur.hover * 0.7 + v * 0.25
-      ring.style.transform = `translate3d(${cur.rx}px, ${cur.ry}px, 0) scale(${s.toFixed(3)}, ${(s * (1 - v * 0.12)).toFixed(3)})`
-      dot.style.transform = `translate3d(${cur.dx}px, ${cur.dy}px, 0) scale(${(1 - cur.hover * 0.5).toFixed(3)})`
+    // Crisp vector cursor reacts clearly to interactive controls vs hovered prints on the wall
+    if (cursor && !isMobile()) {
       const tint = linearToSrgb(out.ambient.map((c) => Math.min(1, c * 9 + 0.55)))
-      ring.style.borderColor = rgbToCss(tint, 0.3 + cur.hover * 0.25)
-      ring.style.backgroundColor = rgbToCss(tint, cur.hover * 0.06)
+      cursor.update(dt, {
+        photoHover: out.hoveredIdx >= 0,
+        velocity: lenis.velocity || 0,
+        tintColor: (alpha) => rgbToCss(tint, alpha),
+      })
     }
 
     if (elapsed > 3.0) {

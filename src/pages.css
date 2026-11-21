@@ -213,10 +213,34 @@ img {
 }
 
 .page-actions {
-  margin-top: 14px;
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.page-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 4px;
+  border: 1px solid rgba(236, 230, 220, 0.24);
+  background: rgba(236, 230, 220, 0.06);
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: clamp(20px, 2.2vw, 25px);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  color: rgba(244, 238, 228, 0.94);
+  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.page-cta:hover {
+  background: rgba(236, 230, 220, 0.13);
+  border-color: rgba(244, 238, 228, 0.5);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 /* Quiet editorial text link */

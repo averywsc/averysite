@@ -212,6 +212,13 @@ img {
   color: var(--ink-soft);
 }
 
+.page-actions {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 /* Quiet editorial text link */
 .text-link {
   display: inline-flex;
@@ -394,15 +401,15 @@ img {
 
 /* ---------- Films Page ---------- */
 .film-list {
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 44px 28px;
 }
 
 .film-entry {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .film-frame {
@@ -423,9 +430,9 @@ img {
 }
 
 .film-info {
-  display: grid;
-  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding-top: 4px;
 }
 
@@ -926,7 +933,8 @@ img {
   .featured-grid,
   .archive-grid,
   .featured-grid.is-filtered,
-  .script-grid {
+  .script-grid,
+  .film-list {
     grid-template-columns: 1fr;
     gap: 24px;
   }

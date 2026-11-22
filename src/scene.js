@@ -398,7 +398,8 @@ export class World {
 
     const lensR = (mos.W * 0.125) / Math.sqrt(this.wallZoom)
     const lensR2 = 2 * lensR * lensR
-    const lensPower = this.lens.strength * mosaicMode
+    const lockScale = this.locked ? 0.22 : 1
+    const lensPower = this.lens.strength * mosaicMode * lockScale
 
     const camZ = cam.position.z
     const far = cfg.layout.fogFar
@@ -498,7 +499,7 @@ export class World {
       }
       let rotX = 0
       if (it.hover > 0.001) {
-        const hv = it.hover
+        const hv = it.hover * lockScale
         if (mosaicMode > 0.5) {
           z += (hv * 0.6) / Math.sqrt(this.wallZoom)
           s *= 1 + hv * 0.16

@@ -57,6 +57,18 @@ export function createCursor({ onMove, onLeave } = {}) {
     onMove?.(e, cur)
   }, { passive: true })
 
+  window.addEventListener('pointerdown', (e) => {
+    if (e.pointerType && e.pointerType !== 'mouse') return
+    const pulse = document.createElement('span')
+    pulse.className = 'cursor__pulse'
+    pulse.style.left = `${e.clientX}px`
+    pulse.style.top = `${e.clientY}px`
+    pulse.innerHTML = '<svg viewBox="0 0 64 64" width="64" height="64" shape-rendering="geometricPrecision"><circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="2" /></svg>'
+    document.body.appendChild(pulse)
+    requestAnimationFrame(() => pulse.classList.add('is-active'))
+    setTimeout(() => pulse.remove(), 380)
+  }, { passive: true })
+
   document.documentElement.addEventListener('mouseleave', () => {
     cur.visible = false
     cur.uiHover = false

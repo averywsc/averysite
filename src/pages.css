@@ -37,6 +37,31 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(236, 230, 220, 0.2) transparent;
+}
+
+::selection {
+  background: rgba(242, 236, 226, 0.9);
+  color: #0b0c0f;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(236, 230, 220, 0.18);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 230, 220, 0.34);
 }
 
 body {
@@ -176,6 +201,23 @@ img {
 }
 
 .rail-meta a:hover {
+  color: var(--ink-soft);
+}
+
+.egg-trigger {
+  width: fit-content;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  opacity: 0;
+  padding: 2px 0;
+  transition: opacity 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.egg-trigger:hover,
+.egg-trigger:focus-visible {
+  opacity: 1;
   color: var(--ink-soft);
 }
 

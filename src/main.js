@@ -403,6 +403,12 @@ async function boot() {
       showCornerToast(on ? 'darkroom on' : 'darkroom off')
       return
     }
+    if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault()
+      const n = layout.planes.length
+      if (n) inspectPhoto(Math.floor(Math.random() * n))
+      return
+    }
     if (e.key === 'Escape') {
       if (world.inspectIdx >= 0) {
         e.preventDefault()

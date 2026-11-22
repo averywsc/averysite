@@ -110,11 +110,107 @@ function showCatPeek() {
   cat._hide = setTimeout(() => { cat.style.transform = 'translateY(100%)' }, 3800)
 }
 
+function toggleCrt() {
+  const on = document.documentElement.classList.toggle('is-crt')
+  let overlay = document.getElementById('crtOverlay')
+  if (on && !overlay) {
+    overlay = document.createElement('div')
+    overlay.id = 'crtOverlay'
+    overlay.setAttribute('aria-hidden', 'true')
+    overlay.style.cssText = [
+      'position:fixed',
+      'inset:0',
+      'pointer-events:none',
+      'z-index:9994',
+      'background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,0.22) 3px),radial-gradient(ellipse 85% 85% at 50% 50%,transparent 58%,rgba(0,0,0,0.42) 100%)',
+    ].join(';')
+    document.body.appendChild(overlay)
+  } else if (!on && overlay) {
+    overlay.remove()
+  }
+  showCornerToast(on ? 'crt on' : 'crt off')
+}
+
+function openSecretsModal() {
+  let modal = document.getElementById('eggModal')
+  if (!modal) {
+    modal = document.createElement('div')
+    modal.id = 'eggModal'
+    modal.setAttribute('role', 'dialog')
+    modal.setAttribute('aria-modal', 'true')
+    modal.setAttribute('aria-label', 'Easter egg binds')
+    modal.style.cssText = [
+      'position:fixed',
+      'inset:0',
+      'z-index:9999',
+      'display:flex',
+      'align-items:center',
+      'justify-content:center',
+      'padding:24px',
+      'background:rgba(11,12,15,0.78)',
+      'backdrop-filter:blur(10px)',
+      '-webkit-backdrop-filter:blur(10px)',
+      'opacity:0',
+      'transition:opacity 0.25s ease',
+    ].join(';')
+
+    modal.innerHTML = `
+      <div style="width:min(440px,100%);background:#111318;border:1px solid rgba(236,230,220,0.16);border-radius:6px;padding:26px 26px 22px;color:rgba(236,230,220,0.92);box-shadow:0 24px 64px rgba(0,0,0,0.65);">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px;">
+          <h2 style="font-family:'Dotmatri',ui-monospace,monospace;font-weight:400;font-size:22px;letter-spacing:0.05em;">easter eggs</h2>
+          <button type="button" data-close-eggs style="font-family:'Dotmatri',ui-monospace,monospace;font-size:13px;letter-spacing:0.08em;color:rgba(236,230,220,0.56);padding:4px 6px;">close</button>
+        </div>
+        <dl style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 18px;font-size:13px;line-height:1.5;">
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">d</dt><dd style="color:rgba(236,230,220,0.64);">darkroom safelight mode (photos)</dd>
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">r</dt><dd style="color:rgba(236,230,220,0.64);">fly to a random photo (photos)</dd>
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">← / →</dt><dd style="color:rgba(236,230,220,0.64);">step between photos (photos)</dd>
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">/</dt><dd style="color:rgba(236,230,220,0.64);">focus project search (code)</dd>
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">meow</dt><dd style="color:rgba(236,230,220,0.64);">dot-matrix cat peek</dd>
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">stars</dt><dd style="color:rgba(236,230,220,0.64);">toggle cursor sparkles</dd>
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">crt</dt><dd style="color:rgba(236,230,220,0.64);">toggle crt scanlines</dd>
+          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">↑↑↓↓←→←→ba</dt><dd style="color:rgba(236,230,220,0.64);">dot confetti burst</dd>
+        </dl>
+      </div>
+    `
+
+    const close = () => {
+      modal.style.opacity = '0'
+      setTimeout(() => { modal.hidden = true }, 240)
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target.closest('[data-close-eggs]')) close()
+    })
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hidden) {
+        e.preventDefault()
+        close()
+      }
+    })
+    document.body.appendChild(modal)
+  }
+
+  modal.hidden = false
+  requestAnimationFrame(() => { modal.style.opacity = '1' })
+}
+
+function mountPrivacyEasterEggLink() {
+  const railMeta = document.querySelector('.rail-meta')
+  if (!railMeta || railMeta.querySelector('.egg-trigger')) return
+  const btn = document.createElement('button')
+  btn.type = 'button'
+  btn.className = 'egg-trigger'
+  btn.textContent = 'secrets'
+  btn.addEventListener('click', openSecretsModal)
+  railMeta.appendChild(btn)
+}
+
 export function initEasterEggs() {
   if (booted) return
   booted = true
 
   console.log('%caverybeuth.xyz', 'font-family:monospace;font-size:14px;color:#f4eee4;')
+  mountPrivacyEasterEggLink()
 
   let buffer = ''
   const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
@@ -178,6 +274,9 @@ export function initEasterEggs() {
       buffer = ''
       starsOn = !starsOn
       showCornerToast(starsOn ? 'stars on' : 'stars off')
+    } else if (buffer.endsWith('crt')) {
+      buffer = ''
+      toggleCrt()
     }
   })
 }

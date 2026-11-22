@@ -561,6 +561,21 @@ img {
   background: #060709;
 }
 
+.film-frame--soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(236, 230, 220, 0.025);
+  border: 1px dashed var(--line-strong);
+}
+
+.film-soon-label {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+}
+
 .film-frame iframe {
   position: absolute;
   inset: 0;
@@ -796,6 +811,19 @@ img {
   font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--ink-faint);
+}
+
+.album-player-wrap {
+  margin-top: 10px;
+  max-width: 560px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #0f1116;
+}
+
+.album-player-wrap iframe {
+  display: block;
 }
 
 .album-listen-btn {

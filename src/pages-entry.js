@@ -77,10 +77,56 @@ function initPortfolioListen() {
   })
 }
 
+function initSoundCloudPreviews() {
+  const rows = [...document.querySelectorAll('.album-row')]
+  if (!rows.length) return
+
+  let openPlayer = null
+  const closeCurrent = () => {
+    if (!openPlayer) return
+    openPlayer.btn.setAttribute('aria-expanded', 'false')
+    openPlayer.btn.textContent = 'play preview'
+    openPlayer.wrap.remove()
+    openPlayer = null
+  }
+
+  rows.forEach((row) => {
+    const scLink = row.querySelector('.album-actions a[href*="soundcloud.com"]')
+    const actions = row.querySelector('.album-actions')
+    const body = row.querySelector('.album-body')
+    if (!scLink || !actions || !body) return
+
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'text-link'
+    btn.setAttribute('aria-expanded', 'false')
+    btn.textContent = 'play preview'
+    actions.insertBefore(btn, actions.firstChild)
+
+    btn.addEventListener('click', () => {
+      if (openPlayer?.btn === btn) {
+        closeCurrent()
+        return
+      }
+      closeCurrent()
+      const wrap = document.createElement('div')
+      wrap.className = 'album-player-wrap'
+      const isSet = scLink.href.includes('/sets/')
+      const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(scLink.href)}&color=%23ece6dc&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`
+      wrap.innerHTML = `<iframe title="SoundCloud preview" width="100%" height="${isSet ? 300 : 120}" scrolling="no" frameborder="no" allow="autoplay" src="${src}"></iframe>`
+      body.appendChild(wrap)
+      btn.setAttribute('aria-expanded', 'true')
+      btn.textContent = 'close preview'
+      openPlayer = { btn, wrap }
+    })
+  })
+}
+
 function boot() {
   initEasterEggs()
   startCursorLoop()
   initPortfolioListen()
+  initSoundCloudPreviews()
   initAmbientGlow()
 }
 

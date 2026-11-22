@@ -37,6 +37,7 @@ function initAmbientGlow() {
     const hit = resolveGlow(e.target)
     if (!hit) return
     activeEl = hit.el
+    hoverGlowLock = true
     root.style.setProperty('--glow-rgb', hit.rgb)
     root.style.setProperty('--glow-alpha', '1')
   }
@@ -44,7 +45,10 @@ function initAmbientGlow() {
     if (!activeEl) return
     if (e.relatedTarget && activeEl.contains(e.relatedTarget)) return
     activeEl = null
-    root.style.setProperty('--glow-alpha', '0')
+    hoverGlowLock = false
+    if (!anyPreviewPlaying && !document.querySelector('[data-portfolio-listen].is-playing')) {
+      root.style.setProperty('--glow-alpha', '0')
+    }
   }
   document.addEventListener('mouseover', enter)
   document.addEventListener('focusin', enter)
@@ -56,7 +60,7 @@ function initPortfolioListen() {
   const controls = [...document.querySelectorAll('[data-portfolio-listen]')]
   if (!controls.length) return
 
-  const sound = new Sound()
+  const sound = (activePortfolioSound = new Sound())
   const sync = (playing) => {
     controls.forEach((el) => {
       el.classList.toggle('is-playing', playing)
@@ -78,6 +82,9 @@ function initPortfolioListen() {
 }
 
 let anyPreviewPlaying = false
+let activePreviewGlow = null
+let activePortfolioSound = null
+let hoverGlowLock = false
 
 function createScratchSynth() {
   let ctx = null
@@ -247,11 +254,41 @@ function initMusicVinyl() {
   let angle = window.scrollY * 0.35
   let playSpin = 0
   let last = performance.now()
+  let smoothPulse = 0
+  const root = document.body
+
   const tick = (now) => {
     const dt = Math.min(0.05, (now - last) / 1000)
     last = now
     const portfolioPlaying = Boolean(document.querySelector('[data-portfolio-listen].is-playing'))
-    if (anyPreviewPlaying || portfolioPlaying) playSpin += dt * 42
+    const isPlaying = anyPreviewPlaying || portfolioPlaying
+
+    if (isPlaying) {
+      playSpin += dt * 42
+      let rawPulse = 0
+      if (portfolioPlaying && activePortfolioSound) {
+        rawPulse = activePortfolioSound.getLevel()
+      } else {
+        // Subtle organic beat-like pulse for cross-origin SoundCloud previews
+        const t = now * 0.001
+        rawPulse = Math.pow(0.5 + 0.5 * Math.sin(t * Math.PI * 3.1), 2) * 0.55 + (0.5 + 0.5 * Math.sin(t * 1.4)) * 0.25
+      }
+      smoothPulse += (rawPulse - smoothPulse) * Math.min(1, dt * 8)
+      root.style.setProperty('--vinyl-pulse', smoothPulse.toFixed(3))
+      if (!hoverGlowLock) {
+        const rgb = portfolioPlaying ? '196, 196, 206' : (activePreviewGlow || '196, 196, 206')
+        root.style.setProperty('--glow-rgb', rgb)
+        root.style.setProperty('--glow-alpha', (0.72 + smoothPulse * 0.65).toFixed(3))
+      }
+      stage.style.filter = `drop-shadow(0 0 ${(18 + smoothPulse * 26).toFixed(1)}px rgba(${portfolioPlaying ? '220,216,208' : (activePreviewGlow || '220,216,208')}, ${(0.08 + smoothPulse * 0.16).toFixed(3)}))`
+    } else {
+      smoothPulse += (0 - smoothPulse) * Math.min(1, dt * 6)
+      root.style.setProperty('--vinyl-pulse', smoothPulse.toFixed(3))
+      if (!hoverGlowLock && smoothPulse < 0.01) {
+        root.style.setProperty('--glow-alpha', '0')
+      }
+      stage.style.filter = ''
+    }
 
     if (!dragging) {
       dragOffset += scratchVel * dt
@@ -288,6 +325,7 @@ function initSoundCloudPreviews() {
     openPlayer.wrap.remove()
     openPlayer = null
     anyPreviewPlaying = false
+    activePreviewGlow = null
   }
 
   rows.forEach((row) => {
@@ -327,6 +365,7 @@ function initSoundCloudPreviews() {
       btn.innerHTML = stopIcon
       openPlayer = { btn, wrap }
       anyPreviewPlaying = true
+      activePreviewGlow = row.dataset.glow || null
     })
   })
 }

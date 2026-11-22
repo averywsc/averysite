@@ -298,9 +298,9 @@ export class World {
     const n2 = Math.sin(elapsed * 0.41 + 2.1) * 0.6 + Math.sin(elapsed * 1.07 + 0.9) * 0.3 + Math.sin(elapsed * 2.71 + 2.2) * 0.1
     const n3 = Math.sin(elapsed * 0.29 + 4.0) * 0.7 + Math.sin(elapsed * 0.83 + 1.1) * 0.3
 
-    // heavy damped mouse lean (quiet when locked on landing screen)
-    const targetMX = this.locked ? 0 : this.mouse.tx
-    const targetMY = this.locked ? 0 : this.mouse.ty
+    // heavy damped mouse lean (gentle parallax when locked on landing screen)
+    const targetMX = this.locked ? this.mouse.tx * 0.42 : this.mouse.tx
+    const targetMY = this.locked ? this.mouse.ty * 0.42 : this.mouse.ty
     this.mouse.x = damp(this.mouse.x, targetMX, C.mouseDamping, dt)
     this.mouse.y = damp(this.mouse.y, targetMY, C.mouseDamping, dt)
     const lean = (C.mouseLean * Math.PI) / 180
@@ -438,6 +438,14 @@ export class World {
         s = 1 + (targetS - 1) * e
         rotZ = p.rotZ + (sl.rotZ - p.rotZ) * e
         rotY = p.rotY * (1 - e)
+        if (this.locked && OA > 0.7) {
+          const drift = Math.sin(elapsed * 0.65 + sl.x * 0.28 + sl.y * 0.36 + p.seed)
+          const drift2 = Math.cos(elapsed * 0.42 + sl.y * 0.24 - sl.x * 0.18 + p.seed)
+          z += drift * 0.28 * e
+          x += drift2 * 0.04 * e
+          y += Math.sin(elapsed * 0.51 + p.seed) * 0.04 * e
+          rotY += drift2 * 0.025 * e
+        }
         const d0 = camZ - z
         if (OA < 0.99 && !(idx === this.inspectIdx && this.inspectMix > 0.15)) {
           alpha = smooth(p.fadeNear[0], p.fadeNear[1], d0) * (1 - smooth(far * 0.72, far, d0) * (1 - e))

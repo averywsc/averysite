@@ -471,6 +471,10 @@ async function boot() {
 
   // ---- sound ----
   const sound = new Sound()
+  const unlockSfx = () => sound.unlockSfx()
+  window.addEventListener('pointerdown', unlockSfx, { once: true, passive: true })
+  window.addEventListener('keydown', unlockSfx, { once: true, passive: true })
+  window.addEventListener('wheel', unlockSfx, { once: true, passive: true })
   const soundBtn = document.getElementById('sound')
   soundBtn.addEventListener('click', () => {
     const on = sound.toggle()

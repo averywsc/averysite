@@ -236,6 +236,10 @@ img {
   max-width: 780px;
 }
 
+.page-wrap--pdf {
+  max-width: 1220px;
+}
+
 .page-header {
   padding-bottom: 12px;
   margin-bottom: 32px;
@@ -991,7 +995,8 @@ img {
 
 .script-pdf-frame {
   width: 100%;
-  height: min(76vh, 920px);
+  height: min(88vh, 1180px);
+  min-height: 760px;
   border: 0;
   border-radius: 3px;
   background: #14161c;

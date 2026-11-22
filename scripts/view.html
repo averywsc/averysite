@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b0c0f" />
-    <link rel="icon" type="image/png" href="../favicon.png?v=19" />
-    <link rel="apple-touch-icon" href="../favicon.png?v=19" />
+    <link rel="icon" type="image/png" href="../favicon.png?v=20" />
+    <link rel="apple-touch-icon" href="../favicon.png?v=20" />
     <meta property="og:image" content="https://averybeuth.xyz/og-preview.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://averybeuth.xyz/og-preview.jpg" />
     <title>averybeuth.xyz / script</title>
-    <link rel="stylesheet" href="../assets/pages.css?v=19" />
+    <link rel="stylesheet" href="../assets/pages.css?v=20" />
   </head>
   <body>
     <div class="site-shell">
@@ -193,9 +193,14 @@
           const script = parseScriptFile(text);
           document.title = `averybeuth.xyz / ${script.title || slug}`;
           const hasText = script.body.trim().length > 0;
+          const wrap = document.querySelector('.page-wrap');
+          if (!hasText && wrap) {
+            wrap.classList.remove('page-wrap--narrow');
+            wrap.classList.add('page-wrap--pdf');
+          }
           const bodyHtml = hasText
             ? `<div class="screenplay-body">${renderScriptBody(script.body)}</div>`
-            : `<iframe class="script-pdf-frame" src="${pdfHref}#view=FitH" title="${escapeHtml(script.title || slug)} PDF"></iframe>`;
+            : `<iframe class="script-pdf-frame" src="${pdfHref}#toolbar=1&navpanes=0&view=FitW" title="${escapeHtml(script.title || slug)} PDF"></iframe>`;
           document.getElementById('scriptDetail').innerHTML = `
             <header class="script-doc-header">
               <h1>${escapeHtml(script.title || slug)}</h1>
@@ -229,6 +234,6 @@
         })
         .catch(() => {});
     </script>
-    <script type="module" src="../assets/pages.js?v=19"></script>
+    <script type="module" src="../assets/pages.js?v=20"></script>
 </body>
 </html>

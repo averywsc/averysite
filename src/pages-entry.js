@@ -15,23 +15,41 @@ import { startCursorLoop } from './cursor.js'
 import { Sound } from './sound.js'
 import { initEasterEggs } from './easter-eggs.js'
 
-function initMusicGlow() {
-  const rows = [...document.querySelectorAll('.album-row[data-glow]')]
-  if (!rows.length) return
+const CATEGORY_GLOW = {
+  game: '214, 152, 92',
+  tool: '110, 164, 212',
+  app: '146, 142, 216',
+  apps: '184, 198, 212',
+  vr: '184, 118, 206',
+  website: '216, 198, 162',
+}
+
+function initAmbientGlow() {
   const root = document.body
-  rows.forEach((row) => {
-    const activate = () => {
-      root.style.setProperty('--glow-rgb', row.dataset.glow)
-      root.style.setProperty('--glow-alpha', '1')
-    }
-    const deactivate = () => {
-      root.style.setProperty('--glow-alpha', '0')
-    }
-    row.addEventListener('mouseenter', activate)
-    row.addEventListener('focusin', activate)
-    row.addEventListener('mouseleave', deactivate)
-    row.addEventListener('focusout', deactivate)
-  })
+  let activeEl = null
+  const resolveGlow = (target) => {
+    const el = target?.closest?.('.album-row[data-glow], .script-card[data-glow], .project-card')
+    if (!el) return null
+    const rgb = el.dataset.glow || (el.classList.contains('project-card') ? (CATEGORY_GLOW[el.dataset.category] || '196, 196, 206') : '')
+    return rgb ? { el, rgb } : null
+  }
+  const enter = (e) => {
+    const hit = resolveGlow(e.target)
+    if (!hit) return
+    activeEl = hit.el
+    root.style.setProperty('--glow-rgb', hit.rgb)
+    root.style.setProperty('--glow-alpha', '1')
+  }
+  const leave = (e) => {
+    if (!activeEl) return
+    if (e.relatedTarget && activeEl.contains(e.relatedTarget)) return
+    activeEl = null
+    root.style.setProperty('--glow-alpha', '0')
+  }
+  document.addEventListener('mouseover', enter)
+  document.addEventListener('focusin', enter)
+  document.addEventListener('mouseout', leave)
+  document.addEventListener('focusout', leave)
 }
 
 function initPortfolioListen() {
@@ -63,7 +81,7 @@ function boot() {
   initEasterEggs()
   startCursorLoop()
   initPortfolioListen()
-  initMusicGlow()
+  initAmbientGlow()
 }
 
 if (document.readyState === 'loading') {

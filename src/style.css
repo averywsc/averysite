@@ -215,26 +215,30 @@ body::before {
   .finale__wordmark { animation: none; opacity: 0.95; }
 }
 
-/* ---------- darkroom easter egg (press d) ---------- */
-html.is-darkroom #gl {
-  filter: sepia(1) hue-rotate(-52deg) saturate(2.5) brightness(0.76) contrast(1.08);
-  transition: filter 0.6s var(--ease);
-}
-html.is-darkroom #stage::after {
-  content: '';
+.photo-counter {
   position: fixed;
-  inset: 0;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 6;
   pointer-events: none;
-  z-index: 2;
-  background: radial-gradient(ellipse 85% 85% at 50% 50%, rgba(185, 22, 18, 0.36), rgba(70, 4, 4, 0.72));
-  mix-blend-mode: multiply;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: rgba(244, 238, 228, 0.78);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.92);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
 }
-html.is-darkroom .mark,
-html.is-darkroom .side-nav,
-html.is-darkroom .nav-right,
-html.is-darkroom .hint,
-html.is-darkroom .finale {
-  color: rgba(255, 118, 108, 0.92);
+.photo-counter.is-on {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 760px) {
+  .photo-counter {
+    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 56px);
+    right: max(16px, env(safe-area-inset-right));
+    font-size: 12px;
+  }
 }
 .finale__prompt {
   margin-top: 6px;

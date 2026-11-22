@@ -113,6 +113,16 @@ function showCatPeek() {
 function toggleCrt() {
   const on = document.documentElement.classList.toggle('is-crt')
   let overlay = document.getElementById('crtOverlay')
+  let style = document.getElementById('crtStyle')
+  if (on && !style) {
+    style = document.createElement('style')
+    style.id = 'crtStyle'
+    style.textContent = [
+      'html.is-crt body{filter:contrast(1.1) brightness(1.04) saturate(1.08);}',
+      'html.is-crt h1,html.is-crt h2,html.is-crt .rail-brand,html.is-crt .mark{text-shadow:1px 0 0 rgba(255,60,90,0.38),-1px 0 0 rgba(70,220,255,0.38),0 0 10px rgba(244,238,228,0.22);}',
+    ].join('')
+    document.head.appendChild(style)
+  }
   if (on && !overlay) {
     overlay = document.createElement('div')
     overlay.id = 'crtOverlay'
@@ -122,11 +132,13 @@ function toggleCrt() {
       'inset:0',
       'pointer-events:none',
       'z-index:9994',
-      'background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,0.22) 3px),radial-gradient(ellipse 85% 85% at 50% 50%,transparent 58%,rgba(0,0,0,0.42) 100%)',
+      'background:repeating-linear-gradient(to bottom,rgba(255,255,255,0.03) 0px,rgba(255,255,255,0.03) 1px,rgba(0,0,0,0.44) 2px,rgba(0,0,0,0.44) 3px),repeating-linear-gradient(to right,rgba(255,40,40,0.03) 0px,rgba(40,255,80,0.03) 1px,rgba(40,120,255,0.03) 2px,transparent 3px)',
+      'box-shadow:inset 0 0 110px rgba(0,0,0,0.72),inset 0 0 28px rgba(180,220,255,0.06)',
     ].join(';')
     document.body.appendChild(overlay)
-  } else if (!on && overlay) {
-    overlay.remove()
+  } else if (!on) {
+    overlay?.remove()
+    style?.remove()
   }
   showCornerToast(on ? 'crt on' : 'crt off')
 }
@@ -161,7 +173,6 @@ function openSecretsModal() {
           <button type="button" data-close-eggs style="font-family:'Dotmatri',ui-monospace,monospace;font-size:13px;letter-spacing:0.08em;color:rgba(236,230,220,0.56);padding:4px 6px;">close</button>
         </div>
         <dl style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 18px;font-size:13px;line-height:1.5;">
-          <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">d</dt><dd style="color:rgba(236,230,220,0.64);">darkroom safelight mode (photos)</dd>
           <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">r</dt><dd style="color:rgba(236,230,220,0.64);">fly to a random photo (photos)</dd>
           <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">← / →</dt><dd style="color:rgba(236,230,220,0.64);">step between photos (photos)</dd>
           <dt style="font-family:'Dotmatri',ui-monospace,monospace;color:rgba(244,238,228,0.94);">/</dt><dd style="color:rgba(236,230,220,0.64);">focus project search (code)</dd>
@@ -218,35 +229,46 @@ export function initEasterEggs() {
   let starsOn = false
   let lastSpark = 0
 
-  window.addEventListener('pointermove', (e) => {
-    if (!starsOn) return
-    const now = performance.now()
-    if (now - lastSpark < 38) return
-    lastSpark = now
+  let starsTimer = null
+  const spawnStar = (x, y, ambient = false) => {
     const s = document.createElement('span')
     s.setAttribute('aria-hidden', 'true')
-    const glyphs = ['·', '+', '✦', '◦']
+    const glyphs = ambient ? ['✦', '✧', '·'] : ['✦', '✧', '⋆', '+']
+    const colors = ['rgba(255,250,235,0.95)', 'rgba(255,232,178,0.92)', 'rgba(222,238,255,0.9)']
     s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)]
-    const dx = (Math.random() - 0.5) * 26
-    const dy = 12 + Math.random() * 20
+    const dx = (Math.random() - 0.5) * (ambient ? 18 : 44)
+    const dy = (ambient ? -16 : 10) + (Math.random() - 0.5) * 28
+    const rot = (Math.random() - 0.5) * 140
+    const size = ambient ? 10 + Math.random() * 8 : 11 + Math.random() * 10
+    const dur = ambient ? 1.5 : 0.95
+    const color = colors[Math.floor(Math.random() * colors.length)]
     s.style.cssText = [
       'position:fixed',
-      `left:${e.clientX}px`,
-      `top:${e.clientY}px`,
-      'transform:translate(-50%,-50%)',
+      `left:${x}px`,
+      `top:${y}px`,
+      'transform:translate(-50%,-50%) scale(0.5) rotate(0deg)',
       'font-family:"Dotmatri",ui-monospace,monospace',
-      'font-size:13px',
-      'color:rgba(244,238,228,0.86)',
+      `font-size:${size.toFixed(1)}px`,
+      `color:${color}`,
+      `text-shadow:0 0 10px ${color},0 0 20px rgba(255,244,210,0.45)`,
       'pointer-events:none',
       'z-index:9995',
-      'transition:transform 0.85s ease-out,opacity 0.85s ease-out',
+      `transition:transform ${dur}s cubic-bezier(0.22,1,0.36,1),opacity ${dur}s ease-out`,
     ].join(';')
     document.body.appendChild(s)
     requestAnimationFrame(() => {
-      s.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.4)`
+      s.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.15) rotate(${rot}deg)`
       s.style.opacity = '0'
     })
-    setTimeout(() => s.remove(), 900)
+    setTimeout(() => s.remove(), dur * 1000 + 60)
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    if (!starsOn) return
+    const now = performance.now()
+    if (now - lastSpark < 22) return
+    lastSpark = now
+    spawnStar(e.clientX, e.clientY, false)
   })
 
   window.addEventListener('keydown', (e) => {
@@ -273,6 +295,12 @@ export function initEasterEggs() {
     } else if (buffer.endsWith('stars')) {
       buffer = ''
       starsOn = !starsOn
+      clearInterval(starsTimer)
+      if (starsOn) {
+        starsTimer = setInterval(() => {
+          spawnStar(Math.random() * window.innerWidth, Math.random() * window.innerHeight, true)
+        }, 160)
+      }
       showCornerToast(starsOn ? 'stars on' : 'stars off')
     } else if (buffer.endsWith('crt')) {
       buffer = ''

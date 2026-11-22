@@ -14,7 +14,7 @@ import { Sound } from './sound.js'
 import { rgbToCss, linearToSrgb, luma } from './colors.js'
 import { createCursor } from './cursor.js'
 import { initInteractiveWordmark } from './wordmark.js'
-import { initEasterEggs, showCornerToast } from './easter-eggs.js'
+import { initEasterEggs } from './easter-eggs.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -320,18 +320,37 @@ async function boot() {
       world.mouse.ty = (e.clientY / innerHeight) * 2 - 1
     }
   })
+  const photoCounter = document.getElementById('photoCounter')
+  const pad3 = (n) => String(n).padStart(3, '0')
+  const syncPhotoCounter = (idx) => {
+    if (!photoCounter) return
+    if (idx >= 0 && idx < layout.planes.length) {
+      photoCounter.textContent = `${pad3(idx + 1)} / ${pad3(layout.planes.length)}`
+      photoCounter.classList.add('is-on')
+    } else {
+      photoCounter.classList.remove('is-on')
+    }
+  }
+
   const inspectPhoto = (hit) => {
     if (hit < 0 || hit >= layout.planes.length) return
     hideHint()
-    const targetP = built.photoProgress[hit]
-    pool.request(layout.planes[hit].photo, -30, true)
+    const maxS = ScrollTrigger.maxScroll(window)
+    const targetScroll = built.photoProgress[hit] * maxS
+    const delta = Math.abs(targetScroll - lenis.targetScroll)
+    const duration = Math.min(2.6, Math.max(1.15, 1.1 + delta / 8500))
+    for (let k = -2; k <= 2; k++) {
+      const p = layout.planes[hit + k]?.photo
+      if (p) pool.request(p, k === 0 ? -30 : -10, k === 0)
+    }
     world.setWallZoom(1)
     updateZoomUI()
     world.setInspect(hit)
+    syncPhotoCounter(hit)
     sound.whoosh()
-    lenis.scrollTo(targetP * ScrollTrigger.maxScroll(window), {
-      duration: 1.65,
-      easing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
+    lenis.scrollTo(targetScroll, {
+      duration,
+      easing: (x) => (x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2),
       force: true,
     })
   }
@@ -384,7 +403,10 @@ async function boot() {
   })
 
   // Release inspect lock smoothly once user resumes manual scrolling
-  const releaseInspect = () => { if (world.inspectIdx >= 0) world.inspectIdx = -1 }
+  const releaseInspect = () => {
+    if (world.inspectIdx >= 0) world.inspectIdx = -1
+    syncPhotoCounter(-1)
+  }
   window.addEventListener('wheel', releaseInspect, { passive: true })
   window.addEventListener('touchmove', releaseInspect, { passive: true })
 
@@ -395,12 +417,6 @@ async function boot() {
     if (e.target.closest('a, button, input, textarea')) return
     if (locked) {
       if (e.code === 'Space' || e.key.startsWith('Arrow') || e.key.startsWith('Page')) e.preventDefault()
-      return
-    }
-    if (e.key.toLowerCase() === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      e.preventDefault()
-      const on = document.documentElement.classList.toggle('is-darkroom')
-      showCornerToast(on ? 'darkroom on' : 'darkroom off')
       return
     }
     if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey) {

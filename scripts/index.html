@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b0c0f" />
     <meta name="description" content="Screenplays written by Avery Beuth." />
-    <link rel="icon" type="image/png" href="../favicon.png?v=19" />
-    <link rel="apple-touch-icon" href="../favicon.png?v=19" />
+    <link rel="icon" type="image/png" href="../favicon.png?v=20" />
+    <link rel="apple-touch-icon" href="../favicon.png?v=20" />
     <meta property="og:image" content="https://averybeuth.xyz/og-preview.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://averybeuth.xyz/og-preview.jpg" />
     <title>averybeuth.xyz / scripts</title>
-    <link rel="stylesheet" href="../assets/pages.css?v=19" />
+    <link rel="stylesheet" href="../assets/pages.css?v=20" />
   </head>
   <body>
     <div class="site-shell">
@@ -84,15 +84,38 @@
         return { title, subtitle, description };
       };
 
+      const SCRIPT_THEMES = {
+        'the-long-way-round': { glow: '232, 198, 128', color: '#f2dfc0', font: "'Cormorant Garamond', Georgia, serif", style: 'italic', size: '25px' },
+        'the-last-roll': { glow: '214, 168, 118', color: '#ead5b8', font: "'Cormorant Garamond', Georgia, serif", style: 'normal', size: '25px' },
+        'static': { glow: '168, 174, 182', color: '#d5dae0', font: "'DM Sans', sans-serif", style: 'normal', size: '21px' },
+        'frequencies': { glow: '104, 188, 212', color: '#cde8f2', font: "'Courier Prime', monospace", style: 'normal', size: '21px' },
+        'artificial-light': { glow: '128, 162, 224', color: '#d6e2f8', font: "'DM Sans', sans-serif", style: 'normal', size: '21px' },
+        'heavy-weather': { glow: '126, 146, 186', color: '#ced8ec', font: "'Lora', Georgia, serif", style: 'italic', size: '22px' },
+        'the-noise-floor': { glow: '204, 148, 96', color: '#e8ceb2', font: "'Courier Prime', monospace", style: 'normal', size: '21px' },
+        'the-collar': { glow: '148, 166, 180', color: '#d6e0e8', font: "'Cormorant Garamond', Georgia, serif", style: 'normal', size: '25px' },
+        'halcyon': { glow: '204, 162, 108', color: '#e6d2b4', font: "'Courier Prime', monospace", style: 'normal', size: '21px' },
+        'residual': { glow: '218, 146, 78', color: '#f0cfa8', font: "'Cormorant Garamond', Georgia, serif", style: 'normal', size: '26px' },
+        'incept-date': { glow: '196, 118, 212', color: '#ecc8f4', font: "'Special Elite', monospace", style: 'normal', size: '22px' },
+        'permafrost': { glow: '144, 198, 226', color: '#d8eef8', font: "'Courier Prime', monospace", style: 'normal', size: '21px' },
+        'the-array': { glow: '224, 134, 82', color: '#f2cbb0', font: "'Courier Prime', monospace", style: 'normal', size: '21px' },
+        'leos-date': { glow: '143, 160, 168', color: '#8fa0a8', font: "'Bodoni Moda', Georgia, serif", style: 'normal', size: '23px' },
+      };
+
       const buildScriptCard = (file, script) => {
         const article = document.createElement('article');
         article.className = 'script-card';
         const slug = file.replace(/\.md$/, '');
+        const theme = SCRIPT_THEMES[slug] || { glow: '200, 195, 185', color: 'rgba(236, 230, 220, 0.94)' };
+        article.dataset.glow = theme.glow;
+        article.style.borderLeft = `2px solid rgba(${theme.glow}, 0.28)`;
         const viewHref = 'view.html?slug=' + encodeURIComponent(slug);
         const pdfHref = 'pdfs/' + slug + '.pdf';
+        const titleStyle = theme.font
+          ? `style="font-family:${theme.font};font-style:${theme.style || 'normal'};font-size:${theme.size || '22px'};color:${theme.color};"`
+          : `style="color:${theme.color};"`;
         article.innerHTML = `
           <div>
-            <h3><a href="${viewHref}">${escapeHtml(script.title || slug)}</a></h3>
+            <h3><a href="${viewHref}" ${titleStyle}>${escapeHtml(script.title || slug)}</a></h3>
             ${script.subtitle ? `<div class="script-card-sub">${escapeHtml(script.subtitle)}</div>` : ''}
             ${script.description ? `<p class="script-card-desc">${escapeHtml(script.description)}</p>` : ''}
           </div>
@@ -119,6 +142,6 @@
           console.error(err);
         });
     </script>
-    <script type="module" src="../assets/pages.js?v=19"></script>
+    <script type="module" src="../assets/pages.js?v=20"></script>
 </body>
 </html>

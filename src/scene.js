@@ -310,7 +310,7 @@ export class World {
     const mosaicMode = Math.max(OA, A)
 
     // Smooth inspect centering: rides state.camZ cleanly along the tunnel and aligns X/Y/Z smoothly on arrival
-    this.inspectMix = damp(this.inspectMix, this.inspectIdx >= 0 ? 1 : 0, 4.5, dt)
+    this.inspectMix = damp(this.inspectMix, this.inspectIdx >= 0 ? 1 : 0, 3.4, dt)
     let targetCamX = state.camX, targetCamY = state.camY, targetCamZ = state.camZ
     let jumpFlight = 0
     if (this.inspectIdx >= 0 && this.items[this.inspectIdx]) {
@@ -318,11 +318,11 @@ export class World {
       const dzDelta = (ip.z + ip.fitD) - state.camZ
       jumpFlight = Math.min(1, Math.abs(dzDelta) / 28) * this.inspectMix
       const lateralBlend = this.inspectMix * (1 - OA) * (1 - A)
-      const zLock = smooth(22, 0, Math.abs(dzDelta)) * lateralBlend
+      const zLock = smooth(28, 0, Math.abs(dzDelta)) * lateralBlend
       this.inspectOffset = this.inspectOffset || { x: 0, y: 0, z: 0 }
-      this.inspectOffset.x = damp(this.inspectOffset.x, ip.x - state.camX, 5.5, dt)
-      this.inspectOffset.y = damp(this.inspectOffset.y, ip.y - state.camY, 5.5, dt)
-      this.inspectOffset.z = damp(this.inspectOffset.z, dzDelta, 6.0, dt)
+      this.inspectOffset.x = damp(this.inspectOffset.x, ip.x - state.camX, 4.2, dt)
+      this.inspectOffset.y = damp(this.inspectOffset.y, ip.y - state.camY, 4.2, dt)
+      this.inspectOffset.z = damp(this.inspectOffset.z, dzDelta, 5.0, dt)
       targetCamX += this.inspectOffset.x * lateralBlend
       targetCamY += this.inspectOffset.y * lateralBlend
       targetCamZ += this.inspectOffset.z * zLock

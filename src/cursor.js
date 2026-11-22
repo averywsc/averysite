@@ -2,7 +2,7 @@
  * cursor.js — crisp vector custom cursor shared across homepage and sub-pages.
  * Uses oversized SVG primitives scaled down cleanly so rings stay sharp at any DPI.
  */
-const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, summary, .project-thumb-wrap, .album-cover-wrap, .script-card, body.is-locked .finale.is-live'
+const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, summary, .project-thumb-wrap, .album-cover-wrap, .script-card, .music-vinyl-disc, body.is-locked .finale.is-live'
 
 export function createCursor({ onMove, onLeave } = {}) {
   const finePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches

@@ -79,6 +79,91 @@ function initPortfolioListen() {
 
 let anyPreviewPlaying = false
 
+function createScratchSynth() {
+  let ctx = null
+  let master = null
+  let bp = null
+  let noiseGain = null
+  let tone = null
+  let toneGain = null
+
+  const ensure = () => {
+    if (ctx) {
+      if (ctx.state === 'suspended') ctx.resume()
+      return
+    }
+    ctx = new (window.AudioContext || window.webkitAudioContext)()
+    master = ctx.createGain()
+    master.gain.value = 0.55
+    master.connect(ctx.destination)
+
+    // Vinyl surface texture + needle crackle noise buffer
+    const len = ctx.sampleRate * 3
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate)
+    const d = buf.getChannelData(0)
+    let lp = 0
+    for (let i = 0; i < len; i++) {
+      const w = Math.random() * 2 - 1
+      lp = lp * 0.72 + w * 0.28
+      const crackle = Math.random() < 0.0025 ? (Math.random() * 2 - 1) * 0.9 : 0
+      d[i] = lp * 0.65 + crackle
+    }
+
+    const src = ctx.createBufferSource()
+    src.buffer = buf
+    src.loop = true
+
+    bp = ctx.createBiquadFilter()
+    bp.type = 'bandpass'
+    bp.frequency.value = 520
+    bp.Q.value = 2.6
+
+    noiseGain = ctx.createGain()
+    noiseGain.gain.value = 0
+
+    src.connect(bp).connect(noiseGain).connect(master)
+    src.start()
+
+    // Subtle groove harmonic resonance for DJ scratch chirp
+    tone = ctx.createOscillator()
+    tone.type = 'triangle'
+    tone.frequency.value = 180
+    const toneFilter = ctx.createBiquadFilter()
+    toneFilter.type = 'lowpass'
+    toneFilter.frequency.value = 900
+    toneGain = ctx.createGain()
+    toneGain.gain.value = 0
+    tone.connect(toneFilter).connect(toneGain).connect(master)
+    tone.start()
+  }
+
+  return {
+    grab() {
+      ensure()
+      const t = ctx.currentTime
+      const o = ctx.createOscillator()
+      const g = ctx.createGain()
+      o.frequency.setValueAtTime(115, t)
+      o.frequency.exponentialRampToValueAtTime(48, t + 0.055)
+      g.gain.setValueAtTime(0.16, t)
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.065)
+      o.connect(g).connect(master)
+      o.start(t)
+      o.stop(t + 0.07)
+    },
+    update(velDegPerSec, active) {
+      if (!ctx) return
+      const t = ctx.currentTime
+      const speed = Math.min(1, Math.abs(velDegPerSec) / 520)
+      const freq = 340 + speed * 2100
+      bp.frequency.setTargetAtTime(freq, t, 0.025)
+      noiseGain.gain.setTargetAtTime(active ? 0.025 + speed * 0.42 : speed * 0.16, t, 0.03)
+      tone.frequency.setTargetAtTime(130 + speed * 390, t, 0.02)
+      toneGain.gain.setTargetAtTime(speed > 0.06 ? speed * 0.08 : 0, t, 0.025)
+    },
+  }
+}
+
 function initMusicVinyl() {
   const list = document.querySelector('.album-list')
   if (!list) return
@@ -100,6 +185,8 @@ function initMusicVinyl() {
 
   const disc = stage.querySelector('.music-vinyl-disc')
   const art = stage.querySelector('.music-vinyl-art')
+  const scratch = createScratchSynth()
+
   const setArt = (src) => {
     if (!src || art.getAttribute('src') === src) return
     art.style.opacity = '0.35'
@@ -118,6 +205,45 @@ function initMusicVinyl() {
     if (img) setArt(img.getAttribute('src'))
   })
 
+  let dragging = false
+  let lastPtrAngle = 0
+  let lastPtrTime = 0
+  let dragOffset = 0
+  let scratchVel = 0
+
+  const ptrAngle = (e) => {
+    const r = disc.getBoundingClientRect()
+    return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2))
+  }
+
+  disc.addEventListener('pointerdown', (e) => {
+    dragging = true
+    lastPtrAngle = ptrAngle(e)
+    lastPtrTime = performance.now()
+    scratchVel = 0
+    disc.setPointerCapture(e.pointerId)
+    scratch.grab()
+  })
+
+  disc.addEventListener('pointermove', (e) => {
+    if (!dragging) return
+    const now = performance.now()
+    const a = ptrAngle(e)
+    let da = a - lastPtrAngle
+    if (da > Math.PI) da -= Math.PI * 2
+    if (da < -Math.PI) da += Math.PI * 2
+    const dDeg = (da * 180) / Math.PI
+    const dt = Math.max(0.004, (now - lastPtrTime) / 1000)
+    dragOffset += dDeg
+    scratchVel = scratchVel * 0.4 + (dDeg / dt) * 0.6
+    lastPtrAngle = a
+    lastPtrTime = now
+  })
+
+  const endDrag = () => { dragging = false }
+  disc.addEventListener('pointerup', endDrag)
+  disc.addEventListener('pointercancel', endDrag)
+
   let angle = window.scrollY * 0.35
   let playSpin = 0
   let last = performance.now()
@@ -126,8 +252,19 @@ function initMusicVinyl() {
     last = now
     const portfolioPlaying = Boolean(document.querySelector('[data-portfolio-listen].is-playing'))
     if (anyPreviewPlaying || portfolioPlaying) playSpin += dt * 42
-    const target = window.scrollY * 0.35 + playSpin
-    angle += (target - angle) * Math.min(1, dt * 10)
+
+    if (!dragging) {
+      dragOffset += scratchVel * dt
+      scratchVel *= Math.exp(-dt * 4.5)
+      if (Math.abs(scratchVel) < 0.5) scratchVel = 0
+    } else if (now - lastPtrTime > 40) {
+      scratchVel *= Math.exp(-dt * 14)
+    }
+
+    scratch.update(scratchVel, dragging)
+
+    const target = window.scrollY * 0.35 + playSpin + dragOffset
+    angle += (target - angle) * (dragging ? 0.55 : Math.min(1, dt * 10))
     disc.style.transform = `rotate(${angle.toFixed(2)}deg)`
     requestAnimationFrame(tick)
   }

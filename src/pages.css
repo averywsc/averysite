@@ -710,11 +710,11 @@ img {
 
 .music-vinyl-stage {
   position: fixed;
-  right: -280px;
+  right: -320px;
   top: 50%;
   transform: translateY(-50%);
-  width: 540px;
-  height: 540px;
+  width: 640px;
+  height: 640px;
   pointer-events: none;
   z-index: 2;
 }
@@ -724,6 +724,9 @@ img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  pointer-events: auto;
+  user-select: none;
+  touch-action: none;
   background:
     radial-gradient(circle at center, transparent 0 34%, rgba(255, 255, 255, 0.04) 34.5%, transparent 35%),
     repeating-radial-gradient(circle at center, rgba(255, 255, 255, 0.032) 0px, rgba(255, 255, 255, 0.032) 1px, rgba(10, 11, 14, 0.98) 2px, rgba(18, 20, 26, 0.98) 4px);
@@ -735,13 +738,14 @@ img {
 }
 
 .music-vinyl-label {
-  width: 192px;
-  height: 192px;
+  width: 226px;
+  height: 226px;
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid #0b0c0f;
   box-shadow: 0 0 0 1px rgba(236, 230, 220, 0.14);
   background: #14161c;
+  pointer-events: none;
 }
 
 .music-vinyl-art {
@@ -765,6 +769,7 @@ img {
   position: absolute;
   inset: 0;
   border-radius: 50%;
+  pointer-events: none;
   background: conic-gradient(from -35deg, transparent 0deg, rgba(255, 255, 255, 0.075) 26deg, transparent 58deg, transparent 180deg, rgba(255, 255, 255, 0.05) 206deg, transparent 238deg);
 }
 

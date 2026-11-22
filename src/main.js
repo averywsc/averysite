@@ -13,6 +13,8 @@ import { createLoaderUI, loadAtlases, createTexturePool } from './loader.js'
 import { Sound } from './sound.js'
 import { rgbToCss, linearToSrgb, luma } from './colors.js'
 import { createCursor } from './cursor.js'
+import { initInteractiveWordmark } from './wordmark.js'
+import { initEasterEggs, showCornerToast } from './easter-eggs.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -33,6 +35,7 @@ function applyIdentity(cfg) {
       fn.innerHTML = '<img class="finale__wordmark" src="./wordmark.png" alt="avery beuth" />'
     }
     fn.href = s.nameHref
+    initInteractiveWordmark()
   }
   const c = document.getElementById('finaleContact')
   if (c) { c.textContent = s.contactText; c.href = s.contactHref }
@@ -59,6 +62,7 @@ function calmMode(cfg, photos) {
 }
 
 async function boot() {
+  initEasterEggs()
   const bootStart = performance.now()
   let cfg = resolveConfig(isMobile())
   applyIdentity(cfg)
@@ -316,6 +320,39 @@ async function boot() {
       world.mouse.ty = (e.clientY / innerHeight) * 2 - 1
     }
   })
+  const inspectPhoto = (hit) => {
+    if (hit < 0 || hit >= layout.planes.length) return
+    hideHint()
+    const targetP = built.photoProgress[hit]
+    pool.request(layout.planes[hit].photo, -30, true)
+    world.setWallZoom(1)
+    updateZoomUI()
+    world.setInspect(hit)
+    sound.whoosh()
+    lenis.scrollTo(targetP * ScrollTrigger.maxScroll(window), {
+      duration: 1.65,
+      easing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
+      force: true,
+    })
+  }
+
+  const stepPhoto = (dir) => {
+    const n = layout.planes.length
+    if (!n) return
+    let cur = world.inspectIdx
+    if (cur < 0) {
+      const p = ScrollTrigger.maxScroll(window) > 0 ? lenis.targetScroll / ScrollTrigger.maxScroll(window) : 0
+      let best = 0, bestDist = Infinity
+      for (let i = 0; i < n; i++) {
+        const d = Math.abs(built.photoProgress[i] - p)
+        if (d < bestDist) { bestDist = d; best = i }
+      }
+      cur = best
+    }
+    const next = Math.max(0, Math.min(n - 1, cur + dir))
+    if (next !== cur || world.inspectIdx < 0) inspectPhoto(next)
+  }
+
   window.addEventListener('pointerup', (e) => {
     if (!downPos) return
     const dist = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y)
@@ -343,20 +380,7 @@ async function boot() {
     } else {
       hit = world.pickTunnel(ndcX, ndcY)
     }
-    if (hit >= 0) {
-      hideHint()
-      const targetP = built.photoProgress[hit]
-      pool.request(layout.planes[hit].photo, -30, true)
-      world.setWallZoom(1)
-      updateZoomUI()
-      world.setInspect(hit)
-      sound.whoosh()
-      lenis.scrollTo(targetP * ScrollTrigger.maxScroll(window), {
-        duration: 1.65,
-        easing: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2),
-        force: true,
-      })
-    }
+    if (hit >= 0) inspectPhoto(hit)
   })
 
   // Release inspect lock smoothly once user resumes manual scrolling
@@ -373,11 +397,34 @@ async function boot() {
       if (e.code === 'Space' || e.key.startsWith('Arrow') || e.key.startsWith('Page')) e.preventDefault()
       return
     }
-    if (e.key === 'Escape' && world.wallZoomTarget > 1.05) {
+    if (e.key.toLowerCase() === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey) {
       e.preventDefault()
-      world.setWallZoom(1)
-      updateZoomUI()
-      syncHint(lenis.targetScroll)
+      const on = document.documentElement.classList.toggle('is-darkroom')
+      showCornerToast(on ? 'darkroom on' : 'darkroom off')
+      return
+    }
+    if (e.key === 'Escape') {
+      if (world.inspectIdx >= 0) {
+        e.preventDefault()
+        releaseInspect()
+        return
+      }
+      if (world.wallZoomTarget > 1.05) {
+        e.preventDefault()
+        world.setWallZoom(1)
+        updateZoomUI()
+        syncHint(lenis.targetScroll)
+        return
+      }
+    }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      stepPhoto(1)
+      return
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      stepPhoto(-1)
       return
     }
     if (e.code === 'Space') {

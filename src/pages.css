@@ -52,6 +52,17 @@ body {
 }
 
 /* subtle film grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--glow-alpha, 0);
+  background: radial-gradient(ellipse 75% 60% at 62% 45%, rgba(var(--glow-rgb, 200, 195, 185), 0.16) 0%, transparent 72%);
+  transition: opacity 0.65s var(--ease), background 0.65s var(--ease);
+}
+
 body::after {
   content: '';
   position: fixed;
@@ -87,6 +98,8 @@ img {
 
 /* ---------- Shell & Side Navigation ---------- */
 .site-shell {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 192px minmax(0, 1fr);
   min-height: 100vh;
@@ -262,11 +275,48 @@ img {
 }
 
 /* ---------- Code Page ---------- */
+.code-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 20px;
+  margin-bottom: 36px;
+}
+
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 18px;
-  margin-bottom: 36px;
+}
+
+.code-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.project-search {
+  width: 190px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-family: var(--font-serif);
+  font-size: 13.5px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.project-search::placeholder {
+  color: var(--ink-faint);
+}
+
+.project-search:focus {
+  border-color: var(--line-strong);
+  background: var(--surface-hover);
 }
 
 .filter-bar a {
@@ -524,6 +574,10 @@ img {
   color: var(--ink-soft);
 }
 
+.film-actions {
+  margin-top: 8px;
+}
+
 /* ---------- Music Page ---------- */
 .album-list {
   display: flex;
@@ -560,6 +614,19 @@ img {
 
 .album-cover-wrap:hover .album-cover {
   transform: scale(1.03);
+}
+
+.album-cover-wrap.is-playing {
+  box-shadow: 0 0 36px rgba(236, 230, 220, 0.16);
+}
+
+.album-cover-wrap.is-playing .album-cover {
+  animation: stillRoomBreathe 6.4s ease-in-out infinite;
+}
+
+@keyframes stillRoomBreathe {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.024); filter: brightness(1.16); }
 }
 
 .album-body {
@@ -886,6 +953,17 @@ img {
   border: 0;
   border-radius: 3px;
   background: #14161c;
+}
+
+.script-pager {
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
 }
 
 /* ---------- Prose / Privacy / 404 ---------- */

@@ -13,6 +13,26 @@ import '@fontsource/dm-sans/500.css'
 import './pages.css'
 import { startCursorLoop } from './cursor.js'
 import { Sound } from './sound.js'
+import { initEasterEggs } from './easter-eggs.js'
+
+function initMusicGlow() {
+  const rows = [...document.querySelectorAll('.album-row[data-glow]')]
+  if (!rows.length) return
+  const root = document.body
+  rows.forEach((row) => {
+    const activate = () => {
+      root.style.setProperty('--glow-rgb', row.dataset.glow)
+      root.style.setProperty('--glow-alpha', '1')
+    }
+    const deactivate = () => {
+      root.style.setProperty('--glow-alpha', '0')
+    }
+    row.addEventListener('mouseenter', activate)
+    row.addEventListener('focusin', activate)
+    row.addEventListener('mouseleave', deactivate)
+    row.addEventListener('focusout', deactivate)
+  })
+}
 
 function initPortfolioListen() {
   const controls = [...document.querySelectorAll('[data-portfolio-listen]')]
@@ -40,8 +60,10 @@ function initPortfolioListen() {
 }
 
 function boot() {
+  initEasterEggs()
   startCursorLoop()
   initPortfolioListen()
+  initMusicGlow()
 }
 
 if (document.readyState === 'loading') {

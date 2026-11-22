@@ -8,11 +8,15 @@
     <meta property="og:title" content="averybeuth.xyz / code" />
     <meta property="og:description" content="Open source software, tools, games, VR projects, and websites by Avery Beuth." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="logo.png" />
-    <link rel="icon" type="image/png" href="./favicon.png?v=14" />
-    <link rel="apple-touch-icon" href="./favicon.png?v=14" />
+    <meta property="og:image" content="https://averybeuth.xyz/og-preview.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://averybeuth.xyz/og-preview.jpg" />
+    <link rel="icon" type="image/png" href="./favicon.png?v=18" />
+    <link rel="apple-touch-icon" href="./favicon.png?v=18" />
     <title>averybeuth.xyz / code</title>
-    <link rel="stylesheet" href="./assets/pages.css?v=16" />
+    <link rel="stylesheet" href="./assets/pages.css?v=18" />
   </head>
   <body>
     <div class="site-shell">
@@ -43,15 +47,21 @@
             <p class="page-intro">A few of the bigger things I’ve made, from tools I wanted to exist to projects built for people around me. Everything here is open source on <a class="text-link" href="https://github.com/averywsc" target="_blank" rel="noopener noreferrer">github.com/averywsc</a>.</p>
           </header>
 
-          <nav class="filter-bar" aria-label="Project categories">
-            <a href="code.html" data-cat="all">All</a>
-            <a href="code.html?category=apps" data-cat="apps">Apps</a>
-            <a href="code.html?category=app" data-cat="app">Web Apps</a>
-            <a href="code.html?category=vr" data-cat="vr">VR</a>
-            <a href="code.html?category=game" data-cat="game">Games</a>
-            <a href="code.html?category=tool" data-cat="tool">Tools</a>
-            <a href="code.html?category=website" data-cat="website">Websites</a>
-          </nav>
+          <div class="code-toolbar">
+            <nav class="filter-bar" aria-label="Project categories">
+              <a href="code.html" data-cat="all">All</a>
+              <a href="code.html?category=apps" data-cat="apps">Apps</a>
+              <a href="code.html?category=app" data-cat="app">Web Apps</a>
+              <a href="code.html?category=vr" data-cat="vr">VR</a>
+              <a href="code.html?category=game" data-cat="game">Games</a>
+              <a href="code.html?category=tool" data-cat="tool">Tools</a>
+              <a href="code.html?category=website" data-cat="website">Websites</a>
+            </nav>
+            <div class="code-tools">
+              <input id="projectSearch" class="project-search" type="search" placeholder="search (/)" aria-label="Search projects" />
+              <button type="button" id="randomProjectBtn" class="text-link">random</button>
+            </div>
+          </div>
 
           <section class="code-section" id="featuredSection" aria-labelledby="featured-title">
             <div class="section-heading">
@@ -86,7 +96,7 @@
                   <h3 class="project-title"><a href="https://averywsc.github.io/totone/" target="_blank" rel="noopener noreferrer">Totone</a></h3>
                   <span class="project-tag">tool</span>
                 </div>
-                <p class="project-desc">A browser-based image editor for recolouring and designing, with tone mapping, area selection, warp brushes, and layered images, text and effects.</p>
+                <p class="project-desc">Totone is a browser-based photo and design editor for cinematic colour grading, gradient mapping, and layered compositions, with precise selections and masks, warp brushes, editable text on paths, photo-filled lettering, custom borders, overlays, and highlight glints, plus side-by-side version comparison and editable project files.</p>
               </div>
             </article>
             <article class="project-card project-item" data-category="game">
@@ -864,20 +874,23 @@
         const featuredTitle = document.getElementById('featured-title');
         const featuredCount = document.getElementById('featuredCount');
         const archiveCount = document.getElementById('archiveCount');
+        const searchInput = document.getElementById('projectSearch');
+        const randomBtn = document.getElementById('randomProjectBtn');
 
         const featuredCards = [...featuredGrid.children];
         const archiveCards = [...archiveGrid.children];
         const allCards = [...featuredCards, ...archiveCards];
-        const pad2 = (n) => String(n).padStart(2, '0');
+        let activeCat = new URLSearchParams(window.location.search).get('category') || 'all';
+        if (!valid.has(activeCat)) activeCat = 'all';
 
-        const applyCategory = (cat) => {
-          const selected = valid.has(cat) ? cat : 'all';
+        const applyFilters = () => {
+          const query = (searchInput?.value || '').trim().toLowerCase();
           filterLinks.forEach((link) => {
-            if (link.dataset.cat === selected) link.setAttribute('aria-current', 'page');
+            if (link.dataset.cat === activeCat) link.setAttribute('aria-current', 'page');
             else link.removeAttribute('aria-current');
           });
 
-          if (selected === 'all') {
+          if (activeCat === 'all' && !query) {
             featuredCards.forEach((el) => { el.hidden = false; featuredGrid.appendChild(el); });
             archiveCards.forEach((el) => {
               el.hidden = false;
@@ -893,34 +906,62 @@
           } else {
             let shown = 0;
             allCards.forEach((el) => {
-              const match = el.dataset.category === selected;
+              const catMatch = activeCat === 'all' || el.dataset.category === activeCat;
+              const textMatch = !query || el.textContent.toLowerCase().includes(query);
+              const match = catMatch && textMatch;
               el.hidden = !match;
               el.className = 'project-card project-item';
               if (match) shown++;
               featuredGrid.appendChild(el);
             });
             archiveSection.hidden = true;
-            featuredSection.hidden = shown === 0;
-            featuredTitle.textContent = categoryNames[selected];
+            featuredSection.hidden = false;
+            featuredTitle.textContent = query ? `Results for "${searchInput.value.trim()}"` : categoryNames[activeCat];
             featuredCount.textContent = String(shown);
-            document.title = 'averybeuth.xyz / ' + categoryNames[selected].toLowerCase();
+            document.title = activeCat === 'all'
+              ? 'averybeuth.xyz / code'
+              : 'averybeuth.xyz / ' + categoryNames[activeCat].toLowerCase();
           }
         };
 
-        const initCat = new URLSearchParams(window.location.search).get('category') || 'all';
-        applyCategory(initCat);
+        applyFilters();
 
         filterLinks.forEach((link) => {
           link.addEventListener('click', (e) => {
             e.preventDefault();
             const cat = link.dataset.cat || 'all';
-            const nextUrl = cat === 'all' ? 'code.html' : 'code.html?category=' + encodeURIComponent(cat);
+            activeCat = valid.has(cat) ? cat : 'all';
+            const nextUrl = activeCat === 'all' ? 'code.html' : 'code.html?category=' + encodeURIComponent(activeCat);
             history.replaceState(null, '', nextUrl);
-            applyCategory(cat);
+            applyFilters();
           });
+        });
+
+        searchInput?.addEventListener('input', applyFilters);
+        searchInput?.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            searchInput.value = '';
+            searchInput.blur();
+            applyFilters();
+          }
+        });
+
+        window.addEventListener('keydown', (e) => {
+          if (e.key === '/' && !e.target.closest('input, textarea, select')) {
+            e.preventDefault();
+            searchInput?.focus();
+          }
+        });
+
+        randomBtn?.addEventListener('click', () => {
+          const pool = allCards.filter((el) => !el.hidden);
+          const pickFrom = pool.length ? pool : allCards;
+          const card = pickFrom[Math.floor(Math.random() * pickFrom.length)];
+          const href = card?.querySelector('a')?.href;
+          if (href) window.open(href, '_blank', 'noopener,noreferrer');
         });
       })();
     </script>
-    <script type="module" src="./assets/pages.js?v=16"></script>
+    <script type="module" src="./assets/pages.js?v=18"></script>
 </body>
 </html>

@@ -340,7 +340,7 @@ body.is-locked .finale.is-live { pointer-events: auto; cursor: pointer; }
   font-size: 13px;
   pointer-events: none;
 }
-.finale__contact { pointer-events: auto; }
+.rm .calm .finale__contact { pointer-events: auto; }
 
 .sr-only {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;

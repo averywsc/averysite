@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b0c0f" />
     <meta name="description" content="Screenplays written by Avery Beuth." />
-    <link rel="icon" type="image/png" href="../favicon.png?v=32" />
-    <link rel="apple-touch-icon" href="../favicon.png?v=32" />
+    <link rel="icon" type="image/png" href="../favicon.png?v=33" />
+    <link rel="apple-touch-icon" href="../favicon.png?v=33" />
     <meta property="og:image" content="https://averybeuth.xyz/og-preview.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://averybeuth.xyz/og-preview.jpg" />
     <title>averybeuth.xyz / scripts</title>
-    <link rel="stylesheet" href="../assets/pages.css?v=32" />
+    <link rel="stylesheet" href="../assets/pages.css?v=33" />
   </head>
   <body>
     <div class="site-shell">
@@ -62,7 +62,6 @@
         let title = '';
         let subtitle = '';
         let description = '';
-        let slugline = '';
 
         for (let i = 0; i < lines.length; i++) {
           const line = lines[i].trim();
@@ -78,12 +77,11 @@
             description = line.replace(/^\*|\*$/g, '').trim();
             continue;
           }
-          if (!slugline && /^###\s+(?:INT\.|EXT\.)/i.test(line)) {
-            slugline = line.replace(/^###\s+/, '').trim();
+          if (line === 'FADE IN:' || /^###\s+/.test(line) || /^CUT\s+TO:/.test(line) || /^CUT\s+TO\s+BLACK/i.test(line) || /^INSERT:/.test(line) || /^SUPER:/.test(line)) {
             break;
           }
         }
-        return { title, subtitle, description, slugline };
+        return { title, subtitle, description };
       };
 
       const SCRIPT_THEMES = {
@@ -121,12 +119,9 @@
             ${script.subtitle ? `<div class="script-card-sub">${escapeHtml(script.subtitle)}</div>` : ''}
             ${script.description ? `<p class="script-card-desc">${escapeHtml(script.description)}</p>` : ''}
           </div>
-          <div>
-            ${script.slugline ? `<div class="script-card-slug">${escapeHtml(script.slugline)}</div>` : ''}
-            <div class="script-card-actions">
-              <a class="text-link" href="${viewHref}">read script</a>
-              <a class="text-link" href="${pdfHref}" download>download pdf</a>
-            </div>
+          <div class="script-card-actions">
+            <a class="text-link" href="${viewHref}">read script</a>
+            <a class="text-link" href="${pdfHref}" download>download pdf</a>
           </div>
         `;
         return article;
@@ -147,6 +142,6 @@
           console.error(err);
         });
     </script>
-    <script type="module" src="../assets/pages.js?v=32"></script>
+    <script type="module" src="../assets/pages.js?v=33"></script>
 </body>
 </html>

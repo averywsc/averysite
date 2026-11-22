@@ -77,31 +77,100 @@ function initPortfolioListen() {
   })
 }
 
+let anyPreviewPlaying = false
+
+function initMusicVinyl() {
+  const list = document.querySelector('.album-list')
+  if (!list) return
+
+  const firstImg = list.querySelector('.album-cover')
+  const stage = document.createElement('div')
+  stage.className = 'music-vinyl-stage'
+  stage.setAttribute('aria-hidden', 'true')
+  stage.innerHTML = `
+    <div class="music-vinyl-disc">
+      <div class="music-vinyl-label">
+        <img class="music-vinyl-art" src="${firstImg?.getAttribute('src') || ''}" alt="" />
+      </div>
+      <span class="music-vinyl-hole"></span>
+    </div>
+    <span class="music-vinyl-sheen"></span>
+  `
+  document.body.appendChild(stage)
+
+  const disc = stage.querySelector('.music-vinyl-disc')
+  const art = stage.querySelector('.music-vinyl-art')
+  const setArt = (src) => {
+    if (!src || art.getAttribute('src') === src) return
+    art.style.opacity = '0.35'
+    art.setAttribute('src', src)
+    requestAnimationFrame(() => { art.style.opacity = '1' })
+  }
+
+  list.addEventListener('mouseover', (e) => {
+    const row = e.target?.closest?.('.album-row')
+    const img = row?.querySelector('.album-cover')
+    if (img) setArt(img.getAttribute('src'))
+  })
+  list.addEventListener('focusin', (e) => {
+    const row = e.target?.closest?.('.album-row')
+    const img = row?.querySelector('.album-cover')
+    if (img) setArt(img.getAttribute('src'))
+  })
+
+  let angle = window.scrollY * 0.35
+  let playSpin = 0
+  let last = performance.now()
+  const tick = (now) => {
+    const dt = Math.min(0.05, (now - last) / 1000)
+    last = now
+    const portfolioPlaying = Boolean(document.querySelector('[data-portfolio-listen].is-playing'))
+    if (anyPreviewPlaying || portfolioPlaying) playSpin += dt * 42
+    const target = window.scrollY * 0.35 + playSpin
+    angle += (target - angle) * Math.min(1, dt * 10)
+    disc.style.transform = `rotate(${angle.toFixed(2)}deg)`
+    requestAnimationFrame(tick)
+  }
+  requestAnimationFrame(tick)
+}
+
 function initSoundCloudPreviews() {
   const rows = [...document.querySelectorAll('.album-row')]
   if (!rows.length) return
+
+  const playIcon = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 2.2v7.6L9.8 6 3 2.2z"/></svg>'
+  const stopIcon = '<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2.5" y="2.5" width="7" height="7" rx="1"/></svg>'
 
   let openPlayer = null
   const closeCurrent = () => {
     if (!openPlayer) return
     openPlayer.btn.setAttribute('aria-expanded', 'false')
-    openPlayer.btn.textContent = 'play preview'
+    openPlayer.btn.setAttribute('aria-label', 'Play preview')
+    openPlayer.btn.classList.remove('is-open')
+    openPlayer.btn.innerHTML = playIcon
     openPlayer.wrap.remove()
     openPlayer = null
+    anyPreviewPlaying = false
   }
 
   rows.forEach((row) => {
     const scLink = row.querySelector('.album-actions a[href*="soundcloud.com"]')
-    const actions = row.querySelector('.album-actions')
+    const coverWrap = row.querySelector('.album-cover-wrap')
     const body = row.querySelector('.album-body')
-    if (!scLink || !actions || !body) return
+    if (!scLink || !coverWrap || !body) return
+
+    const slot = document.createElement('div')
+    slot.className = 'album-cover-slot'
+    coverWrap.parentNode.insertBefore(slot, coverWrap)
+    slot.appendChild(coverWrap)
 
     const btn = document.createElement('button')
     btn.type = 'button'
-    btn.className = 'text-link'
+    btn.className = 'album-cover-play'
     btn.setAttribute('aria-expanded', 'false')
-    btn.textContent = 'play preview'
-    actions.insertBefore(btn, actions.firstChild)
+    btn.setAttribute('aria-label', 'Play preview')
+    btn.innerHTML = playIcon
+    slot.appendChild(btn)
 
     btn.addEventListener('click', () => {
       if (openPlayer?.btn === btn) {
@@ -116,8 +185,11 @@ function initSoundCloudPreviews() {
       wrap.innerHTML = `<iframe title="SoundCloud preview" width="100%" height="${isSet ? 300 : 120}" scrolling="no" frameborder="no" allow="autoplay" src="${src}"></iframe>`
       body.appendChild(wrap)
       btn.setAttribute('aria-expanded', 'true')
-      btn.textContent = 'close preview'
+      btn.setAttribute('aria-label', 'Close preview')
+      btn.classList.add('is-open')
+      btn.innerHTML = stopIcon
       openPlayer = { btn, wrap }
+      anyPreviewPlaying = true
     })
   })
 }
@@ -127,6 +199,7 @@ function boot() {
   startCursorLoop()
   initPortfolioListen()
   initSoundCloudPreviews()
+  initMusicVinyl()
   initAmbientGlow()
 }
 

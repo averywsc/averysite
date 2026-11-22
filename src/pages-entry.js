@@ -28,7 +28,7 @@ function initAmbientGlow() {
   const root = document.body
   let activeEl = null
   const resolveGlow = (target) => {
-    const el = target?.closest?.('.album-row[data-glow], .script-card[data-glow], .project-card')
+    const el = target?.closest?.('.album-row[data-glow], .script-card[data-glow], .film-entry[data-glow], .project-card')
     if (!el) return null
     const rgb = el.dataset.glow || (el.classList.contains('project-card') ? (CATEGORY_GLOW[el.dataset.category] || '196, 196, 206') : '')
     return rgb ? { el, rgb } : null
@@ -370,12 +370,67 @@ function initSoundCloudPreviews() {
   })
 }
 
+function initFilmStrip() {
+  const list = document.querySelector('.film-list')
+  if (!list) return
+
+  const stage = document.createElement('div')
+  stage.className = 'film-strip-stage'
+  stage.setAttribute('aria-hidden', 'true')
+  stage.innerHTML = '<div class="film-strip-track"></div>'
+  document.body.appendChild(stage)
+
+  const tc = document.createElement('div')
+  tc.className = 'film-timecode'
+  tc.setAttribute('aria-hidden', 'true')
+  document.body.appendChild(tc)
+
+  const track = stage.querySelector('.film-strip-track')
+  const pad2 = (n) => String(n).padStart(2, '0')
+  const update = () => {
+    const y = window.scrollY || 0
+    track.style.backgroundPositionY = `${(-y * 0.55).toFixed(1)}px`
+    const frames = Math.max(0, Math.round(y * 0.32))
+    const ff = frames % 24
+    const secTotal = Math.floor(frames / 24)
+    const ss = secTotal % 60
+    const mm = Math.floor(secTotal / 60) % 60
+    tc.textContent = `00:${pad2(mm)}:${pad2(ss)}:${pad2(ff)}`
+  }
+  update()
+  window.addEventListener('scroll', update, { passive: true })
+}
+
+function initProjectCardTilt() {
+  const cards = [...document.querySelectorAll('.project-thumb-wrap')]
+  if (!cards.length || !window.matchMedia('(pointer: fine) and (hover: hover)').matches) return
+
+  cards.forEach((wrap) => {
+    wrap.addEventListener('pointermove', (e) => {
+      const r = wrap.getBoundingClientRect()
+      if (!r.width || !r.height) return
+      const nx = (e.clientX - r.left) / r.width
+      const ny = (e.clientY - r.top) / r.height
+      const rx = (0.5 - ny) * 6
+      const ry = (nx - 0.5) * 7
+      wrap.style.setProperty('--mx', `${(nx * 100).toFixed(1)}%`)
+      wrap.style.setProperty('--my', `${(ny * 100).toFixed(1)}%`)
+      wrap.style.transform = `perspective(720px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(1.015)`
+    })
+    wrap.addEventListener('pointerleave', () => {
+      wrap.style.transform = ''
+    })
+  })
+}
+
 function boot() {
   initEasterEggs()
   startCursorLoop()
   initPortfolioListen()
   initSoundCloudPreviews()
   initMusicVinyl()
+  initFilmStrip()
+  initProjectCardTilt()
   initAmbientGlow()
 }
 

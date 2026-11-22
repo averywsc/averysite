@@ -251,30 +251,7 @@ body::before {
   opacity: 0;
   transition: opacity 0.4s var(--ease);
 }
-body.is-locked .finale.is-live .finale__prompt {
-  opacity: 1;
-  animation: promptPulse 3.6s ease-in-out infinite;
-}
-@keyframes promptPulse {
-  0%, 100% { opacity: 0.48; }
-  50% { opacity: 0.85; }
-}
-.finale .finale__links,
-.finale .finale__nav {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
-}
-.finale.is-live .finale__links {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.14s;
-}
-.finale.is-live .finale__nav {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.26s;
-}
+body.is-locked .finale.is-live .finale__prompt { opacity: 1; }
 body.is-locked .finale.is-live { pointer-events: auto; cursor: pointer; }
 .finale.is-live .finale__name,
 .finale.is-live .finale__contact,

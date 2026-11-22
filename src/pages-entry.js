@@ -267,20 +267,20 @@ function initMusicVinyl() {
       playSpin += dt * 42
       let rawPulse = 0
       if (portfolioPlaying && activePortfolioSound) {
-        rawPulse = activePortfolioSound.getLevel()
+        rawPulse = activePortfolioSound.getLevel() * 0.55
       } else {
-        // Subtle organic beat-like pulse for cross-origin SoundCloud previews
+        // Very gentle ambient breathing glow while a preview is playing
         const t = now * 0.001
-        rawPulse = Math.pow(0.5 + 0.5 * Math.sin(t * Math.PI * 3.1), 2) * 0.55 + (0.5 + 0.5 * Math.sin(t * 1.4)) * 0.25
+        rawPulse = (0.5 + 0.5 * Math.sin(t * 1.1)) * 0.28 + (0.5 + 0.5 * Math.sin(t * 0.45 + 1.2)) * 0.14
       }
-      smoothPulse += (rawPulse - smoothPulse) * Math.min(1, dt * 8)
+      smoothPulse += (rawPulse - smoothPulse) * Math.min(1, dt * 2.6)
       root.style.setProperty('--vinyl-pulse', smoothPulse.toFixed(3))
       if (!hoverGlowLock) {
         const rgb = portfolioPlaying ? '196, 196, 206' : (activePreviewGlow || '196, 196, 206')
         root.style.setProperty('--glow-rgb', rgb)
-        root.style.setProperty('--glow-alpha', (0.72 + smoothPulse * 0.65).toFixed(3))
+        root.style.setProperty('--glow-alpha', (0.88 + smoothPulse * 0.28).toFixed(3))
       }
-      stage.style.filter = `drop-shadow(0 0 ${(18 + smoothPulse * 26).toFixed(1)}px rgba(${portfolioPlaying ? '220,216,208' : (activePreviewGlow || '220,216,208')}, ${(0.08 + smoothPulse * 0.16).toFixed(3)}))`
+      stage.style.filter = `drop-shadow(0 0 ${(20 + smoothPulse * 14).toFixed(1)}px rgba(${portfolioPlaying ? '220,216,208' : (activePreviewGlow || '220,216,208')}, ${(0.08 + smoothPulse * 0.09).toFixed(3)}))`
     } else {
       smoothPulse += (0 - smoothPulse) * Math.min(1, dt * 6)
       root.style.setProperty('--vinyl-pulse', smoothPulse.toFixed(3))

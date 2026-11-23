@@ -873,6 +873,16 @@ img {
   color: #e6d3de;
 }
 
+.album-title--third-impact {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c4cc44;
+  text-shadow: 2px 2px 0 rgba(102, 54, 178, 0.72);
+}
+
 .album-title--sunburnt {
   font-family: 'Courier Prime', 'Courier New', monospace;
   font-weight: 700;
@@ -898,6 +908,14 @@ img {
   color: #e8eef9;
 }
 
+.album-title--undersong {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+  font-size: 35px;
+  letter-spacing: 0.04em;
+  color: #b8d4ec;
+}
+
 .album-title--thaw {
   font-family: 'Courier Prime', 'Courier New', monospace;
   font-weight: 700;
@@ -912,6 +930,14 @@ img {
   font-size: 29px;
   letter-spacing: -0.015em;
   color: #edeae2;
+}
+
+.album-title--rainlight {
+  font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: #f7edc4;
 }
 
 .album-meta {

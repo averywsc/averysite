@@ -940,6 +940,14 @@ img {
   color: #f7edc4;
 }
 
+.album-title--amalthea {
+  font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: -0.015em;
+  color: #e6e8ec;
+}
+
 .album-meta {
   font-size: 11.5px;
   letter-spacing: 0.12em;

@@ -856,7 +856,6 @@ export function initThemes() {
     let poppedTotal = 0
     let stickyCount = 0
     let binItems = [
-      { name: 'em_dashes.txt', size: '14 KB', note: 'permanently deleted by request' },
       { name: 'download_ram.exe', size: '64 GB', note: 'failed at 99%' },
       { name: 'homework_final_FINAL_v3.docx', size: '412 KB', note: 'made code projects instead' },
       { name: 'unused_beats_2021.zip', size: '84 MB', note: 'too many hi-hats' },

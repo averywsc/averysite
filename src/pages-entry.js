@@ -394,9 +394,39 @@ function initProjectCardTilt() {
   })
 }
 
+function initMobilePolish() {
+  const search = document.getElementById('projectSearch')
+  if (search && (window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 860)) {
+    search.placeholder = 'search projects...'
+  }
+
+  const topBtn = document.createElement('button')
+  topBtn.type = 'button'
+  topBtn.className = 'back-to-top'
+  topBtn.setAttribute('aria-label', 'Back to top')
+  topBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 12.5V3.5M4 7.5L8 3.5l4 4"/></svg><span>top</span>'
+  topBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
+  document.body.appendChild(topBtn)
+
+  let ticking = false
+  const sync = () => {
+    ticking = false
+    topBtn.classList.toggle('is-visible', window.scrollY > 480)
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true
+      requestAnimationFrame(sync)
+    }
+  }, { passive: true })
+}
+
 function boot() {
   initEasterEggs()
   initThemes()
+  initMobilePolish()
   startCursorLoop()
   initPortfolioListen()
   initSoundCloudPreviews()

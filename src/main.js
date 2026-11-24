@@ -138,6 +138,9 @@ async function boot() {
 
   // Smooth Apple Watch wall zoom via trackpad pinch, or scroll-up on the main page
   lenis.options.virtualScroll = (data) => {
+    if (data.event?.target?.closest?.('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar')) {
+      return false
+    }
     if (locked) {
       if (data.event.cancelable) data.event.preventDefault()
       return false
@@ -213,8 +216,16 @@ async function boot() {
     document.documentElement.classList.add('ready')
   }, holdDelay)
 
-  // ---- hint (clearly tells user to scroll down or scroll up to zoom) ----
+  // ---- hint (clearly tells user how to explore on desktop vs touch) ----
   const hint = document.getElementById('hint')
+  const hintSpan = hint?.querySelector('span')
+  const finalePrompt = document.getElementById('finalePrompt')
+  const syncCopyForDevice = () => {
+    const touchUI = !finePointer || isMobile()
+    if (hintSpan) hintSpan.textContent = touchUI ? 'swipe to explore · tap any photo' : 'hold space or scroll'
+    if (finalePrompt) finalePrompt.textContent = touchUI ? 'tap anywhere to browse photos' : 'click anywhere to browse photos'
+  }
+  syncCopyForDevice()
   const hideHint = () => hint.classList.remove('is-on')
   const syncHint = (scroll = window.scrollY) => {
     if (initialP > 0) return
@@ -314,7 +325,7 @@ async function boot() {
   // ---- click ANY photo (or click background on locked landing to unlock browsing) ----
   let downPos = null
   window.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('a, button')) return
+    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar')) return
     downPos = { x: e.clientX, y: e.clientY }
     if (!locked && e.pointerType !== 'mouse') {
       world.pointerActive = true
@@ -324,13 +335,35 @@ async function boot() {
   })
   const photoCounter = document.getElementById('photoCounter')
   const pad3 = (n) => String(n).padStart(3, '0')
+
+  // Floating inspect controls (prev / counter / next / close) — super useful on mobile & desktop
+  const inspectBar = document.createElement('div')
+  inspectBar.className = 'inspect-bar'
+  inspectBar.id = 'inspectBar'
+  inspectBar.setAttribute('role', 'region')
+  inspectBar.setAttribute('aria-label', 'Photo navigation')
+  inspectBar.innerHTML = `
+    <button type="button" class="inspect-bar__btn" id="inspectPrev" aria-label="Previous photo">&lsaquo; prev</button>
+    <span class="inspect-bar__count" id="inspectBarCount"></span>
+    <button type="button" class="inspect-bar__btn" id="inspectNext" aria-label="Next photo">next &rsaquo;</button>
+    <button type="button" class="inspect-bar__btn inspect-bar__close" id="inspectClose" aria-label="Close photo">&times;</button>
+  `
+  document.body.appendChild(inspectBar)
+  const inspectBarCount = document.getElementById('inspectBarCount')
+
   const syncPhotoCounter = (idx) => {
-    if (!photoCounter) return
-    if (idx >= 0 && idx < layout.planes.length) {
-      photoCounter.textContent = `${pad3(idx + 1)} / ${pad3(layout.planes.length)}`
-      photoCounter.classList.add('is-on')
+    const valid = idx >= 0 && idx < layout.planes.length
+    document.body.classList.toggle('is-inspecting', valid)
+    inspectBar.classList.toggle('is-on', valid)
+    if (valid) {
+      const label = `${pad3(idx + 1)} / ${pad3(layout.planes.length)}`
+      if (photoCounter) {
+        photoCounter.textContent = label
+        photoCounter.classList.add('is-on')
+      }
+      if (inspectBarCount) inspectBarCount.textContent = label
     } else {
-      photoCounter.classList.remove('is-on')
+      photoCounter?.classList.remove('is-on')
     }
   }
 
@@ -379,7 +412,7 @@ async function boot() {
     const dist = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y)
     downPos = null
     if (dist > 8) return
-    if (e.target.closest('a, button')) return
+    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar')) return
     if (locked || !finaleDismissed || performance.now() - unlockedAt < 350) {
       unlock()
       finaleDismissed = true
@@ -409,8 +442,91 @@ async function boot() {
     if (world.inspectIdx >= 0) world.inspectIdx = -1
     syncPhotoCounter(-1)
   }
+  document.getElementById('inspectPrev')?.addEventListener('click', () => stepPhoto(-1))
+  document.getElementById('inspectNext')?.addEventListener('click', () => stepPhoto(1))
+  document.getElementById('inspectClose')?.addEventListener('click', releaseInspect)
   window.addEventListener('wheel', releaseInspect, { passive: true })
-  window.addEventListener('touchmove', releaseInspect, { passive: true })
+
+  // Touch gestures:
+  // 1) Inspect mode: swipe left/right to step photos, swipe up/down to close inspect
+  // 2) Zoomed photo wall: 1-finger drag to pan freely, 2-finger pinch to zoom in/out
+  let touchState = null
+  let pinchState = null
+  const touchDist = (t0, t1) => Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY)
+
+  window.addEventListener('touchstart', (e) => {
+    if (e.target.closest('a, button, .inspect-bar, .themes-backdrop')) return
+    if (locked) return
+    const mosaicUp = Math.max(state.openAssemble || 0, state.assemble || 0) > 0.72
+    if (e.touches.length === 2 && mosaicUp) {
+      pinchState = { dist: touchDist(e.touches[0], e.touches[1]), zoom: world.wallZoomTarget }
+      touchState = null
+      return
+    }
+    if (e.touches.length === 1) {
+      const t = e.touches[0]
+      touchState = {
+        sx: t.clientX,
+        sy: t.clientY,
+        lx: t.clientX,
+        ly: t.clientY,
+        moved: false,
+        panningWall: mosaicUp && world.wallZoomTarget > 1.25 && world.inspectIdx < 0,
+      }
+      if (touchState.panningWall) {
+        world.pointerActive = true
+      }
+    }
+  }, { passive: true })
+
+  window.addEventListener('touchmove', (e) => {
+    if (locked) return
+    if (pinchState && e.touches.length === 2) {
+      if (e.cancelable) e.preventDefault()
+      const d = touchDist(e.touches[0], e.touches[1])
+      if (pinchState.dist > 10) {
+        const next = pinchState.zoom * (d / pinchState.dist)
+        world.setWallZoom(next < 1.08 ? 1 : next)
+        updateZoomUI()
+        syncHint(lenis.targetScroll)
+      }
+      return
+    }
+    if (!touchState || e.touches.length !== 1) return
+    const t = e.touches[0]
+    const dx = t.clientX - touchState.lx
+    const dy = t.clientY - touchState.ly
+    touchState.lx = t.clientX
+    touchState.ly = t.clientY
+    if (Math.hypot(t.clientX - touchState.sx, t.clientY - touchState.sy) > 8) {
+      touchState.moved = true
+    }
+    if (touchState.panningWall) {
+      if (e.cancelable) e.preventDefault()
+      const sensX = 2.2 / Math.max(280, window.innerWidth)
+      const sensY = 2.2 / Math.max(360, window.innerHeight)
+      world.pointerActive = true
+      world.mouse.tx = Math.max(-1, Math.min(1, world.mouse.tx - dx * sensX))
+      world.mouse.ty = Math.max(-1, Math.min(1, world.mouse.ty - dy * sensY))
+    } else if (world.inspectIdx >= 0 && Math.abs(t.clientX - touchState.sx) > Math.abs(t.clientY - touchState.sy) && Math.abs(t.clientX - touchState.sx) > 14) {
+      if (e.cancelable) e.preventDefault()
+    }
+  }, { passive: false })
+
+  window.addEventListener('touchend', (e) => {
+    if (pinchState && e.touches.length < 2) pinchState = null
+    if (!touchState) return
+    if (world.inspectIdx >= 0 && touchState.moved) {
+      const totalX = touchState.lx - touchState.sx
+      const totalY = touchState.ly - touchState.sy
+      if (Math.abs(totalX) > 40 && Math.abs(totalX) > Math.abs(totalY) * 1.2) {
+        stepPhoto(totalX < 0 ? 1 : -1)
+      } else if (Math.abs(totalY) > 48 && Math.abs(totalY) > Math.abs(totalX) * 1.2) {
+        releaseInspect()
+      }
+    }
+    touchState = null
+  }, { passive: true })
 
   // Keyboard scroll comfort + silky continuous Spacebar hold-to-glide
   let spaceHeld = false

@@ -48,7 +48,7 @@ button { font: inherit; color: inherit; background: none; border: 0; }
 .mark, .nav-right {
   position: fixed;
   top: max(12px, env(safe-area-inset-top));
-  z-index: 6;
+  z-index: 25;
   font-size: 19px;
   line-height: 1;
   letter-spacing: 0.03em;
@@ -81,7 +81,7 @@ button { font: inherit; color: inherit; background: none; border: 0; }
   position: fixed;
   top: calc(max(12px, env(safe-area-inset-top)) + 44px);
   left: max(14px, env(safe-area-inset-left));
-  z-index: 6;
+  z-index: 25;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -91,14 +91,15 @@ button { font: inherit; color: inherit; background: none; border: 0; }
   color: rgba(244, 238, 228, 0.88);
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.96), 0 3px 18px rgba(0, 0, 0, 0.94);
   opacity: 0;
-  pointer-events: none;
+  pointer-events: auto;
   transition: opacity 1.2s var(--ease), color 0.4s var(--ease);
 }
 .ready .side-nav { opacity: 1; pointer-events: auto; }
 .side-nav a,
 .side-nav button {
   cursor: pointer;
-  padding: 7px 12px;
+  display: block;
+  padding: 9px 14px;
   text-align: left;
   width: fit-content;
   transition: color 0.35s var(--ease);
@@ -234,11 +235,74 @@ body::before {
   opacity: 1;
   transform: translateY(0);
 }
+
+.inspect-bar {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translate(-50%, 10px);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(11, 12, 15, 0.84);
+  border: 1px solid rgba(236, 230, 220, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.inspect-bar.is-on {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+.inspect-bar__btn {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: rgba(244, 238, 228, 0.88);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--ease);
+}
+.inspect-bar__btn:hover { background: rgba(236, 230, 220, 0.1); color: #ffffff; }
+.inspect-bar__btn:active { transform: scale(0.95); }
+.inspect-bar__close {
+  min-width: 36px;
+  padding: 6px 10px;
+  font-size: 16px;
+  line-height: 1;
+  color: rgba(244, 238, 228, 0.7);
+}
+.inspect-bar__count {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(236, 230, 220, 0.62);
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
 @media (max-width: 760px) {
   .photo-counter {
-    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 56px);
-    right: max(16px, env(safe-area-inset-right));
-    font-size: 12px;
+    display: none;
+  }
+  .inspect-bar {
+    bottom: max(14px, env(safe-area-inset-bottom));
+    max-width: calc(100vw - 24px);
+  }
+  .inspect-bar__btn {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  body.is-inspecting .nav-right {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 .finale__prompt {
@@ -349,42 +413,63 @@ body.is-locked .finale.is-live { pointer-events: auto; cursor: pointer; }
 }
 
 @media (max-width: 760px) {
+  #stage, .finale { height: 100dvh; }
   body::before {
-    height: 110px;
-    background: linear-gradient(to bottom, rgba(11, 12, 15, 0.86) 0%, rgba(11, 12, 15, 0.42) 55%, transparent 100%);
+    height: 112px;
+    background: linear-gradient(to bottom, rgba(11, 12, 15, 0.88) 0%, rgba(11, 12, 15, 0.44) 58%, transparent 100%);
   }
   .mark { display: none; }
   .side-nav {
-    top: max(10px, env(safe-area-inset-top));
-    left: max(12px, env(safe-area-inset-left));
-    right: max(12px, env(safe-area-inset-right));
+    top: max(8px, env(safe-area-inset-top));
+    left: max(10px, env(safe-area-inset-left));
+    right: max(10px, env(safe-area-inset-right));
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     font-size: 14.5px;
     max-width: none;
   }
-  .side-nav a, .side-nav button { padding: 8px 6px; text-align: center; }
+  .side-nav a, .side-nav button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 7px;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .side-nav a:active, .side-nav button:active { transform: scale(0.95); }
   .nav-right {
     top: auto;
     bottom: 0;
     left: 0;
     right: 0;
-    justify-content: center;
-    gap: 18px;
-    padding: 26px max(16px, env(safe-area-inset-right)) calc(max(14px, env(safe-area-inset-bottom)) + 4px) max(16px, env(safe-area-inset-left));
-    background: linear-gradient(to top, rgba(11, 12, 15, 0.9) 0%, rgba(11, 12, 15, 0.48) 58%, transparent 100%);
-    font-size: 14.5px;
+    justify-content: space-around;
+    gap: 6px;
+    padding: 22px max(10px, env(safe-area-inset-right)) calc(max(10px, env(safe-area-inset-bottom)) + 2px) max(10px, env(safe-area-inset-left));
+    background: linear-gradient(to top, rgba(11, 12, 15, 0.92) 0%, rgba(11, 12, 15, 0.5) 60%, transparent 100%);
+    font-size: 14px;
+    transition: opacity 0.28s var(--ease);
   }
-  .zoom-btn, .all-photos, .sound { font-size: 14.5px; padding: 9px 10px; }
+  .zoom-btn, .all-photos, .sound, .themes-nav-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 8px 9px;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .zoom-btn:active, .all-photos:active, .sound:active, .themes-nav-btn:active { transform: scale(0.95); }
   .zoom-btn.is-hidden { display: none; }
-  .hint { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 56px); font-size: 12px; }
+  .hint { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 62px); font-size: 12px; text-align: center; padding: 0 16px; }
   .finale__wordmark { width: clamp(210px, 70vw, 320px); }
   .finale__name { font-size: clamp(32px, 9vw, 44px); }
   .finale__nav { gap: 4px 6px; }
-  .finale__nav a, .finale__nav button { font-size: 16.5px; padding: 8px 9px; }
-  .finale__prompt { font-size: 12px; }
+  .finale__nav a, .finale__nav button { min-height: 44px; display: inline-flex; align-items: center; font-size: 16.5px; padding: 8px 10px; }
+  .finale__prompt { font-size: 12.5px; }
   .finale__sep { display: none; }
 }

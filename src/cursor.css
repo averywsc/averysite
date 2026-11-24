@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 60;
+  z-index: 99999;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.22s ease;
@@ -50,7 +50,7 @@
   height: 64px;
   margin: -32px 0 0 -32px;
   pointer-events: none;
-  z-index: 59;
+  z-index: 99998;
   color: rgba(248, 244, 236, 0.72);
   transform: scale(0.32);
   opacity: 0.78;

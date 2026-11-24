@@ -15,6 +15,7 @@ import { rgbToCss, linearToSrgb, luma } from './colors.js'
 import { createCursor } from './cursor.js'
 import { initInteractiveWordmark } from './wordmark.js'
 import { initEasterEggs } from './easter-eggs.js'
+import { initThemes } from './themes.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -63,6 +64,7 @@ function calmMode(cfg, photos) {
 
 async function boot() {
   initEasterEggs()
+  initThemes()
   const bootStart = performance.now()
   let cfg = resolveConfig(isMobile())
   applyIdentity(cfg)

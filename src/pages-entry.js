@@ -15,6 +15,7 @@ import './pages.css'
 import { startCursorLoop } from './cursor.js'
 import { Sound } from './sound.js'
 import { initEasterEggs } from './easter-eggs.js'
+import { initThemes } from './themes.js'
 
 const CATEGORY_GLOW = {
   game: '214, 152, 92',
@@ -395,6 +396,7 @@ function initProjectCardTilt() {
 
 function boot() {
   initEasterEggs()
+  initThemes()
   startCursorLoop()
   initPortfolioListen()
   initSoundCloudPreviews()

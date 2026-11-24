@@ -61,6 +61,7 @@
             <div class="code-tools">
               <input id="projectSearch" class="project-search" type="search" placeholder="search (/)" aria-label="Search projects" />
               <button type="button" id="randomProjectBtn" class="text-link">random</button>
+              <button type="button" id="feedbackBtn" class="text-link">feedback?</button>
             </div>
           </div>
 
@@ -1083,6 +1084,64 @@
           const card = pickFrom[Math.floor(Math.random() * pickFrom.length)];
           const href = card?.querySelector('a')?.href;
           if (href) window.open(href, '_blank', 'noopener,noreferrer');
+        });
+
+        const feedbackBtn = document.getElementById('feedbackBtn');
+        feedbackBtn?.addEventListener('click', () => {
+          let modal = document.getElementById('feedbackModal');
+          if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'feedbackModal';
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-label', 'Contact and feedback');
+            modal.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(11,12,15,0.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity 0.25s ease;';
+            modal.innerHTML = `
+              <div style="width:min(400px,100%);background:#111318;border:1px solid rgba(236,230,220,0.16);border-radius:6px;padding:26px 26px 24px;color:rgba(236,230,220,0.92);box-shadow:0 24px 64px rgba(0,0,0,0.65);">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;">
+                  <h2 style="font-family:'Dotmatri',ui-monospace,monospace;font-weight:400;font-size:22px;letter-spacing:0.05em;">feedback?</h2>
+                  <button type="button" data-close-feedback style="font-family:'Dotmatri',ui-monospace,monospace;font-size:13px;letter-spacing:0.08em;color:rgba(236,230,220,0.56);padding:4px 6px;">close</button>
+                </div>
+                <p style="font-size:13.5px;line-height:1.55;color:rgba(236,230,220,0.64);margin-bottom:18px;">Got thoughts, bugs, or just want to say hi? Reach me here:</p>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid rgba(236,230,220,0.1);border-radius:4px;background:rgba(236,230,220,0.025);">
+                    <span style="font-family:'Dotmatri',ui-monospace,monospace;font-size:12px;letter-spacing:0.08em;color:rgba(236,230,220,0.5);">instagram</span>
+                    <a class="text-link" style="font-size:14.5px;padding:2px 0;" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener noreferrer">@avery.beuth</a>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid rgba(236,230,220,0.1);border-radius:4px;background:rgba(236,230,220,0.025);">
+                    <span style="font-family:'Dotmatri',ui-monospace,monospace;font-size:12px;letter-spacing:0.08em;color:rgba(236,230,220,0.5);">email</span>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <a class="text-link" style="font-size:14px;padding:2px 0;" href="mailto:averybeuth3@gmail.com">averybeuth3@gmail.com</a>
+                      <button type="button" data-copy-email class="text-link" style="font-size:12px;color:rgba(236,230,220,0.56);padding:2px 4px;">copy</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            const close = () => {
+              modal.style.opacity = '0';
+              setTimeout(() => { modal.hidden = true; }, 240);
+            };
+            modal.addEventListener('click', (e) => {
+              if (e.target === modal || e.target.closest('[data-close-feedback]')) close();
+              const copyBtn = e.target.closest('[data-copy-email]');
+              if (copyBtn) {
+                navigator.clipboard?.writeText('averybeuth3@gmail.com').then(() => {
+                  copyBtn.textContent = 'copied';
+                  setTimeout(() => { copyBtn.textContent = 'copy'; }, 1600);
+                }).catch(() => {});
+              }
+            });
+            window.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && !modal.hidden) {
+                e.preventDefault();
+                close();
+              }
+            });
+            document.body.appendChild(modal);
+          }
+          modal.hidden = false;
+          requestAnimationFrame(() => { modal.style.opacity = '1'; });
         });
       })();
     </script>

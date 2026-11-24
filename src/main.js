@@ -12,9 +12,10 @@ import { World } from './scene.js'
 import { createLoaderUI, loadAtlases, createTexturePool } from './loader.js'
 import { Sound } from './sound.js'
 import { rgbToCss, linearToSrgb, luma } from './colors.js'
-import { createCursor } from './cursor.js'
+import { createCursor, startCursorLoop } from './cursor.js'
 import { initInteractiveWordmark } from './wordmark.js'
 import { initEasterEggs } from './easter-eggs.js'
+import { initThemes, isPhotosRoute } from './themes.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -62,7 +63,15 @@ function calmMode(cfg, photos) {
 }
 
 async function boot() {
+  const savedTheme = sessionStorage.getItem('avery_theme')
+  if (!isPhotosRoute() && savedTheme && savedTheme !== 'original') {
+    document.documentElement.classList.add('is-themed-home')
+    initThemes()
+    startCursorLoop()
+    return
+  }
   document.documentElement.removeAttribute('data-theme')
+  document.documentElement.classList.remove('is-themed-home')
   initEasterEggs()
   const bootStart = performance.now()
   let cfg = resolveConfig(isMobile())

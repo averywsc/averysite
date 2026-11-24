@@ -1,5 +1,4 @@
 @import './cursor.css';
-@import './themes.css';
 
 @font-face {
   font-family: 'Dotmatri';
@@ -453,7 +452,7 @@ body.is-locked .finale.is-live { pointer-events: auto; cursor: pointer; }
     font-size: 14px;
     transition: opacity 0.28s var(--ease);
   }
-  .zoom-btn, .all-photos, .sound, .themes-nav-btn {
+  .zoom-btn, .all-photos, .sound {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
@@ -463,7 +462,7 @@ body.is-locked .finale.is-live { pointer-events: auto; cursor: pointer; }
     white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
   }
-  .zoom-btn:active, .all-photos:active, .sound:active, .themes-nav-btn:active { transform: scale(0.95); }
+  .zoom-btn:active, .all-photos:active, .sound:active { transform: scale(0.95); }
   .zoom-btn.is-hidden { display: none; }
   .hint { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 62px); font-size: 12px; text-align: center; padding: 0 16px; }
   .finale__wordmark { width: clamp(210px, 70vw, 320px); }

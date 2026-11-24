@@ -1,6 +1,7 @@
 /**
- * themes.js — site-native theme switcher + real interactive theme shells (Terminal, Frutiger 7).
- * Persists across pages in sessionStorage.
+ * themes.js — bespoke sub-page theme engine.
+ * Homepage (index.html) is intentionally locked to the default 3D gallery theme.
+ * Sub-pages (code, scripts, music, films, privacy) support 6 genuinely distinct themes.
  */
 
 const THEMES = [
@@ -9,96 +10,54 @@ const THEMES = [
     num: '01',
     name: 'Original',
     label: 'ORIGINAL',
-    desc: 'Obsidian, warm cream, dot-matrix',
+    desc: 'Obsidian dark, warm cream, dot-matrix',
     themeColor: '#0b0c0f',
-    mini: {
-      bg: '#0b0c0f',
-      ink: '#ece6dc',
-      card: 'rgba(236,230,220,0.06)',
-      thumb: '#1a1d24',
-      accent: '#ece6dc',
-      font: "'Dotmatri', monospace",
-    },
+    previewClass: 'is-original',
   },
   {
     id: 'terminal',
     num: '02',
     name: 'Terminal',
     label: 'TERMINAL',
-    desc: 'Working zsh shell & neofetch',
-    themeColor: '#141615',
-    mini: {
-      bg: '#141615',
-      ink: '#b8ffd0',
-      card: 'rgba(94,242,150,0.08)',
-      thumb: '#0c1810',
-      accent: '#5ef296',
-      font: "'Courier Prime', monospace",
-    },
+    desc: 'Interactive zsh TUI, CRT scan & live CLI',
+    themeColor: '#121513',
+    previewClass: 'is-terminal',
   },
   {
     id: 'frutiger',
     num: '03',
     name: 'Frutiger 7',
     label: 'FRUTIGER 7',
-    desc: 'Aero glass desktop & browser',
-    themeColor: '#091b2c',
-    mini: {
-      bg: 'linear-gradient(155deg, #0b243b, #144d5c 65%, #163d2b)',
-      ink: '#f0faff',
-      card: 'rgba(255,255,255,0.18)',
-      thumb: 'rgba(103,232,249,0.28)',
-      accent: '#7dd3fc',
-      font: "'DM Sans', sans-serif",
-    },
+    desc: 'Windows 7 Aero desktop, glass browser & taskbar',
+    themeColor: '#071b2e',
+    previewClass: 'is-frutiger',
   },
   {
     id: 'darkroom',
     num: '04',
     name: 'Darkroom',
     label: 'DARKROOM',
-    desc: 'Safelight crimson, analog film',
-    themeColor: '#0c0607',
-    mini: {
-      bg: '#130709',
-      ink: '#ffb4a6',
-      card: 'rgba(255,110,90,0.1)',
-      thumb: '#2a0e10',
-      accent: '#ff6b57',
-      font: "'Dotmatri', monospace",
-    },
+    desc: '35mm contact sheet, safelight glow & sprockets',
+    themeColor: '#0b0405',
+    previewClass: 'is-darkroom',
   },
   {
     id: 'paper',
     num: '05',
     name: 'Paper',
     label: 'PAPER',
-    desc: 'Archival print, warm ink',
-    themeColor: '#f3efe6',
-    mini: {
-      bg: '#f3efe6',
-      ink: '#1a1917',
-      card: 'rgba(26,25,23,0.06)',
-      thumb: '#ded7c8',
-      accent: '#1a1917',
-      font: "'Cormorant Garamond', Georgia, serif",
-    },
+    desc: 'Archival print broadsheet, warm cotton & ink',
+    themeColor: '#f2ede2',
+    previewClass: 'is-paper',
   },
   {
     id: 'cobalt',
     num: '06',
     name: 'Cobalt',
     label: 'COBALT',
-    desc: 'Cyanotype blueprint & grid',
-    themeColor: '#061121',
-    mini: {
-      bg: '#071326',
-      ink: '#e4f2ff',
-      card: 'rgba(94,194,255,0.1)',
-      thumb: '#0e2544',
-      accent: '#5ec2ff',
-      font: "'Courier Prime', monospace",
-    },
+    desc: 'Cyanotype architectural blueprint & CAD grid',
+    themeColor: '#061429',
+    previewClass: 'is-cobalt',
   },
 ]
 
@@ -109,7 +68,46 @@ function isHomePage() {
   return Boolean(document.getElementById('stage') && document.getElementById('gl'))
 }
 
-function applyTheme(id) {
+function getPageMeta() {
+  const path = window.location.pathname.toLowerCase()
+  const inScripts = path.includes('/scripts/')
+  const base = inScripts ? '..' : '.'
+  let slug = 'home'
+  let title = 'Portfolio'
+  let cmd = 'ls -la ~/'
+  if (path.includes('code')) {
+    slug = 'code'
+    title = 'Code'
+    cmd = 'ls -la ~/code --featured --archive'
+  } else if (path.includes('music')) {
+    slug = 'music'
+    title = 'Music'
+    cmd = 'mpc playlist --verbose ~/music'
+  } else if (path.includes('film')) {
+    slug = 'films'
+    title = 'Films'
+    cmd = 'ffprobe -hide_banner ~/films/*'
+  } else if (inScripts && path.includes('view')) {
+    slug = 'scripts/view'
+    title = 'Screenplay'
+    cmd = 'less -N ~/scripts/screenplay.fountain'
+  } else if (inScripts) {
+    slug = 'scripts'
+    title = 'Scripts'
+    cmd = 'ls -lh ~/scripts/*.fountain'
+  } else if (path.includes('privacy')) {
+    slug = 'privacy'
+    title = 'Privacy'
+    cmd = 'cat ~/privacy.txt'
+  }
+  return { base, inScripts, slug, title, cmd }
+}
+
+function applyThemeAttr(id) {
+  if (isHomePage()) {
+    document.documentElement.removeAttribute('data-theme')
+    return 'original'
+  }
   const theme = THEMES.find((t) => t.id === id) || THEMES[0]
   const valid = theme.id
   if (valid === 'original') {
@@ -124,270 +122,369 @@ function applyTheme(id) {
   return valid
 }
 
-// Apply immediately on import so theme persists smoothly across page navigation
-applyTheme(sessionStorage.getItem(STORAGE_KEY) || 'original')
+// Apply immediately on sub-page load to prevent theme flash
+if (!isHomePage()) {
+  applyThemeAttr(sessionStorage.getItem(STORAGE_KEY) || 'original')
+}
 
 export function initThemes() {
-  if (initialized) return
+  if (initialized || isHomePage()) return
   initialized = true
 
   let currentId = sessionStorage.getItem(STORAGE_KEY) || 'original'
   let backdrop = null
-  let shellEl = null
-  let clockTimer = null
+  let cleanupFns = []
 
-  const removeShell = () => {
-    if (clockTimer) {
-      clearInterval(clockTimer)
-      clockTimer = null
+  const cleanupChrome = () => {
+    while (cleanupFns.length) {
+      const fn = cleanupFns.pop()
+      try { fn() } catch {}
     }
-    if (shellEl) {
-      shellEl.remove()
-      shellEl = null
-    }
-    document.body.classList.remove('is-theme-shell')
+    document.querySelectorAll('[data-theme-injected]').forEach((el) => el.remove())
   }
 
-  const mountTerminalShell = () => {
-    removeShell()
-    if (!isHomePage()) return
-    document.body.classList.add('is-theme-shell')
+  const mountTerminalChrome = () => {
+    const meta = getPageMeta()
+    const startedAt = Date.now()
 
-    shellEl = document.createElement('div')
-    shellEl.className = 'theme-shell theme-terminal-shell'
-    shellEl.innerHTML = `
-      <div class="term-titlebar">
-        <div class="term-dots" aria-hidden="true">
-          <button type="button" class="term-dot is-red" data-term-original title="Back to original"></button>
-          <span class="term-dot is-yellow"></span>
-          <span class="term-dot is-green"></span>
-        </div>
-        <div class="term-title">visitor@averybeuth.xyz: ~ &mdash; zsh</div>
-        <div class="term-bar-actions">
-          <button type="button" data-term-themes>[themes]</button>
-          <button type="button" data-term-original>[original]</button>
-        </div>
-      </div>
-      <div class="term-body" id="termBody">
-        <div class="term-line"><span class="term-prompt">visitor@averybeuth.xyz:~$</span> neofetch</div>
-        <div class="term-neofetch">
-          <pre class="term-ascii" aria-hidden="true"> █████╗ ██████╗ 
-██╔══██╗██╔══██╗
-███████║██████╔╝
-██╔══██║██╔══██╗
-██║  ██║██████╔╝
-╚═╝  ╚═╝╚═════╝ </pre>
-          <div class="term-info">
-            <div class="term-info-head">visitor@averybeuth.xyz</div>
-            <div class="term-info-sep">----------------------</div>
-            <div><span class="term-k">owner</span>   <span>Avery Beuth</span></div>
-            <div><span class="term-k">about</span>   <span>Photographs, films, screenplays, music, and software.</span></div>
-            <div><span class="term-k">folders</span> <a href="./?zoom=1" data-term-photos>photos/</a> <a href="./code.html">code/</a> <a href="./scripts/index.html">scripts/</a> <a href="./music.html">music/</a> <a href="./film.html">films/</a></div>
-            <div><span class="term-k">links</span>   <a href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">instagram</a> <a href="https://github.com/averywsc" target="_blank" rel="noopener">github</a></div>
-            <div><span class="term-k">theme</span>   <span>terminal</span> <button type="button" class="term-inline-btn" data-term-themes>(change)</button> <button type="button" class="term-inline-btn" data-term-original>(back to original)</button></div>
-            <div class="term-swatches" aria-hidden="true">
-              <span style="background:#e06c75"></span><span style="background:#e5c07b"></span><span style="background:#98c379"></span><span style="background:#56b6c2"></span><span style="background:#61afef"></span><span style="background:#c678dd"></span>
-            </div>
-          </div>
-        </div>
-        <div class="term-bio"><span class="term-k">bio:</span> photographer, filmmaker, composer &amp; developer from nz. type <span class="term-cmd">help</span> or click any folder above.</div>
-        <div class="term-history" id="termHistory"></div>
-        <form class="term-input-row" id="termForm" autocomplete="off">
-          <label class="term-prompt" for="termInput">visitor@averybeuth.xyz:~$</label>
-          <input id="termInput" class="term-input" type="text" spellcheck="false" aria-label="Terminal command" placeholder="help" />
-        </form>
-      </div>
-    `
-    document.body.appendChild(shellEl)
+    // 1. Subtle animated Matrix/glyph rain background canvas
+    const canvas = document.createElement('canvas')
+    canvas.className = 'term-matrix-bg'
+    canvas.setAttribute('data-theme-injected', '1')
+    canvas.setAttribute('aria-hidden', 'true')
+    document.body.appendChild(canvas)
 
-    shellEl.querySelectorAll('[data-term-themes]').forEach((b) => b.addEventListener('click', openPicker))
-    shellEl.querySelectorAll('[data-term-original]').forEach((b) => b.addEventListener('click', () => selectTheme('original')))
-    shellEl.querySelector('[data-term-photos]')?.addEventListener('click', (e) => {
-      e.preventDefault()
-      selectTheme('original')
-    })
+    const ctx = canvas.getContext('2d')
+    let rafId = 0
+    let matrixBoost = false
+    const chars = '01アイウエオカキクケコABXY#$%&*+=-:/'
+    let cols = 0
+    let drops = []
 
-    const form = shellEl.querySelector('#termForm')
-    const input = shellEl.querySelector('#termInput')
-    const history = shellEl.querySelector('#termHistory')
-    const termBody = shellEl.querySelector('#termBody')
-
-    shellEl.addEventListener('click', (e) => {
-      if (!e.target.closest('a, button, input')) input?.focus()
-    })
-
-    const printLine = (html) => {
-      const div = document.createElement('div')
-      div.className = 'term-out'
-      div.innerHTML = html
-      history.appendChild(div)
-      termBody.scrollTop = termBody.scrollHeight
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      cols = Math.max(12, Math.floor(canvas.width / 22))
+      drops = Array.from({ length: cols }, () => Math.random() * -40)
     }
+    resizeCanvas()
+    window.addEventListener('resize', resizeCanvas)
 
-    form?.addEventListener('submit', (e) => {
-      e.preventDefault()
-      const raw = (input.value || '').trim()
-      input.value = ''
-      if (!raw) return
-      const cmd = raw.toLowerCase()
-      printLine(`<span class="term-prompt">visitor@averybeuth.xyz:~$</span> ${raw.replace(/</g, '&lt;')}`)
-      if (cmd === 'help') {
-        printLine('commands: <span class="term-cmd">ls</span>, <span class="term-cmd">cd code</span>, <span class="term-cmd">cd music</span>, <span class="term-cmd">cd films</span>, <span class="term-cmd">cd scripts</span>, <span class="term-cmd">cd photos</span>, <span class="term-cmd">themes</span>, <span class="term-cmd">original</span>, <span class="term-cmd">clear</span>')
-      } else if (cmd === 'ls') {
-        printLine('drwxr-xr-x  <a href="./?zoom=1" data-term-photos>photos/</a>  <a href="./code.html">code/</a>  <a href="./scripts/index.html">scripts/</a>  <a href="./music.html">music/</a>  <a href="./film.html">films/</a>')
-        history.querySelector('[data-term-photos]:last-child')?.addEventListener('click', (ev) => { ev.preventDefault(); selectTheme('original') })
-      } else if (cmd === 'whoami') {
-        printLine('Avery Beuth — @avery.beuth')
-      } else if (cmd === 'clear') {
-        history.innerHTML = ''
-      } else if (cmd === 'themes') {
-        openPicker()
-      } else if (cmd === 'original' || cmd === 'exit') {
-        selectTheme('original')
-      } else if (cmd === 'cd code' || cmd === 'open code' || cmd === 'code') {
-        window.location.href = './code.html'
-      } else if (cmd === 'cd music' || cmd === 'open music' || cmd === 'music') {
-        window.location.href = './music.html'
-      } else if (cmd === 'cd films' || cmd === 'open films' || cmd === 'films' || cmd === 'cd film') {
-        window.location.href = './film.html'
-      } else if (cmd === 'cd scripts' || cmd === 'open scripts' || cmd === 'scripts') {
-        window.location.href = './scripts/index.html'
-      } else if (cmd === 'cd photos' || cmd === 'open photos' || cmd === 'photos') {
-        selectTheme('original')
-      } else {
-        printLine(`zsh: command not found: ${raw.replace(/</g, '&lt;')} (try <span class="term-cmd">help</span>)`)
+    let lastDraw = 0
+    const drawRain = (t) => {
+      rafId = requestAnimationFrame(drawRain)
+      if (t - lastDraw < (matrixBoost ? 42 : 85)) return
+      lastDraw = t
+      ctx.fillStyle = matrixBoost ? 'rgba(14, 18, 15, 0.14)' : 'rgba(14, 18, 15, 0.24)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.fillStyle = matrixBoost ? 'rgba(110, 231, 135, 0.55)' : 'rgba(110, 231, 135, 0.18)'
+      ctx.font = '13px "Courier Prime", monospace'
+      for (let i = 0; i < drops.length; i++) {
+        const ch = chars[Math.floor(Math.random() * chars.length)]
+        ctx.fillText(ch, i * 22, drops[i] * 20)
+        if (drops[i] * 20 > canvas.height && Math.random() > 0.965) drops[i] = 0
+        drops[i] += matrixBoost ? 1.15 : 0.65
       }
-    })
-  }
-
-  const mountFrutigerShell = () => {
-    removeShell()
-    if (!isHomePage()) return
-    document.body.classList.add('is-theme-shell')
-
-    shellEl = document.createElement('div')
-    shellEl.className = 'theme-shell theme-frutiger-shell'
-    shellEl.innerHTML = `
-      <div class="aero-bubbles" aria-hidden="true">
-        <span class="aero-bubble b1"></span>
-        <span class="aero-bubble b2"></span>
-        <span class="aero-bubble b3"></span>
-        <span class="aero-bubble b4"></span>
-      </div>
-      <div class="aero-desktop">
-        <nav class="aero-icons" aria-label="Desktop shortcuts">
-          <button type="button" class="aero-icon" data-aero-photos>
-            <span class="aero-icon-glyph">📷</span>
-            <span>Photos</span>
-          </button>
-          <a class="aero-icon" href="./code.html">
-            <span class="aero-icon-glyph">📁</span>
-            <span>Code</span>
-          </a>
-          <a class="aero-icon" href="./scripts/index.html">
-            <span class="aero-icon-glyph">📄</span>
-            <span>Scripts</span>
-          </a>
-          <a class="aero-icon" href="./music.html">
-            <span class="aero-icon-glyph">🎵</span>
-            <span>Music</span>
-          </a>
-          <a class="aero-icon" href="./film.html">
-            <span class="aero-icon-glyph">🎞️</span>
-            <span>Films</span>
-          </a>
-          <button type="button" class="aero-icon" data-aero-themes>
-            <span class="aero-icon-glyph">🎨</span>
-            <span>Themes</span>
-          </button>
-          <button type="button" class="aero-icon" data-aero-original>
-            <span class="aero-icon-glyph">⏻</span>
-            <span>Original</span>
-          </button>
-        </nav>
-
-        <section class="aero-window" aria-label="Browser window">
-          <div class="aero-win-titlebar">
-            <span class="aero-win-title">Avery Beuth - Internet</span>
-            <div class="aero-win-btns">
-              <button type="button" class="aero-win-btn" data-aero-themes title="Themes">_</button>
-              <button type="button" class="aero-win-btn is-close" data-aero-original title="Back to original">&times;</button>
-            </div>
-          </div>
-          <div class="aero-addr-bar">
-            <span class="aero-nav-arrows" aria-hidden="true">◀ ▶</span>
-            <div class="aero-url">https://averybeuth.xyz/</div>
-            <button type="button" class="aero-go-btn" data-aero-themes>Themes</button>
-          </div>
-          <div class="aero-fav-bar">
-            <a href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">★ Instagram</a>
-            <a href="https://github.com/averywsc" target="_blank" rel="noopener">★ GitHub</a>
-            <a href="./code.html">★ Code</a>
-            <a href="./music.html">★ Music</a>
-          </div>
-          <div class="aero-page">
-            <div class="aero-page-banner">
-              <span class="aero-logo">avery<strong>beuth</strong></span>
-              <span class="aero-beta">beta</span>
-            </div>
-            <div class="aero-page-content">
-              <div class="aero-hero-card">
-                <div class="aero-hero-copy">
-                  <h1>Welcome to my homepage!</h1>
-                  <p>Photographs, short films, screenplays, music, and open-source software by Avery Beuth.</p>
-                  <button type="button" class="aero-cta" data-aero-photos>Explore my photos &raquo;</button>
-                </div>
-                <button type="button" class="aero-starburst" data-aero-themes>
-                  <strong>NEW!</strong>
-                  <span>6 themes</span>
-                </button>
-              </div>
-              <div class="aero-cols">
-                <div class="aero-box">
-                  <div class="aero-box-head">About me</div>
-                  <p>Building tools, shooting 35mm &amp; digital, writing scripts, and composing music in Aotearoa.</p>
-                </div>
-                <div class="aero-box">
-                  <div class="aero-box-head">Links</div>
-                  <div class="aero-link-btns">
-                    <a class="aero-green-btn" href="./code.html">Code &amp; Apps</a>
-                    <a class="aero-green-btn" href="./music.html">Music &amp; OSTs</a>
-                    <a class="aero-green-btn" href="./film.html">Short Films</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <footer class="aero-taskbar">
-        <button type="button" class="aero-start" data-aero-themes aria-label="Start / Themes">❖</button>
-        <div class="aero-task-items">
-          <span class="aero-task-pill is-active">Avery Beuth - Internet</span>
-          <button type="button" class="aero-task-pill" data-aero-original>Original site</button>
-        </div>
-        <div class="aero-clock" id="aeroClock"></div>
-      </footer>
-    `
-    document.body.appendChild(shellEl)
-
-    const updateClock = () => {
-      const el = document.getElementById('aeroClock')
-      if (!el) return
-      const now = new Date()
-      el.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
-    updateClock()
-    clockTimer = setInterval(updateClock, 15000)
+    rafId = requestAnimationFrame(drawRain)
+    cleanupFns.push(() => {
+      cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', resizeCanvas)
+    })
 
-    shellEl.querySelectorAll('[data-aero-themes]').forEach((b) => b.addEventListener('click', openPicker))
-    shellEl.querySelectorAll('[data-aero-original], [data-aero-photos]').forEach((b) => b.addEventListener('click', () => selectTheme('original')))
+    // 2. Top Terminal Window Titlebar
+    const topBar = document.createElement('div')
+    topBar.className = 'term-winbar'
+    topBar.setAttribute('data-theme-injected', '1')
+    topBar.innerHTML = `
+      <div class="term-dots">
+        <button type="button" class="term-dot is-red" data-t-original title="Exit to Original"></button>
+        <span class="term-dot is-yellow"></span>
+        <span class="term-dot is-green"></span>
+      </div>
+      <div class="term-winbar-title">visitor@averybeuth.xyz: ~/${meta.slug} &mdash; zsh</div>
+      <div class="term-winbar-right">
+        <span class="term-uptime" id="termUptime">up 00:00</span>
+        <button type="button" data-t-matrix>[matrix]</button>
+        <button type="button" data-t-themes>[themes]</button>
+        <button type="button" data-t-original>[original]</button>
+      </div>
+    `
+    document.body.prepend(topBar)
+
+    const uptimeTimer = setInterval(() => {
+      const el = document.getElementById('termUptime')
+      if (!el) return
+      const s = Math.floor((Date.now() - startedAt) / 1000)
+      const mm = String(Math.floor(s / 60)).padStart(2, '0')
+      const ss = String(s % 60).padStart(2, '0')
+      el.textContent = `up ${mm}:${ss}`
+    }, 1000)
+    cleanupFns.push(() => clearInterval(uptimeTimer))
+
+    // 3. Animated Terminal Boot Header + Interactive CLI inside .page-wrap
+    const pageWrap = document.querySelector('.page-wrap')
+    if (pageWrap) {
+      const cli = document.createElement('section')
+      cli.className = 'term-console'
+      cli.setAttribute('data-theme-injected', '1')
+      cli.setAttribute('aria-label', 'Interactive terminal')
+      cli.innerHTML = `
+        <div class="term-boot-line">
+          <span class="term-prompt">visitor@averybeuth.xyz:~/${meta.slug}$</span>
+          <span class="term-typed" id="termTyped"></span><span class="term-caret" aria-hidden="true"></span>
+        </div>
+        <div class="term-boot-status" id="termBootStatus"></div>
+        <div class="term-cli-log" id="termCliLog"></div>
+        <form class="term-cli-form" id="termCliForm" autocomplete="off">
+          <label class="term-prompt" for="termCliInput">visitor@averybeuth.xyz:~/${meta.slug}$</label>
+          <input id="termCliInput" class="term-cli-input" type="text" spellcheck="false" placeholder="type 'help', 'neofetch', 'matrix', 'ls', or 'cd music'..." />
+        </form>
+      `
+      pageWrap.prepend(cli)
+
+      // Typewriter animation for the boot command
+      const typedEl = cli.querySelector('#termTyped')
+      const statusEl = cli.querySelector('#termBootStatus')
+      let i = 0
+      const typeTimer = setInterval(() => {
+        if (!typedEl) return
+        i++
+        typedEl.textContent = meta.cmd.slice(0, i)
+        if (i >= meta.cmd.length) {
+          clearInterval(typeTimer)
+          const itemCount = document.querySelectorAll('.project-card, .album-row, .script-card, .film-card').length
+          const msg = itemCount > 0
+            ? `[OK] mounted ${itemCount} entries in ~/${meta.slug} · interactive mode ready`
+            : `[OK] buffer ~/${meta.slug} loaded · interactive mode ready`
+          if (statusEl) statusEl.textContent = msg
+        }
+      }, 28)
+      cleanupFns.push(() => clearInterval(typeTimer))
+
+      // Interactive CLI commands
+      const form = cli.querySelector('#termCliForm')
+      const input = cli.querySelector('#termCliInput')
+      const log = cli.querySelector('#termCliLog')
+      const pushLog = (html) => {
+        const line = document.createElement('div')
+        line.className = 'term-cli-out'
+        line.innerHTML = html
+        log.appendChild(line)
+        log.scrollTop = log.scrollHeight
+      }
+
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const raw = (input.value || '').trim()
+        input.value = ''
+        if (!raw) return
+        const c = raw.toLowerCase()
+        pushLog(`<span class="term-prompt">$</span> ${raw.replace(/</g, '&lt;')}`)
+        if (c === 'help') {
+          pushLog('commands: <span class="term-hi">neofetch</span>, <span class="term-hi">ls</span>, <span class="term-hi">matrix</span>, <span class="term-hi">cd code</span>, <span class="term-hi">cd scripts</span>, <span class="term-hi">cd music</span>, <span class="term-hi">cd films</span>, <span class="term-hi">cd photos</span>, <span class="term-hi">themes</span>, <span class="term-hi">original</span>, <span class="term-hi">clear</span>')
+        } else if (c === 'ls') {
+          pushLog(`drwxr-xr-x  <a href="${meta.base}/?zoom=1">photos/</a>  <a href="${meta.base}/code.html">code/</a>  <a href="${meta.base}/scripts/index.html">scripts/</a>  <a href="${meta.base}/music.html">music/</a>  <a href="${meta.base}/film.html">films/</a>`)
+        } else if (c === 'neofetch') {
+          pushLog(`<pre class="term-mini-neo"> █████╗ ██████╗    visitor@averybeuth.xyz
+██╔══██╗██╔══██╗   ----------------------
+███████║██████╔╝   owner   Avery Beuth
+██╔══██║██╔══██╗   page    ~/${meta.slug}
+██║  ██║██████╔╝   shell   zsh 5.9 (web)
+╚═╝  ╚═╝╚═════╝    theme   terminal [animated]</pre>`)
+        } else if (c === 'matrix') {
+          matrixBoost = !matrixBoost
+          canvas.classList.toggle('is-boosted', matrixBoost)
+          pushLog(matrixBoost ? '[OK] matrix rain overdrive: ON' : '[OK] matrix rain overdrive: ambient')
+        } else if (c === 'clear') {
+          log.innerHTML = ''
+        } else if (c === 'themes') {
+          openPicker()
+        } else if (c === 'original' || c === 'exit') {
+          selectTheme('original')
+        } else if (c === 'cd code' || c === 'code') {
+          window.location.href = `${meta.base}/code.html`
+        } else if (c === 'cd music' || c === 'music') {
+          window.location.href = `${meta.base}/music.html`
+        } else if (c === 'cd films' || c === 'cd film' || c === 'films') {
+          window.location.href = `${meta.base}/film.html`
+        } else if (c === 'cd scripts' || c === 'scripts') {
+          window.location.href = `${meta.base}/scripts/index.html`
+        } else if (c === 'cd photos' || c === 'photos') {
+          window.location.href = `${meta.base}/?zoom=1`
+        } else {
+          pushLog(`zsh: command not found: ${raw.replace(/</g, '&lt;')} — try <span class="term-hi">help</span>`)
+        }
+      })
+    }
+
+    // 4. Stagger animation indices on content items
+    const items = [...document.querySelectorAll('.project-card, .album-row, .script-card, .film-card')]
+    items.forEach((el, idx) => {
+      el.style.setProperty('--term-i', String(Math.min(idx, 18)))
+    })
+    cleanupFns.push(() => {
+      items.forEach((el) => el.style.removeProperty('--term-i'))
+    })
+
+    // Wire titlebar buttons
+    topBar.querySelector('[data-t-matrix]')?.addEventListener('click', () => {
+      matrixBoost = !matrixBoost
+      canvas.classList.toggle('is-boosted', matrixBoost)
+    })
+    topBar.querySelector('[data-t-themes]')?.addEventListener('click', openPicker)
+    topBar.querySelectorAll('[data-t-original]').forEach((b) => b.addEventListener('click', () => selectTheme('original')))
   }
 
-  const syncShell = (id) => {
-    if (id === 'terminal') mountTerminalShell()
-    else if (id === 'frutiger') mountFrutigerShell()
-    else removeShell()
+  const mountFrutigerChrome = () => {
+    const meta = getPageMeta()
+
+    // 1. Animated Aero Desktop Wallpaper + floating glass bubbles
+    const bg = document.createElement('div')
+    bg.className = 'aero-bg'
+    bg.setAttribute('data-theme-injected', '1')
+    bg.setAttribute('aria-hidden', 'true')
+    bg.innerHTML = `
+      <span class="aero-bubble b1"></span>
+      <span class="aero-bubble b2"></span>
+      <span class="aero-bubble b3"></span>
+      <span class="aero-bubble b4"></span>
+      <span class="aero-bubble b5"></span>
+      <span class="aero-bubble b6"></span>
+    `
+    document.body.prepend(bg)
+
+    // 2. Desktop Shortcut Icons on the left
+    const icons = document.createElement('nav')
+    icons.className = 'aero-desktop-icons'
+    icons.setAttribute('data-theme-injected', '1')
+    icons.setAttribute('aria-label', 'Desktop shortcuts')
+    icons.innerHTML = `
+      <a class="aero-d-icon" href="${meta.base}/?zoom=1">
+        <span class="aero-d-glyph is-photo">📷</span><span>Photos</span>
+      </a>
+      <a class="aero-d-icon ${meta.slug === 'code' ? 'is-current' : ''}" href="${meta.base}/code.html">
+        <span class="aero-d-glyph is-folder">📁</span><span>Code</span>
+      </a>
+      <a class="aero-d-icon ${meta.slug.startsWith('scripts') ? 'is-current' : ''}" href="${meta.base}/scripts/index.html">
+        <span class="aero-d-glyph is-doc">📄</span><span>Scripts</span>
+      </a>
+      <a class="aero-d-icon ${meta.slug === 'music' ? 'is-current' : ''}" href="${meta.base}/music.html">
+        <span class="aero-d-glyph is-music">🎵</span><span>Music</span>
+      </a>
+      <a class="aero-d-icon ${meta.slug === 'films' ? 'is-current' : ''}" href="${meta.base}/film.html">
+        <span class="aero-d-glyph is-film">🎞️</span><span>Films</span>
+      </a>
+      <button type="button" class="aero-d-icon" data-a-themes>
+        <span class="aero-d-glyph is-paint">🎨</span><span>Themes</span>
+      </button>
+      <button type="button" class="aero-d-icon" data-a-original>
+        <span class="aero-d-glyph is-power">⏻</span><span>Original</span>
+      </button>
+    `
+    document.body.appendChild(icons)
+
+    // 3. Aero Glass IE8 Browser Chrome Header inside .site-main
+    const main = document.querySelector('.site-main')
+    if (main) {
+      const chrome = document.createElement('div')
+      chrome.className = 'aero-browser-chrome'
+      chrome.setAttribute('data-theme-injected', '1')
+      chrome.innerHTML = `
+        <div class="aero-win-titlebar">
+          <span class="aero-win-title">Avery Beuth &mdash; ${meta.title} &mdash; Windows Internet Explorer</span>
+          <div class="aero-win-btns">
+            <button type="button" class="aero-win-btn" data-a-themes title="Themes">_</button>
+            <button type="button" class="aero-win-btn is-close" data-a-original title="Back to Original">&times;</button>
+          </div>
+        </div>
+        <div class="aero-addr-bar">
+          <div class="aero-nav-orbs" aria-hidden="true"><span>◀</span><span>▶</span></div>
+          <div class="aero-url-box">https://averybeuth.xyz/${meta.slug}</div>
+          <button type="button" class="aero-tool-btn" data-a-themes>Themes</button>
+        </div>
+        <div class="aero-fav-bar">
+          <a href="${meta.base}/?zoom=1">★ Photos</a>
+          <a href="${meta.base}/code.html">★ Code</a>
+          <a href="${meta.base}/scripts/index.html">★ Scripts</a>
+          <a href="${meta.base}/music.html">★ Music</a>
+          <a href="${meta.base}/film.html">★ Films</a>
+          <a href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">★ Instagram</a>
+        </div>
+        <div class="aero-web2-banner">
+          <div class="aero-web2-left">
+            <span class="aero-web2-logo">avery<strong>beuth</strong></span>
+            <span class="aero-web2-beta">beta</span>
+          </div>
+          <button type="button" class="aero-web2-pill" data-a-themes>6 themes ▾</button>
+        </div>
+      `
+      main.prepend(chrome)
+    }
+
+    // 4. Bottom Windows 7 Aero Taskbar with live clock
+    const taskbar = document.createElement('footer')
+    taskbar.className = 'aero-taskbar-global'
+    taskbar.setAttribute('data-theme-injected', '1')
+    taskbar.innerHTML = `
+      <button type="button" class="aero-start-orb" data-a-themes aria-label="Start / Themes">❖</button>
+      <div class="aero-task-list">
+        <span class="aero-task-tab is-active">${meta.title} - Internet</span>
+        <button type="button" class="aero-task-tab" data-a-themes>Themes</button>
+        <button type="button" class="aero-task-tab" data-a-original>Original site</button>
+      </div>
+      <div class="aero-tray-clock">
+        <span id="aeroTime"></span>
+        <span id="aeroDate"></span>
+      </div>
+    `
+    document.body.appendChild(taskbar)
+
+    const tickClock = () => {
+      const now = new Date()
+      const tEl = document.getElementById('aeroTime')
+      const dEl = document.getElementById('aeroDate')
+      if (tEl) tEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      if (dEl) dEl.textContent = now.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' })
+    }
+    tickClock()
+    const clockId = setInterval(tickClock, 15000)
+    cleanupFns.push(() => clearInterval(clockId))
+
+    document.querySelectorAll('[data-a-themes]').forEach((b) => b.addEventListener('click', openPicker))
+    document.querySelectorAll('[data-a-original]').forEach((b) => b.addEventListener('click', () => selectTheme('original')))
+  }
+
+  const mountDarkroomChrome = () => {
+    const strip = document.createElement('div')
+    strip.className = 'darkroom-film-edge'
+    strip.setAttribute('data-theme-injected', '1')
+    strip.setAttribute('aria-hidden', 'true')
+    strip.innerHTML = '<span>KODAK TRI-X 400</span><span>SAFETY FILM</span><span>5063</span><span>36 EXP</span>'
+    document.body.appendChild(strip)
+  }
+
+  const mountCobaltChrome = () => {
+    const meta = getPageMeta()
+    const pageWrap = document.querySelector('.page-wrap')
+    if (!pageWrap) return
+    const block = document.createElement('div')
+    block.className = 'cobalt-titleblock'
+    block.setAttribute('data-theme-injected', '1')
+    block.innerHTML = `
+      <span>DWG NO. AB-${meta.slug.toUpperCase()}</span>
+      <span>SCALE 1:1</span>
+      <span>CYANOTYPE ARCHIVE // 2026</span>
+    `
+    pageWrap.prepend(block)
+  }
+
+  const syncThemeChrome = (id) => {
+    cleanupChrome()
+    if (id === 'terminal') mountTerminalChrome()
+    else if (id === 'frutiger') mountFrutigerChrome()
+    else if (id === 'darkroom') mountDarkroomChrome()
+    else if (id === 'cobalt') mountCobaltChrome()
   }
 
   const renderPreview = (theme) => {
@@ -399,21 +496,7 @@ export function initThemes() {
     const useEl = backdrop.querySelector('.themes-in-use')
     if (!mini) return
 
-    mini.style.background = theme.mini.bg
-    mini.style.color = theme.mini.ink
-    mini.style.fontFamily = theme.mini.font
-    mini.querySelector('.themes-mini-brand').style.color = theme.mini.accent
-    mini.querySelectorAll('.themes-mini-card').forEach((c) => {
-      c.style.background = theme.mini.card
-      c.style.border = `1px solid ${theme.mini.ink}22`
-    })
-    mini.querySelectorAll('.themes-mini-thumb').forEach((t) => {
-      t.style.background = theme.mini.thumb
-    })
-    mini.querySelectorAll('.themes-mini-line').forEach((l) => {
-      l.style.background = theme.mini.ink
-    })
-
+    mini.className = `themes-mini ${theme.previewClass}`
     numEl.textContent = theme.num
     nameEl.textContent = theme.name
     descEl.textContent = theme.desc
@@ -434,8 +517,8 @@ export function initThemes() {
   }
 
   const selectTheme = (id) => {
-    currentId = applyTheme(id)
-    syncShell(currentId)
+    currentId = applyThemeAttr(id)
+    syncThemeChrome(currentId)
     syncTiles()
     renderPreview(THEMES.find((t) => t.id === currentId) || THEMES[0])
   }
@@ -450,20 +533,22 @@ export function initThemes() {
       backdrop.innerHTML = `
         <div class="themes-panel">
           <div class="themes-preview-frame">
-            <div class="themes-mini">
-              <div class="themes-mini-top">
+            <div class="themes-mini is-original">
+              <div class="themes-mini-bar">
+                <span class="themes-mini-dots"><i></i><i></i><i></i></span>
                 <span class="themes-mini-brand">averybeuth.xyz</span>
-                <span class="themes-mini-nav"><span>photos</span><span>code</span><span>music</span></span>
+                <span class="themes-mini-nav"><span>code</span><span>music</span><span>films</span></span>
               </div>
               <div class="themes-mini-hero">
                 <div class="themes-mini-title">averybeuth.xyz</div>
-                <div class="themes-mini-sub">photos, films, music and software.</div>
+                <div class="themes-mini-sub">photos, films, music &amp; software</div>
               </div>
               <div class="themes-mini-grid">
                 <div class="themes-mini-card"><div class="themes-mini-thumb"></div><div class="themes-mini-line"></div><div class="themes-mini-line is-short"></div></div>
                 <div class="themes-mini-card"><div class="themes-mini-thumb"></div><div class="themes-mini-line"></div><div class="themes-mini-line is-short"></div></div>
                 <div class="themes-mini-card"><div class="themes-mini-thumb"></div><div class="themes-mini-line"></div><div class="themes-mini-line is-short"></div></div>
               </div>
+              <div class="themes-mini-taskbar"></div>
             </div>
           </div>
           <div class="themes-meta-bar">
@@ -536,10 +621,10 @@ export function initThemes() {
     requestAnimationFrame(() => backdrop.classList.add('is-open'))
   }
 
-  // Mount active interactive shell if user navigated back with Terminal/Frutiger active
-  syncShell(currentId)
+  // Mount chrome for currently persisted theme on page load
+  syncThemeChrome(currentId)
 
-  // Mount trigger button in sub-page sidebar (+ mobile header) or homepage controls
+  // Mount trigger button in sub-page sidebar (.rail-meta) with identical spacing to @avery.beuth & privacy
   const railMeta = document.querySelector('.rail-meta')
   const railTopRow = document.querySelector('.rail-top-row')
   if (railMeta && !railMeta.querySelector('.themes-trigger')) {
@@ -558,23 +643,6 @@ export function initThemes() {
       mBtn.textContent = 'themes'
       mBtn.addEventListener('click', openPicker)
       railTopRow.appendChild(mBtn)
-    }
-  } else if (!railMeta && !document.querySelector('.themes-home-btn')) {
-    const btn = document.createElement('button')
-    btn.type = 'button'
-    btn.className = 'themes-home-btn'
-    btn.textContent = 'themes'
-    btn.addEventListener('click', openPicker)
-    document.body.appendChild(btn)
-
-    const navRight = document.querySelector('.nav-right')
-    if (navRight && !navRight.querySelector('.themes-nav-btn')) {
-      const navBtn = document.createElement('button')
-      navBtn.type = 'button'
-      navBtn.className = 'themes-nav-btn'
-      navBtn.textContent = 'themes'
-      navBtn.addEventListener('click', openPicker)
-      navRight.insertBefore(navBtn, document.getElementById('sound') || null)
     }
   }
 }

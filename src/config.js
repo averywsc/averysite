@@ -178,10 +178,10 @@ export const config = {
    * Phones & small screens (merged over the values above)
    * ------------------------------------------------------------- */
   mobile: {
-    camera: { fill: 0.9, sweep: 0.9, roll: 2.0, tilt: 3, shake: 0.7, fov: 46 },
-    layout: { spreadX: 1.35, spreadY: 1.9, size: 2.9, yaw: 5 },
-    look: { dust: 32, chromatic: 0.0004, grain: 0.015 },
-    scroll: { scrub: 0.85 },
+    camera: { fill: 0.82, sweep: 0.65, roll: 1.4, tilt: 2.2, shake: 0.45, fov: 48 },
+    layout: { spreadX: 1.15, spreadY: 1.55, size: 2.65, yaw: 4, depthSpacing: 3.3 },
+    look: { dust: 28, chromatic: 0.00035, grain: 0.014 },
+    scroll: { scrub: 0.22, lerp: 0.14, touchMultiplier: 2.1, maxTunnelScreens: 36 },
   },
 
   /* ---------------------------------------------------------------

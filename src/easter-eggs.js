@@ -150,7 +150,7 @@ export function openSecretsModal() {
     modal.id = 'eggModal'
     modal.setAttribute('role', 'dialog')
     modal.setAttribute('aria-modal', 'true')
-    modal.setAttribute('aria-label', 'Easter egg binds')
+    modal.setAttribute('aria-label', 'Secrets')
     modal.style.cssText = [
       'position:fixed',
       'inset:0',
@@ -158,80 +158,102 @@ export function openSecretsModal() {
       'display:flex',
       'align-items:center',
       'justify-content:center',
-      'padding:20px',
-      'background:rgba(11,12,15,0.8)',
-      'backdrop-filter:blur(12px)',
-      '-webkit-backdrop-filter:blur(12px)',
+      'padding:18px',
+      'background:rgba(8,9,13,0.84)',
+      'backdrop-filter:blur(14px)',
+      '-webkit-backdrop-filter:blur(14px)',
       'opacity:0',
-      'transition:opacity 0.25s ease',
+      'transition:opacity 0.22s ease',
     ].join(';')
 
-    const secTitle = 'font-family:\'Dotmatri\',ui-monospace,monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(236,230,220,0.44);margin:16px 0 8px;'
-    const dlStyle = 'display:grid;grid-template-columns:130px minmax(0,1fr);gap:7px 14px;font-size:12.5px;line-height:1.45;'
-    const dtStyle = 'font-family:\'Dotmatri\',ui-monospace,monospace;color:rgba(244,238,228,0.94);'
-    const ddStyle = 'color:rgba(236,230,220,0.66);'
+    const card = 'background:rgba(236,230,220,0.035);border:1px solid rgba(236,230,220,0.1);border-radius:10px;padding:13px 15px;display:flex;flex-direction:column;gap:8px;'
+    const head = 'display:flex;align-items:baseline;justify-content:space-between;gap:8px;'
+    const h3 = 'font-family:\'Dotmatri\',ui-monospace,monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#f6f2ea;margin:0;'
+    const where = 'font-family:ui-sans-serif,system-ui,sans-serif;font-size:10.5px;color:rgba(236,230,220,0.48);line-height:1.35;'
+    const dl = 'display:grid;grid-template-columns:108px minmax(0,1fr);gap:5px 10px;font-size:11.8px;line-height:1.38;margin:0;'
+    const dt = 'font-family:\'Dotmatri\',ui-monospace,monospace;color:rgba(244,238,228,0.92);'
+    const dd = 'font-family:ui-sans-serif,system-ui,sans-serif;color:rgba(236,230,220,0.66);margin:0;'
 
     modal.innerHTML = `
-      <div style="width:min(540px,100%);max-height:84dvh;overflow-y:auto;background:#111318;border:1px solid rgba(236,230,220,0.16);border-radius:10px;padding:24px 24px 22px;color:rgba(236,230,220,0.92);box-shadow:0 28px 72px rgba(0,0,0,0.7);">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;">
-          <h2 style="font-family:'Dotmatri',ui-monospace,monospace;font-weight:400;font-size:22px;letter-spacing:0.05em;">secrets</h2>
-          <button type="button" data-close-eggs style="font-family:'Dotmatri',ui-monospace,monospace;font-size:13px;letter-spacing:0.08em;color:rgba(236,230,220,0.58);padding:4px 8px;cursor:pointer;">close</button>
+      <div style="width:min(960px,100%);max-height:90dvh;overflow-y:auto;background:#101217;border:1px solid rgba(236,230,220,0.16);border-radius:14px;padding:20px 22px 22px;color:rgba(236,230,220,0.92);box-shadow:0 32px 84px rgba(0,0,0,0.75);">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;">
+          <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;">
+            <h2 style="font-family:'Dotmatri',ui-monospace,monospace;font-weight:400;font-size:21px;letter-spacing:0.06em;margin:0;">secrets</h2>
+            <span style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:rgba(236,230,220,0.48);">every hidden trigger &amp; easter egg across all 6 modes</span>
+          </div>
+          <button type="button" data-close-eggs style="font-family:'Dotmatri',ui-monospace,monospace;font-size:13px;letter-spacing:0.08em;color:rgba(236,230,220,0.62);padding:4px 10px;border-radius:6px;background:rgba(236,230,220,0.06);cursor:pointer;">close</button>
         </div>
 
-        <div style="${secTitle}margin-top:10px;">where to open this box</div>
-        <dl style="${dlStyle}">
-          <dt style="${dtStyle}">01 original</dt><dd style="${ddStyle}">bottom-left sidebar on code, music, films, scripts &amp; privacy</dd>
-          <dt style="${dtStyle}">02 terminal</dt><dd style="${ddStyle}">top-right tab bar, neofetch links, or type "secrets"</dd>
-          <dt style="${dtStyle}">03 desktop</dt><dd style="${ddStyle}">Secrets.txt icon on the desktop or taskbar button</dd>
-          <dt style="${dtStyle}">04 silly</dt><dd style="${ddStyle}">bottom footer on home or top nav bar on sub-pages</dd>
-          <dt style="${dtStyle}">05 paper</dt><dd style="${ddStyle}">masthead nav bar next to Themes &amp; Original</dd>
-          <dt style="${dtStyle}">06 cobalt</dt><dd style="${ddStyle}">blueprint sheet nav bar next to THEMES &amp; ORIGINAL</dd>
-        </dl>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:12px;">
+          <section style="${card}">
+            <div style="${head}"><h3 style="${h3}">01 original &amp; global</h3></div>
+            <div style="${where}">menu: faint "secrets" at bottom-left of sidebar</div>
+            <dl style="${dl}">
+              <dt style="${dt}">r</dt><dd style="${dd}">fly to a random photo</dd>
+              <dt style="${dt}">&larr; / &rarr;</dt><dd style="${dd}">step between photos</dd>
+              <dt style="${dt}">/</dt><dd style="${dd}">focus search on code page</dd>
+              <dt style="${dt}">meow / cats</dt><dd style="${dd}">dot-matrix cat peek</dd>
+              <dt style="${dt}">stars</dt><dd style="${dd}">toggle cursor sparkles</dd>
+              <dt style="${dt}">crt</dt><dd style="${dd}">toggle crt scanlines</dd>
+              <dt style="${dt}">&uarr;&uarr;&darr;&darr;&larr;&rarr;&larr;&rarr;ba</dt><dd style="${dd}">dot confetti burst</dd>
+            </dl>
+          </section>
 
-        <div style="${secTitle}">global &amp; original</div>
-        <dl style="${dlStyle}">
-          <dt style="${dtStyle}">r</dt><dd style="${ddStyle}">fly to a random photo (photos)</dd>
-          <dt style="${dtStyle}">&larr; / &rarr;</dt><dd style="${ddStyle}">step between photos (photos)</dd>
-          <dt style="${dtStyle}">/</dt><dd style="${ddStyle}">focus project search (code)</dd>
-          <dt style="${dtStyle}">meow / cats</dt><dd style="${ddStyle}">dot-matrix cat peek</dd>
-          <dt style="${dtStyle}">stars</dt><dd style="${ddStyle}">toggle cursor sparkles</dd>
-          <dt style="${dtStyle}">crt</dt><dd style="${ddStyle}">toggle crt scanlines</dd>
-          <dt style="${dtStyle}">&uarr;&uarr;&darr;&darr;&larr;&rarr;&larr;&rarr;ba</dt><dd style="${ddStyle}">dot confetti burst</dd>
-        </dl>
+          <section style="${card}">
+            <div style="${head}"><h3 style="${h3}">02 terminal</h3></div>
+            <div style="${where}">menu: type "secret" or "secrets" in PowerShell</div>
+            <dl style="${dl}">
+              <dt style="${dt}">ily / love u</dt><dd style="${dd}">love u too &lt;3</dd>
+              <dt style="${dt}">cats / meow</dt><dd style="${dd}">ascii cat says meow</dd>
+              <dt style="${dt}">matrix</dt><dd style="${dd}">boost or dim the background rain</dd>
+              <dt style="${dt}">coffee</dt><dd style="${dd}">brew a flat white</dd>
+              <dt style="${dt}">hack / ping</dt><dd style="${dd}">movie hacker &amp; network ping</dd>
+              <dt style="${dt}">party</dt><dd style="${dd}">rainbow prompt pulse</dd>
+              <dt style="${dt}">sudo / rm -rf</dt><dd style="${dd}">forbidden commands</dd>
+            </dl>
+          </section>
 
-        <div style="${secTitle}">02 terminal</div>
-        <dl style="${dlStyle}">
-          <dt style="${dtStyle}">ily / love u</dt><dd style="${ddStyle}">love u too</dd>
-          <dt style="${dtStyle}">cats / meow</dt><dd style="${ddStyle}">ascii cat says meow</dd>
-          <dt style="${dtStyle}">matrix</dt><dd style="${ddStyle}">boost or dim the background rain</dd>
-          <dt style="${dtStyle}">coffee</dt><dd style="${ddStyle}">brew a flat white</dd>
-          <dt style="${dtStyle}">sudo / rm -rf</dt><dd style="${ddStyle}">forbidden commands</dd>
-        </dl>
+          <section style="${card}">
+            <div style="${head}"><h3 style="${h3}">03 desktop</h3></div>
+            <div style="${where}">menu: right-click wallpaper or inside About.txt</div>
+            <dl style="${dl}">
+              <dt style="${dt}">click bubbles</dt><dd style="${dd}">pop bubbles &amp; watch them relocate</dd>
+              <dt style="${dt}">right-click</dt><dd style="${dd}">sticky notes, spawn bubbles, refresh</dd>
+              <dt style="${dt}">recycle bin</dt><dd style="${dd}">inspect &amp; empty deleted files</dd>
+              <dt style="${dt}">clock &times;3</dt><dd style="${dd}">trigger classic Windows 7 BSOD</dd>
+            </dl>
+          </section>
 
-        <div style="${secTitle}">03 desktop</div>
-        <dl style="${dlStyle}">
-          <dt style="${dtStyle}">clock &times;3</dt><dd style="${ddStyle}">trigger classic blue screen</dd>
-          <dt style="${dtStyle}">click bubbles</dt><dd style="${ddStyle}">pop the floating aero bubbles</dd>
-        </dl>
+          <section style="${card}">
+            <div style="${head}"><h3 style="${h3}">04 silly</h3></div>
+            <div style="${where}">menu: click "best viewed in 800x600" in footer</div>
+            <dl style="${dl}">
+              <dt style="${dt}">poke smiley</dt><dd style="${dd}">annoy it into sunglasses mode</dd>
+              <dt style="${dt}">click title</dt><dd style="${dd}">wobble "avery beuth" heading</dd>
+              <dt style="${dt}">sign "avery"</dt><dd style="${dd}">identity theft guestbook reply</dd>
+              <dt style="${dt}">dark mode</dt><dd style="${dd}">cursed black-on-black mode</dd>
+              <dt style="${dt}">do not press</dt><dd style="${dd}">tilt &amp; knock the whole site over</dd>
+            </dl>
+          </section>
 
-        <div style="${secTitle}">04 silly</div>
-        <dl style="${dlStyle}">
-          <dt style="${dtStyle}">poke smiley</dt><dd style="${ddStyle}">annoy the paint face</dd>
-          <dt style="${dtStyle}">sign "avery"</dt><dd style="${ddStyle}">special guestbook accusation</dd>
-          <dt style="${dtStyle}">do not press</dt><dd style="${ddStyle}">knock the whole site over</dd>
-        </dl>
+          <section style="${card}">
+            <div style="${head}"><h3 style="${h3}">05 paper</h3></div>
+            <div style="${where}">menu: click "VOL. IV" in the masthead dateline</div>
+            <dl style="${dl}">
+              <dt style="${dt}">masthead &times;3</dt><dd style="${dd}">Extra Edition stamp &amp; new front photo</dd>
+              <dt style="${dt}">click auckland</dt><dd style="${dd}">cycle live Auckland weather dispatch</dd>
+            </dl>
+          </section>
 
-        <div style="${secTitle}">05 paper</div>
-        <dl style="${dlStyle}">
-          <dt style="${dtStyle}">masthead &times;3</dt><dd style="${ddStyle}">extra edition stamp &amp; new front photo</dd>
-          <dt style="${dtStyle}">click auckland</dt><dd style="${ddStyle}">live auckland weather dispatch</dd>
-        </dl>
-
-        <div style="${secTitle}">06 cobalt</div>
-        <dl style="${dlStyle}">
-          <dt style="${dtStyle}">click scale 1:1</dt><dd style="${ddStyle}">toggle inverted diazo whiteprint</dd>
-          <dt style="${dtStyle}">click a1-f1</dt><dd style="${ddStyle}">lock grid coordinate telemetry</dd>
-        </dl>
+          <section style="${card}">
+            <div style="${head}"><h3 style="${h3}">06 cobalt</h3></div>
+            <div style="${where}">menu: click "REV 2026" in the blueprint titleblock</div>
+            <dl style="${dl}">
+              <dt style="${dt}">scale 1:1</dt><dd style="${dd}">toggle inverted Diazo Whiteprint</dd>
+              <dt style="${dt}">click a1-f1</dt><dd style="${dd}">lock Auckland coordinate telemetry</dd>
+            </dl>
+          </section>
+        </div>
       </div>
     `
 

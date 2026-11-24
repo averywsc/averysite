@@ -33,6 +33,7 @@ const ICONS = {
   music: `<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><defs><radialGradient id="mg1" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#b8f5ff"/><stop offset="45%" stop-color="#2fa2e8"/><stop offset="100%" stop-color="#114882"/></radialGradient></defs><circle cx="16" cy="16" r="12.5" fill="url(#mg1)" stroke="#0e3866" stroke-width="1.2"/><circle cx="16" cy="16" r="3.4" fill="#eaf6ff" stroke="#114882" stroke-width="1.1"/><path d="M15 21.5V10.5l7.5-1.6v9.2" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="21.5" r="2.2" fill="#ffffff"/><circle cx="20.5" cy="18.2" r="2.2" fill="#ffffff"/></svg>`,
   film: `<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="4" y="6" width="24" height="20" rx="2.5" fill="#2c3d4f" stroke="#0f1821" stroke-width="1.2"/><rect x="8.5" y="9" width="15" height="14" rx="1.2" fill="#77d0fa"/><path d="M14 13l5.5 3-5.5 3z" fill="#ffffff"/><path d="M5.5 9h1.6M5.5 13h1.6M5.5 17h1.6M5.5 21h1.6M24.9 9h1.6M24.9 13h1.6M24.9 17h1.6M24.9 21h1.6" stroke="#d8e6f2" stroke-width="1.4"/></svg>`,
   notes: `<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="6" y="4" width="20" height="24" rx="2" fill="#fffdf2" stroke="#537496" stroke-width="1.2"/><rect x="6" y="4" width="20" height="5" rx="1.5" fill="#4aa7eb"/><path d="M9.5 13.5h13M9.5 17.5h13M9.5 21.5h9" stroke="#6d8ba8" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+  recycle: `<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><defs><linearGradient id="rb1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e3f4ff"/><stop offset="60%" stop-color="#9cc6e6"/><stop offset="100%" stop-color="#5a8ab5"/></linearGradient></defs><path d="M7.5 9h17l-2 18.5a2 2 0 0 1-2 1.8h-9a2 2 0 0 1-2-1.8L7.5 9z" fill="url(#rb1)" stroke="#2b4f73" stroke-width="1.2"/><ellipse cx="16" cy="9" rx="8.8" ry="2.6" fill="#eef7ff" stroke="#2b4f73" stroke-width="1.1"/><path d="M12.5 16l3.5-2.8 3.5 2.8M19.5 19.5l-3.5 3-3.5-3" fill="none" stroke="#1e7d45" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   themes: `<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><defs><linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7ce4ff"/><stop offset="50%" stop-color="#6ee787"/><stop offset="100%" stop-color="#ff85c0"/></linearGradient></defs><circle cx="16" cy="16" r="12.5" fill="url(#tg1)" stroke="#1d4466" stroke-width="1.2"/><ellipse cx="14" cy="10.5" rx="7" ry="4" fill="rgba(255,255,255,0.45)"/><circle cx="12" cy="15" r="2.2" fill="#ffffff"/><circle cx="18.5" cy="14" r="2.2" fill="#ffd32a"/><circle cx="16.5" cy="20.5" r="2.2" fill="#1d6ed6"/></svg>`,
   power: `<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><defs><radialGradient id="pw1" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#ffa899"/><stop offset="55%" stop-color="#e0432f"/><stop offset="100%" stop-color="#87180c"/></radialGradient></defs><circle cx="16" cy="16" r="12.5" fill="url(#pw1)" stroke="#611209" stroke-width="1.2"/><path d="M16 9.5v6.5M11.6 12.2a6.4 6.4 0 1 0 8.8 0" fill="none" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round"/></svg>`,
   winOrb: `<svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M7.5 10.5c2.8-1.4 5.2-1.4 7.5 0v5.5c-2.3-1.2-4.7-1.2-7.5 0z" fill="#ff5a36"/><path d="M17 10.5c2.3 1.2 4.7 1.2 7.5 0v5.5c-2.8 1.4-5.2 1.4-7.5 0z" fill="#7dd128"/><path d="M7.5 17.5c2.8-1.4 5.2-1.4 7.5 0V23c-2.3-1.2-4.7-1.2-7.5 0z" fill="#2ba8f7"/><path d="M17 17.5c2.3 1.2 4.7 1.2 7.5 0V23c-2.8 1.4-5.2 1.4-7.5 0z" fill="#ffca28"/></svg>`,
@@ -251,7 +252,6 @@ export function initThemes() {
           </div>
         </div>
         <div class="wt-win-controls">
-          <button type="button" class="wt-ctrl-txt" data-wt-secrets>secrets</button>
           <button type="button" class="wt-ctrl-txt" data-wt-themes>themes</button>
           <button type="button" class="wt-ctrl-txt" data-wt-original>original</button>
           <button type="button" class="wt-cap is-close" data-wt-original aria-label="Exit to Original">&times;</button>
@@ -438,7 +438,7 @@ export function initThemes() {
         `<span class="wt-g">███████║██████╔╝</span>   <span class="wt-y">Owner</span>    Avery Beuth (@avery.beuth)`,
         `<span class="wt-g">██╔══██║██╔══██╗</span>   <span class="wt-y">Shell</span>    Windows PowerShell 7.4 (web)`,
         `<span class="wt-g">██║  ██║██████╔╝</span>   <span class="wt-y">Dirs</span>     <button type="button" class="wt-link" data-wt-run="cd photos">photos\\</button>  <button type="button" class="wt-link" data-wt-run="cd code">code\\</button>  <button type="button" class="wt-link" data-wt-run="cd scripts">scripts\\</button>  <button type="button" class="wt-link" data-wt-run="cd music">music\\</button>  <button type="button" class="wt-link" data-wt-run="cd films">films\\</button>`,
-        `<span class="wt-g">╚═╝  ╚═╝╚═════╝ </span>   <span class="wt-y">Links</span>    <a class="wt-link" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">instagram</a>  <a class="wt-link" href="https://github.com/averywsc" target="_blank" rel="noopener">github</a>  <button type="button" class="wt-link" data-wt-themes-inline>themes</button>  <button type="button" class="wt-link" data-wt-secrets-inline>secrets</button>  <button type="button" class="wt-link" data-wt-orig-inline>original</button>`,
+        `<span class="wt-g">╚═╝  ╚═╝╚═════╝ </span>   <span class="wt-y">Links</span>    <a class="wt-link" href="https://instagram.com/avery.beuth" target="_blank" rel="noopener">instagram</a>  <a class="wt-link" href="https://github.com/averywsc" target="_blank" rel="noopener">github</a>  <button type="button" class="wt-link" data-wt-themes-inline>themes</button>  <button type="button" class="wt-link" data-wt-orig-inline>original</button>`,
         `<span class="wt-dim">Click any directory above or type <span class="wt-g">help</span>, <span class="wt-g">cd code</span>, <span class="wt-g">cd music</span>, <span class="wt-g">cd scripts</span>, <span class="wt-g">cd films</span>, <span class="wt-g">cd photos</span>.</span>`,
       ]
       await streamLines(lines, token, { minDelay: 65, maxDelay: 115, batch: 1 })
@@ -641,15 +641,27 @@ export function initThemes() {
         if (token !== streamToken) return
         print(`<span class="wt-y">just kidding, i need this website.</span>`)
       } else if (cmd === 'secret' || cmd === 'secrets') {
+        print(`<span class="wt-g">opening secrets menu...</span>`)
+        openSecretsModal()
+      } else if (cmd === 'hack') {
         await streamLines([
-          `<span class="wt-y">terminal secrets:</span>`,
-          `  <span class="wt-g">ily / love u</span>    say hi back`,
-          `  <span class="wt-g">cats / meow</span>     summon ascii cat`,
-          `  <span class="wt-g">matrix</span>          toggle matrix rain intensity`,
-          `  <span class="wt-g">coffee</span>          brew a flat white`,
-          `  <span class="wt-g">sudo / rm -rf</span>   forbidden commands`,
-          `  <button type="button" class="wt-link" data-wt-secrets-inline>[open full secrets list for all themes]</button>`,
-        ], token, { minDelay: 65, maxDelay: 105, batch: 1 })
+          `<span class="wt-g">[01/04] bypassing mainframe firewall...</span>`,
+          `<span class="wt-g">[02/04] decrypting 375 raw jpegs...</span>`,
+          `<span class="wt-g">[03/04] downloading avery's unfinished beats...</span>`,
+          `<span class="wt-c">[04/04] ACCESS GRANTED (jk this is a static site)</span>`,
+        ], token, { minDelay: 95, maxDelay: 150, batch: 1 })
+      } else if (cmd === 'ping') {
+        await streamLines([
+          `<span class="wt-dim">Pinging averybeuth.xyz [127.0.0.1] with 32 bytes of vibes:</span>`,
+          `Reply from 127.0.0.1: bytes=32 time=1ms TTL=64`,
+          `Reply from 127.0.0.1: bytes=32 time=2ms TTL=64`,
+          `Reply from 127.0.0.1: bytes=32 time=1ms TTL=64`,
+          `<span class="wt-g">Packets: Sent = 3, Received = 3, Lost = 0 (0% loss)</span>`,
+        ], token, { minDelay: 160, maxDelay: 240, batch: 1 })
+      } else if (cmd === 'party') {
+        shell.classList.add('is-party')
+        print(`<span class="wt-pink">party mode on for 4 seconds.</span>`)
+        setTimeout(() => shell.classList.remove('is-party'), 4000)
       } else if (cmd === 'archive' || cmd === 'more') {
         const stopSpin = startSpinner('Loading code archive', token)
         const [data] = await Promise.all([loadCodeData(meta.base), sleep(380)])
@@ -665,7 +677,6 @@ export function initThemes() {
           `<span class="wt-g">open &lt;name&gt;</span>         Launch link directly`,
           `<span class="wt-g">tree</span>                Show directory tree`,
           `<span class="wt-g">neofetch</span>            Display system &amp; owner info`,
-          `<span class="wt-g">secrets</span>             Show hidden commands &amp; site secrets`,
           `<span class="wt-g">cls / clear</span>         Clear terminal output`,
           `<span class="wt-g">themes</span>              Open theme switcher`,
           `<span class="wt-g">original / exit</span>     Return to default site`,
@@ -818,48 +829,238 @@ export function initThemes() {
         <button type="button" class="aero-d-icon" data-os-open="music"><span class="aero-d-glyph">${ICONS.music}</span><span>Music</span></button>
         <button type="button" class="aero-d-icon" data-os-open="films"><span class="aero-d-glyph">${ICONS.film}</span><span>Films</span></button>
         <button type="button" class="aero-d-icon" data-os-open="notes"><span class="aero-d-glyph">${ICONS.notes}</span><span>About.txt</span></button>
-        <button type="button" class="aero-d-icon" data-a-secrets><span class="aero-d-glyph">${ICONS.notes}</span><span>Secrets.txt</span></button>
+        <button type="button" class="aero-d-icon" data-os-open="recycle"><span class="aero-d-glyph">${ICONS.recycle}</span><span>Recycle Bin</span></button>
         <button type="button" class="aero-d-icon" data-a-themes><span class="aero-d-glyph">${ICONS.themes}</span><span>Themes</span></button>
         <button type="button" class="aero-d-icon" data-a-original><span class="aero-d-glyph">${ICONS.power}</span><span>Original</span></button>
       </nav>
-      <div class="aero-desktop-hint" id="aeroDesktopHint">averybeuth.xyz &middot; click any desktop icon to open a window</div>
+      <div class="aero-desktop-hint" id="aeroDesktopHint">averybeuth.xyz &middot; click any icon or right-click the desktop</div>
       <div class="aero-win-layer" id="aeroWinLayer"></div>
       <footer class="aero-taskbar-global">
         <button type="button" class="aero-start-orb" data-a-themes aria-label="Start / Themes">${ICONS.winOrb}</button>
         <div class="aero-task-list" id="aeroTaskList"></div>
-        <button type="button" class="aero-task-tab" data-a-secrets>Secrets</button>
         <button type="button" class="aero-task-tab" data-a-original>Original site</button>
         <button type="button" class="aero-tray-clock" id="aeroClock" title="System clock"><span id="aeroTime"></span><span id="aeroDate"></span></button>
       </footer>
     `
     document.body.appendChild(os)
 
-    // Desktop secret 1: poppable Aero bubbles
-    let poppedCount = 0
-    const bubbles = [...os.querySelectorAll('.aero-bubble')]
-    bubbles.forEach((b) => {
-      b.addEventListener('click', () => {
+    const aeroBg = os.querySelector('.aero-bg')
+    const desktopIcons = os.querySelector('.aero-desktop-icons')
+    const winLayer = os.querySelector('#aeroWinLayer')
+    const taskList = os.querySelector('#aeroTaskList')
+    const hintEl = os.querySelector('#aeroDesktopHint')
+
+    const openWindows = new Map()
+    let zTop = 30
+    let spawnCount = 0
+    let poppedTotal = 0
+    let stickyCount = 0
+    let binItems = [
+      { name: 'em_dashes.txt', size: '14 KB', note: 'permanently deleted by request' },
+      { name: 'download_ram.exe', size: '64 GB', note: 'failed at 99%' },
+      { name: 'homework_final_FINAL_v3.docx', size: '412 KB', note: 'made code projects instead' },
+      { name: 'unused_beats_2021.zip', size: '84 MB', note: 'too many hi-hats' },
+    ]
+
+    const syncHint = () => {
+      if (hintEl) hintEl.style.opacity = openWindows.size === 0 ? '1' : '0'
+    }
+
+    // Desktop fun 1: Poppable Aero bubbles that respawn at brand-new random spots & sizes!
+    const wireBubble = (b) => {
+      b.addEventListener('click', (e) => {
+        e.stopPropagation()
         if (b.classList.contains('is-popped')) return
         b.classList.add('is-popped')
-        poppedCount++
-        if (poppedCount >= bubbles.length) {
-          if (hintEl) {
-            hintEl.textContent = 'all bubbles popped. respawning...'
-            hintEl.style.opacity = '1'
-          }
-          setTimeout(() => {
-            bubbles.forEach((x) => x.classList.remove('is-popped'))
-            poppedCount = 0
-            if (hintEl) {
-              hintEl.textContent = 'averybeuth.xyz · click any desktop icon to open a window'
-              syncHint()
-            }
-          }, 1100)
+        poppedTotal++
+        if (hintEl && openWindows.size === 0 && poppedTotal >= 3) {
+          hintEl.textContent = `bubbles popped: ${poppedTotal}`
+        }
+        setTimeout(() => {
+          const size = Math.round(24 + Math.random() * 44)
+          const left = (12 + Math.random() * 78).toFixed(1)
+          const top = (10 + Math.random() * 68).toFixed(1)
+          b.style.width = `${size}px`
+          b.style.height = `${size}px`
+          b.style.left = `${left}%`
+          b.style.top = `${top}%`
+          b.style.right = 'auto'
+          b.style.bottom = 'auto'
+          b.style.animationDuration = `${(6 + Math.random() * 5).toFixed(1)}s`
+          b.classList.remove('is-popped')
+        }, 780)
+      })
+    }
+    os.querySelectorAll('.aero-bubble').forEach(wireBubble)
+
+    const spawnExtraBubble = (clientX, clientY) => {
+      const b = document.createElement('span')
+      b.className = 'aero-bubble'
+      const size = Math.round(28 + Math.random() * 34)
+      b.style.width = `${size}px`
+      b.style.height = `${size}px`
+      b.style.left = `${Math.max(8, Math.min(window.innerWidth - size - 8, clientX - size / 2))}px`
+      b.style.top = `${Math.max(8, Math.min(window.innerHeight - size - 56, clientY - size / 2))}px`
+      b.style.animationDuration = `${(6 + Math.random() * 4).toFixed(1)}s`
+      wireBubble(b)
+      aeroBg.appendChild(b)
+    }
+
+    // Desktop fun 2: Spawn real draggable, editable Windows 7 Sticky Notes
+    const spawnStickyNote = (clientX = null, clientY = null) => {
+      stickyCount++
+      zTop++
+      const note = document.createElement('div')
+      note.className = 'aero-sticky'
+      note.style.zIndex = String(zTop)
+      const prompts = [
+        'remember to pop the bubbles',
+        'right-click desktop for more sticky notes',
+        'triple-click the clock if you dare',
+        'type something here...',
+      ]
+      const startX = clientX != null ? Math.min(window.innerWidth - 230, Math.max(110, clientX)) : 180 + (stickyCount % 4) * 34
+      const startY = clientY != null ? Math.min(window.innerHeight - 230, Math.max(30, clientY)) : 70 + (stickyCount % 4) * 28
+      note.style.left = `${startX}px`
+      note.style.top = `${startY}px`
+      note.innerHTML = `
+        <div class="aero-sticky-bar">
+          <button type="button" data-st-add title="New note">+</button>
+          <span>Sticky Note</span>
+          <button type="button" data-st-close title="Close">&times;</button>
+        </div>
+        <textarea class="aero-sticky-text" spellcheck="false">${prompts[(stickyCount - 1) % prompts.length]}</textarea>
+      `
+      winLayer.appendChild(note)
+      const cleanup = makeWindowDraggable(note, note.querySelector('.aero-sticky-bar'), () => {
+        zTop++
+        note.style.zIndex = String(zTop)
+      })
+      note.querySelector('[data-st-add]').addEventListener('click', () => spawnStickyNote())
+      note.querySelector('[data-st-close]').addEventListener('click', () => { cleanup(); note.remove() })
+      cleanupFns.push(cleanup)
+    }
+
+    // Desktop fun 3: Real Windows 7 Right-Click Desktop Context Menu (with hidden secrets entry!)
+    let ctxMenu = null
+    const closeCtxMenu = () => { if (ctxMenu) { ctxMenu.remove(); ctxMenu = null } }
+    os.addEventListener('contextmenu', (e) => {
+      if (e.target.closest('.aero-os-win, .aero-sticky, .aero-taskbar-global')) return
+      e.preventDefault()
+      closeCtxMenu()
+      ctxMenu = document.createElement('div')
+      ctxMenu.className = 'aero-ctx'
+      const mx = Math.min(window.innerWidth - 196, Math.max(8, e.clientX))
+      const my = Math.min(window.innerHeight - 210, Math.max(8, e.clientY))
+      ctxMenu.style.left = `${mx}px`
+      ctxMenu.style.top = `${my}px`
+      ctxMenu.innerHTML = `
+        <button type="button" data-ctx="refresh">Refresh</button>
+        <button type="button" data-ctx="sticky">New Sticky Note</button>
+        <button type="button" data-ctx="bubble">Spawn Aero Bubble</button>
+        <button type="button" data-ctx="themes">Personalize (Themes)</button>
+        <button type="button" class="is-faint" data-ctx="secrets">secrets...</button>
+      `
+      ctxMenu.addEventListener('click', (ev) => {
+        const act = ev.target.closest('[data-ctx]')?.dataset.ctx
+        closeCtxMenu()
+        if (act === 'refresh') {
+          desktopIcons?.classList.add('is-refreshing')
+          setTimeout(() => desktopIcons?.classList.remove('is-refreshing'), 140)
+        } else if (act === 'sticky') {
+          spawnStickyNote(e.clientX, e.clientY)
+        } else if (act === 'bubble') {
+          spawnExtraBubble(e.clientX, e.clientY)
+        } else if (act === 'themes') {
+          togglePopover(true)
+        } else if (act === 'secrets') {
+          openSecretsModal()
         }
       })
+      os.appendChild(ctxMenu)
+    })
+    const onGlobalPointer = (e) => { if (ctxMenu && !e.target.closest('.aero-ctx')) closeCtxMenu() }
+    window.addEventListener('pointerdown', onGlobalPointer)
+    cleanupFns.push(() => { closeCtxMenu(); window.removeEventListener('pointerdown', onGlobalPointer) })
+
+    // Desktop fun 4: Authentic Windows 7 translucent blue drag-select marquee box
+    const marquee = document.createElement('div')
+    marquee.className = 'aero-marquee'
+    marquee.hidden = true
+    os.appendChild(marquee)
+
+    const allIcons = [...os.querySelectorAll('.aero-d-icon')]
+    const clearIconSelection = () => allIcons.forEach((ic) => ic.classList.remove('is-selected'))
+    let selStart = null
+    let selDragging = false
+
+    const onDesktopDown = (e) => {
+      if (e.button !== 0) return
+      if (e.target.closest('.aero-os-win, .aero-sticky, .aero-taskbar-global, .aero-ctx, .aero-d-icon, .aero-bubble, .aero-bsod')) return
+      clearIconSelection()
+      selStart = { x: e.clientX, y: e.clientY }
+      selDragging = false
+    }
+    const onDesktopMove = (e) => {
+      if (!selStart) return
+      const dx = e.clientX - selStart.x
+      const dy = e.clientY - selStart.y
+      if (!selDragging && Math.hypot(dx, dy) > 4) {
+        selDragging = true
+        marquee.hidden = false
+        os.classList.add('is-selecting')
+      }
+      if (!selDragging) return
+      const left = Math.min(selStart.x, e.clientX)
+      const top = Math.min(selStart.y, e.clientY)
+      const width = Math.abs(dx)
+      const height = Math.abs(dy)
+      marquee.style.left = `${left}px`
+      marquee.style.top = `${top}px`
+      marquee.style.width = `${width}px`
+      marquee.style.height = `${height}px`
+
+      const right = left + width
+      const bottom = top + height
+      allIcons.forEach((ic) => {
+        const r = ic.getBoundingClientRect()
+        const hit = !(r.right < left || r.left > right || r.bottom < top || r.top > bottom)
+        ic.classList.toggle('is-selected', hit)
+      })
+    }
+    const onDesktopUp = () => {
+      if (!selStart) return
+      selStart = null
+      if (selDragging) {
+        selDragging = false
+        marquee.hidden = true
+        os.classList.remove('is-selecting')
+      }
+    }
+    const onDesktopKey = (e) => {
+      if (e.key !== 'Enter' || e.target.closest('input, textarea, button')) return
+      const picked = allIcons.filter((ic) => ic.classList.contains('is-selected'))
+      if (!picked.length) return
+      e.preventDefault()
+      picked.forEach((ic) => {
+        if (ic.dataset.osOpen) openOsWindow(ic.dataset.osOpen)
+        else if (ic.hasAttribute('data-a-themes')) togglePopover(true)
+        else if (ic.hasAttribute('data-a-original')) selectTheme('original')
+      })
+      clearIconSelection()
+    }
+    os.addEventListener('pointerdown', onDesktopDown)
+    window.addEventListener('pointermove', onDesktopMove)
+    window.addEventListener('pointerup', onDesktopUp)
+    window.addEventListener('keydown', onDesktopKey)
+    cleanupFns.push(() => {
+      os.removeEventListener('pointerdown', onDesktopDown)
+      window.removeEventListener('pointermove', onDesktopMove)
+      window.removeEventListener('pointerup', onDesktopUp)
+      window.removeEventListener('keydown', onDesktopKey)
     })
 
-    // Desktop secret 2: triple-click the taskbar clock for classic Windows 7 BSOD
+    // Desktop secret 4: triple-click the taskbar clock for classic Windows 7 BSOD
     let clockClicks = 0
     let clockTimer = null
     os.querySelector('#aeroClock')?.addEventListener('click', () => {
@@ -891,18 +1092,6 @@ export function initThemes() {
         os.appendChild(bsod)
       }
     })
-
-    const winLayer = os.querySelector('#aeroWinLayer')
-    const taskList = os.querySelector('#aeroTaskList')
-    const hintEl = os.querySelector('#aeroDesktopHint')
-
-    const openWindows = new Map()
-    let zTop = 30
-    let spawnCount = 0
-
-    const syncHint = () => {
-      if (hintEl) hintEl.style.opacity = openWindows.size === 0 ? '1' : '0'
-    }
 
     const focusWin = (appId) => {
       const rec = openWindows.get(appId)
@@ -1129,6 +1318,7 @@ export function initThemes() {
         films: 'Films | Windows Explorer',
         scripts: 'Scripts | Windows Explorer',
         notes: 'About.txt | Notepad',
+        recycle: 'Recycle Bin | Windows Explorer',
       }
       const winTitle = titles[appId] || 'Window'
       const offsetX = (spawnCount % 5) * 36
@@ -1136,7 +1326,7 @@ export function initThemes() {
       spawnCount++
 
       const winEl = document.createElement('section')
-      winEl.className = appId === 'notes' ? 'aero-os-win is-notepad' : 'aero-os-win is-explorer'
+      winEl.className = (appId === 'notes' || appId === 'recycle') ? 'aero-os-win is-notepad' : 'aero-os-win is-explorer'
       winEl.dataset.wx = String(offsetX)
       winEl.dataset.wy = String(offsetY)
 
@@ -1152,9 +1342,25 @@ export function initThemes() {
           <div class="aero-note-body">
             <p><strong>Avery Beuth</strong> (@avery.beuth)</p>
             <p>Photographer, filmmaker, composer &amp; developer from Aotearoa.</p>
-            <p>Open multiple windows at once, drag titlebars to arrange them, or close them all for a clean desktop.</p>
+            <p>Open multiple windows at once, drag titlebars to arrange them, right-click the wallpaper for sticky notes, or pop the bubbles.</p>
             <p><a href="https://github.com/averywsc" target="_blank" rel="noopener">github.com/averywsc</a> &middot; <a href="mailto:averybeuth3@gmail.com">averybeuth3@gmail.com</a></p>
+            <button type="button" class="aero-note-secret" data-note-secrets>psst: secrets</button>
           </div>
+        `
+      } else if (appId === 'recycle') {
+        winEl.innerHTML = `
+          <div class="aero-win-titlebar aero-win-handle">
+            <span class="aero-win-title">${esc(winTitle)}</span>
+            <div class="aero-win-btns">
+              <button type="button" class="aero-win-btn" data-w-min title="Minimize">_</button>
+              <button type="button" class="aero-win-btn is-close" data-w-close title="Close">&times;</button>
+            </div>
+          </div>
+          <div class="aero-bin-bar">
+            <button type="button" class="aero-cmd-btn" data-bin-empty>Empty Recycle Bin</button>
+            <span class="aero-bin-count" data-bin-count></span>
+          </div>
+          <div class="aero-note-body aero-bin-body" data-bin-list></div>
         `
       } else {
         const extraToolbar = appId === 'music'
@@ -1219,9 +1425,27 @@ export function initThemes() {
       })
       winEl.querySelector('[data-w-close]')?.addEventListener('click', () => closeWin(appId))
       winEl.querySelector('[data-w-themes]')?.addEventListener('click', () => togglePopover())
+      winEl.querySelector('[data-note-secrets]')?.addEventListener('click', () => openSecretsModal())
       winEl.querySelectorAll('[data-w-open-other]').forEach((b) => b.addEventListener('click', () => openOsWindow(b.dataset.wOpenOther)))
 
-      if (appId !== 'notes') {
+      if (appId === 'recycle') {
+        const listSlot = winEl.querySelector('[data-bin-list]')
+        const countSlot = winEl.querySelector('[data-bin-count]')
+        const drawBin = () => {
+          if (!binItems.length) {
+            listSlot.innerHTML = '<p style="color:#678099;">Recycle Bin is empty. Desktop feels 4% lighter.</p>'
+            countSlot.textContent = '0 items'
+            return
+          }
+          countSlot.textContent = `${binItems.length} items`
+          listSlot.innerHTML = binItems.map((b) => `<div class="aero-bin-row"><strong>${esc(b.name)}</strong><span>${esc(b.size)}</span><em>${esc(b.note)}</em></div>`).join('')
+        }
+        winEl.querySelector('[data-bin-empty]')?.addEventListener('click', () => {
+          binItems = []
+          drawBin()
+        })
+        drawBin()
+      } else if (appId !== 'notes') {
         createExplorerContent(
           appId,
           winEl.querySelector('.aero-exp-body'),
@@ -1346,7 +1570,6 @@ export function initThemes() {
             <a href="./music.html">music</a>
             <a href="./film.html">films</a>
             <button type="button" data-tp-themes>themes</button>
-            <button type="button" data-tp-secrets>secrets</button>
             <button type="button" data-tp-orig>normal site</button>
           </nav>
           <h1>photos (sorted by color)</h1>
@@ -1356,7 +1579,6 @@ export function initThemes() {
       `
       document.body.appendChild(page)
       page.querySelector('[data-tp-themes]')?.addEventListener('click', () => togglePopover())
-      page.querySelector('[data-tp-secrets]')?.addEventListener('click', () => openSecretsModal())
       page.querySelector('[data-tp-orig]')?.addEventListener('click', () => selectTheme('original'))
       loadColorOrderedPhotos('.').then((photos) => renderPhotoArchiveInto(page.querySelector('#sillyPhotoSlot'), photos, 'silly', 80))
       return
@@ -1376,7 +1598,7 @@ export function initThemes() {
           <div class="silly-top-doodle">
             <button type="button" class="silly-face-btn" id="sillyFace" aria-label="Paint smiley">${ICONS.paintFace}</button>
             <div>
-              <h1>avery beuth</h1>
+              <h1 id="sillyTitle" style="cursor:pointer;">avery beuth</h1>
               <p class="silly-sub">(graphic design is my passion)</p>
             </div>
           </div>
@@ -1402,10 +1624,9 @@ export function initThemes() {
           <p class="silly-gag-msg" id="sillyMsg"></p>
           <div class="silly-guest-log" id="sillyGuestLog"></div>
           <div class="silly-foot">
-            <span>best viewed in 800&times;600</span>
+            <button type="button" class="silly-hidden-secret" data-s-secrets>best viewed in 800&times;600</button>
             <div>
               <button type="button" data-s-themes>themes</button>
-              <button type="button" data-s-secrets>secrets</button>
               <button type="button" data-s-original>normal website</button>
             </div>
           </div>
@@ -1509,6 +1730,14 @@ export function initThemes() {
         msgEl.textContent = 'thank you. please do not press it again.'
       })
 
+      home.querySelector('#sillyTitle')?.addEventListener('click', (e) => {
+        const el = e.currentTarget
+        el.classList.remove('silly-wobble')
+        void el.offsetWidth
+        el.classList.add('silly-wobble')
+        msgEl.textContent = 'boing'
+      })
+
       home.querySelector('[data-s-themes]')?.addEventListener('click', () => togglePopover())
       home.querySelector('[data-s-secrets]')?.addEventListener('click', () => openSecretsModal())
       home.querySelector('[data-s-original]')?.addEventListener('click', () => selectTheme('original'))
@@ -1526,12 +1755,10 @@ export function initThemes() {
         <a href="${meta.base}/music.html" class="${meta.slug === 'music' ? 'is-on' : ''}">music</a>
         <a href="${meta.base}/film.html" class="${meta.slug === 'films' ? 'is-on' : ''}">films</a>
         <button type="button" data-s-themes>themes</button>
-        <button type="button" data-s-secrets>secrets</button>
         <button type="button" data-s-original>normal site</button>
       `
       pageWrap.prepend(bar)
       bar.querySelector('[data-s-themes]')?.addEventListener('click', () => togglePopover())
-      bar.querySelector('[data-s-secrets]')?.addEventListener('click', () => openSecretsModal())
       bar.querySelector('[data-s-original]')?.addEventListener('click', () => selectTheme('original'))
     }
   }
@@ -1548,7 +1775,7 @@ export function initThemes() {
       home.innerHTML = `
         <article class="paper-frontpage">
           <header class="paper-masthead">
-            <div class="paper-mast-meta"><button type="button" class="paper-meta-secret" id="paperAuckland">AUCKLAND, NEW ZEALAND</button><span>VOL. IV &middot; COMPLETE ARCHIVAL EDITION</span><span>AVERYBEUTH.XYZ</span></div>
+            <div class="paper-mast-meta"><button type="button" class="paper-meta-secret" id="paperAuckland">AUCKLAND, NEW ZEALAND</button><button type="button" class="paper-meta-secret" data-p-secrets>VOL. IV &middot; COMPLETE ARCHIVAL EDITION</button><span>AVERYBEUTH.XYZ</span></div>
             <h1 id="paperMastTitle" style="cursor:pointer;">THE AVERY CHRONICLE</h1>
             <div class="paper-extra-banner" id="paperExtraBanner" hidden>EXTRA EDITION &middot; LOCAL VISITOR DISCOVERED THE SECRET PRESS RUN</div>
             <nav class="paper-mast-nav">
@@ -1559,7 +1786,6 @@ export function initThemes() {
               <a href="#paper-music">Music Desk</a>
               <a href="#paper-photos">Contact Sheet</a>
               <button type="button" data-p-themes>Themes</button>
-              <button type="button" data-p-secrets>Secrets</button>
               <button type="button" data-p-original>Original</button>
             </nav>
           </header>
@@ -1713,7 +1939,7 @@ export function initThemes() {
       mast.className = 'paper-masthead'
       mast.setAttribute('data-theme-injected', '1')
       mast.innerHTML = `
-        <div class="paper-mast-meta"><span>AUCKLAND, NEW ZEALAND</span><span>SECTION: ${esc(meta.title.toUpperCase())}</span><span>AVERYBEUTH.XYZ</span></div>
+        <div class="paper-mast-meta"><span>AUCKLAND, NEW ZEALAND</span><button type="button" class="paper-meta-secret" data-p-secrets>SECTION: ${esc(meta.title.toUpperCase())}</button><span>AVERYBEUTH.XYZ</span></div>
         <div class="paper-mast-brand">THE AVERY CHRONICLE</div>
         <nav class="paper-mast-nav">
           <a href="${meta.base}/">Complete Edition</a>
@@ -1723,7 +1949,6 @@ export function initThemes() {
           <a href="${meta.base}/music.html" class="${meta.slug === 'music' ? 'is-on' : ''}">Music</a>
           <a href="${meta.base}/film.html" class="${meta.slug === 'films' ? 'is-on' : ''}">Films</a>
           <button type="button" data-p-themes>Themes</button>
-          <button type="button" data-p-secrets>Secrets</button>
           <button type="button" data-p-original>Original</button>
         </nav>
       `
@@ -1751,7 +1976,7 @@ export function initThemes() {
           <div class="cobalt-titleblock">
             <span id="cobaltDwgRef">DWG NO. AB-MASTER // FULL PORTFOLIO DOSSIER</span>
             <button type="button" class="cobalt-scale-secret" id="cobaltScaleSecret">SCALE 1:1 // GRID 28MM</button>
-            <span>REV 2026 // AVERY BEUTH</span>
+            <button type="button" class="cobalt-scale-secret" data-c-secrets>REV 2026 // AVERY BEUTH</button>
           </div>
           <nav class="cobalt-sheet-nav" id="cobaltTabs">
             <button type="button" class="is-on" data-csheet="all">ALL SHEETS</button>
@@ -1760,7 +1985,6 @@ export function initThemes() {
             <button type="button" data-csheet="media">S-03 FILMS &amp; SCRIPTS</button>
             <button type="button" data-csheet="photos">S-04 PHOTOS</button>
             <button type="button" data-c-themes>THEMES</button>
-            <button type="button" data-c-secrets>SECRETS</button>
             <button type="button" data-c-original>ORIGINAL</button>
           </nav>
 
@@ -1885,7 +2109,7 @@ export function initThemes() {
         <div class="cobalt-titleblock">
           <span>DWG NO. AB-${esc(meta.slug.toUpperCase())}</span>
           <span>LAYER: ${esc(meta.title.toUpperCase())} // SCALE 1:1</span>
-          <span>CYANOTYPE ARCHIVE // 2026</span>
+          <button type="button" class="cobalt-scale-secret" data-c-secrets>CYANOTYPE ARCHIVE // 2026</button>
         </div>
         <nav class="cobalt-sheet-nav">
           <a href="${meta.base}/">FULL DOSSIER</a>
@@ -1895,7 +2119,6 @@ export function initThemes() {
           <a href="${meta.base}/scripts/index.html" class="${meta.slug.startsWith('scripts') ? 'is-on' : ''}">S-03 SCRIPTS</a>
           <a href="${meta.base}/film.html" class="${meta.slug === 'films' ? 'is-on' : ''}">S-03 FILMS</a>
           <button type="button" data-c-themes>THEMES</button>
-          <button type="button" data-c-secrets>SECRETS</button>
           <button type="button" data-c-original>ORIGINAL</button>
         </nav>
       `

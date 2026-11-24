@@ -106,7 +106,7 @@ async function boot() {
     wheelMultiplier: cfg.scroll.wheelMultiplier,
     touchMultiplier: cfg.scroll.touchMultiplier,
     syncTouch: !finePointer,
-    syncTouchLerp: 0.095,
+    syncTouchLerp: 0.18,
     respectReducedMotion: false,
   })
   lenis.on('scroll', ScrollTrigger.update)
@@ -115,11 +115,50 @@ async function boot() {
   const progressBar = document.querySelector('.progress i')
   const allPhotosBtn = document.getElementById('allPhotos')
   const zoomBtn = document.getElementById('zoomBtn')
+  const navRight = document.querySelector('.nav-right')
+
+  // Extra mobile-friendly controls: quick "3d tunnel" entry from the wall & "random" photo jump
+  const tunnelBtn = document.createElement('button')
+  tunnelBtn.type = 'button'
+  tunnelBtn.className = 'tunnel-btn'
+  tunnelBtn.id = 'tunnelBtn'
+  tunnelBtn.textContent = '3d tunnel'
+  const randomBtn = document.createElement('button')
+  randomBtn.type = 'button'
+  randomBtn.className = 'random-btn'
+  randomBtn.id = 'randomBtn'
+  randomBtn.textContent = 'random'
+  if (navRight && zoomBtn) {
+    navRight.insertBefore(tunnelBtn, zoomBtn)
+    navRight.insertBefore(randomBtn, allPhotosBtn || null)
+  }
+
+  // Sleek touch-draggable 3D timeline scrubber for effortless mobile navigation across all 375 photos
+  const mobileScrubber = document.createElement('div')
+  mobileScrubber.className = 'mobile-scrubber'
+  mobileScrubber.id = 'mobileScrubber'
+  mobileScrubber.setAttribute('aria-label', 'Scrub through 3D photo gallery')
+  mobileScrubber.innerHTML = `
+    <span class="mobile-scrubber__label" id="scrubberLabel">001 / 375</span>
+    <div class="mobile-scrubber__track" id="scrubberTrack">
+      <div class="mobile-scrubber__fill" id="scrubberFill"></div>
+      <div class="mobile-scrubber__thumb" id="scrubberThumb"></div>
+    </div>
+  `
+  document.body.appendChild(mobileScrubber)
+  const scrubberLabel = mobileScrubber.querySelector('#scrubberLabel')
+  const scrubberTrack = mobileScrubber.querySelector('#scrubberTrack')
+  const scrubberFill = mobileScrubber.querySelector('#scrubberFill')
+  const scrubberThumb = mobileScrubber.querySelector('#scrubberThumb')
+  let scrubbing = false
+
+  const wallZoomLevel = () => (isMobile() ? 2.05 : 2.55)
   const updateZoomUI = () => {
     if (!zoomBtn) return
     const zoomed = world.wallZoomTarget > 1.25
     zoomBtn.setAttribute('aria-pressed', String(zoomed))
     zoomBtn.textContent = zoomed ? 'zoom out' : cfg.site.zoomText
+    document.body.classList.toggle('is-wall-zoom', zoomed && !locked)
   }
 
   const initialP = params.has('p') ? Math.min(1, Math.max(0, parseFloat(params.get('p')) || 0)) : 0
@@ -195,6 +234,16 @@ async function boot() {
       onUpdate: (self) => {
         progressBar.style.transform = `scaleX(${self.progress.toFixed(4)})`
         if (allPhotosBtn) allPhotosBtn.textContent = self.progress > 0.96 ? 'top' : cfg.site.allPhotosText
+        if (scrubberFill && scrubberThumb) {
+          const pct = `${(self.progress * 100).toFixed(2)}%`
+          scrubberFill.style.width = pct
+          scrubberThumb.style.left = pct
+        }
+        if (scrubberLabel && layout?.planes?.length) {
+          const n = layout.planes.length
+          const approx = Math.min(n, Math.max(1, Math.round(self.progress * (n - 1)) + 1))
+          scrubberLabel.textContent = `${String(approx).padStart(3, '0')} / ${String(n).padStart(3, '0')}`
+        }
       },
     })
     built.tl.progress(keepProgress).progress(0).progress(keepProgress)
@@ -203,12 +252,13 @@ async function boot() {
     if (keepProgress > 0) lenis.scrollTo(keepProgress * ScrollTrigger.maxScroll(window), { immediate: true, force: true })
   }
 
+  let lastComposeW = window.innerWidth
   compose(initialP)
   if (initialP === 0) window.scrollTo(0, 0)
 
   // Start directly in zoom mode at a random place on the photo wall every visit (keeping title & links visible)
   if (initialP === 0 && !params.has('overview')) {
-    world.setWallZoom(2.55, true)
+    world.setWallZoom(wallZoomLevel(), true)
     updateZoomUI()
   }
 
@@ -230,7 +280,7 @@ async function boot() {
   const finalePrompt = document.getElementById('finalePrompt')
   const syncCopyForDevice = () => {
     const touchUI = !finePointer || isMobile()
-    if (hintSpan) hintSpan.textContent = touchUI ? 'swipe to explore · tap any photo' : 'hold space or scroll'
+    if (hintSpan) hintSpan.textContent = touchUI ? 'swipe up to fly through · tap any photo' : 'hold space or scroll'
     if (finalePrompt) finalePrompt.textContent = touchUI ? 'tap anywhere to browse photos' : 'click anywhere to browse photos'
   }
   syncCopyForDevice()
@@ -259,7 +309,7 @@ async function boot() {
         force: true,
       })
     }
-    world.setWallZoom(2.55)
+    world.setWallZoom(wallZoomLevel())
     updateZoomUI()
     syncHint(lenis.targetScroll)
     if (!wasLocked) sound.whoosh()
@@ -280,13 +330,76 @@ async function boot() {
       finaleDismissed = false
     } else {
       world.randomizePan()
-      world.setWallZoom(2.55)
+      world.setWallZoom(wallZoomLevel())
       finaleDismissed = true
     }
     updateZoomUI()
     syncHint(lenis.targetScroll)
     sound.whoosh()
   })
+
+  // One-tap entry straight into the 3D tunnel from the zoomed wall (essential on mobile!)
+  tunnelBtn.addEventListener('click', () => {
+    hideHint()
+    unlock()
+    finaleDismissed = true
+    world.setWallZoom(1)
+    world.setInspect(-1)
+    syncPhotoCounter(-1)
+    updateZoomUI()
+    sound.whoosh()
+    const maxS = ScrollTrigger.maxScroll(window)
+    const targetP = built?.photoProgress?.[0] ?? 0.08
+    lenis.scrollTo(targetP * maxS, {
+      duration: 1.25,
+      easing: (x) => 1 - Math.pow(1 - x, 3),
+      force: true,
+    })
+  })
+
+  randomBtn.addEventListener('click', () => {
+    hideHint()
+    unlock()
+    finaleDismissed = true
+    const n = layout?.planes?.length || 0
+    if (n) inspectPhoto(Math.floor(Math.random() * n))
+  })
+
+  // Touch-draggable scrubber to glide smoothly across all 375 photos with one thumb
+  const scrubAtClientX = (clientX) => {
+    const rect = scrubberTrack.getBoundingClientRect()
+    if (rect.width <= 0) return
+    const p = Math.min(0.995, Math.max(0.02, (clientX - rect.left) / rect.width))
+    const maxS = ScrollTrigger.maxScroll(window)
+    if (maxS <= 0) return
+    hideHint()
+    unlock()
+    finaleDismissed = true
+    world.setWallZoom(1)
+    releaseInspect()
+    updateZoomUI()
+    lenis.scrollTo(p * maxS, { immediate: true, force: true })
+    ScrollTrigger.update()
+  }
+  mobileScrubber.addEventListener('pointerdown', (e) => {
+    scrubbing = true
+    mobileScrubber.classList.add('is-scrubbing')
+    mobileScrubber.setPointerCapture?.(e.pointerId)
+    scrubAtClientX(e.clientX)
+    e.stopPropagation()
+  })
+  mobileScrubber.addEventListener('pointermove', (e) => {
+    if (!scrubbing) return
+    scrubAtClientX(e.clientX)
+    e.stopPropagation()
+  })
+  const endScrub = () => {
+    if (!scrubbing) return
+    scrubbing = false
+    mobileScrubber.classList.remove('is-scrubbing')
+  }
+  mobileScrubber.addEventListener('pointerup', endScrub)
+  mobileScrubber.addEventListener('pointercancel', endScrub)
 
   document.getElementById('finalePhotos')?.addEventListener('click', (e) => {
     e.preventDefault()
@@ -333,7 +446,7 @@ async function boot() {
   // ---- click ANY photo (or click background on locked landing to unlock browsing) ----
   let downPos = null
   window.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar, .gallery-lb')) return
+    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar, .gallery-lb, .mobile-scrubber')) return
     downPos = { x: e.clientX, y: e.clientY }
     if (!locked && e.pointerType !== 'mouse') {
       world.pointerActive = true
@@ -344,7 +457,7 @@ async function boot() {
   const photoCounter = document.getElementById('photoCounter')
   const pad3 = (n) => String(n).padStart(3, '0')
 
-  // Floating inspect controls (prev / counter / next / close) — super useful on mobile & desktop
+  // Floating inspect controls (prev / counter / next / full / close) for mobile & desktop
   const inspectBar = document.createElement('div')
   inspectBar.className = 'inspect-bar'
   inspectBar.id = 'inspectBar'
@@ -354,6 +467,7 @@ async function boot() {
     <button type="button" class="inspect-bar__btn" id="inspectPrev" aria-label="Previous photo">&lsaquo; prev</button>
     <span class="inspect-bar__count" id="inspectBarCount"></span>
     <button type="button" class="inspect-bar__btn" id="inspectNext" aria-label="Next photo">next &rsaquo;</button>
+    <button type="button" class="inspect-bar__btn" id="inspectFull" aria-label="Full screen">full</button>
     <button type="button" class="inspect-bar__btn inspect-bar__close" id="inspectClose" aria-label="Close photo">&times;</button>
   `
   document.body.appendChild(inspectBar)
@@ -419,11 +533,13 @@ async function boot() {
     if (!downPos) return
     const dist = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y)
     downPos = null
-    if (dist > 8) return
-    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar, .gallery-lb')) return
+    const tapSlop = e.pointerType === 'mouse' ? 8 : 16
+    if (dist > tapSlop) return
+    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar, .gallery-lb, .mobile-scrubber')) return
     if (locked || !finaleDismissed || performance.now() - unlockedAt < 350) {
       unlock()
       finaleDismissed = true
+      updateZoomUI()
       if (e.pointerType === 'mouse') {
         world.pointerActive = true
         world.mouse.tx = (e.clientX / innerWidth) * 2 - 1
@@ -499,6 +615,26 @@ async function boot() {
     lb.querySelector('#glbNext').addEventListener('click', () => { idx = (idx + 1) % n; render() })
     lb.querySelector('#glbClose').addEventListener('click', close)
     lb.addEventListener('click', (ev) => { if (ev.target === lb || ev.target === lb.querySelector('.gallery-lb__stage')) close() })
+
+    // Touch swipe inside full-screen lightbox: swipe left/right to step photos, swipe down to close
+    let lbTouch = null
+    lb.addEventListener('touchstart', (ev) => {
+      if (ev.touches.length !== 1) return
+      lbTouch = { sx: ev.touches[0].clientX, sy: ev.touches[0].clientY }
+    }, { passive: true })
+    lb.addEventListener('touchend', (ev) => {
+      if (!lbTouch || !ev.changedTouches.length) return
+      const dx = ev.changedTouches[0].clientX - lbTouch.sx
+      const dy = ev.changedTouches[0].clientY - lbTouch.sy
+      lbTouch = null
+      if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+        idx = (idx + (dx < 0 ? 1 : -1) + n) % n
+        render()
+      } else if (dy > 64 && Math.abs(dy) > Math.abs(dx) * 1.3) {
+        close()
+      }
+    }, { passive: true })
+
     window.addEventListener('keydown', onKey)
     render()
   }
@@ -530,6 +666,9 @@ async function boot() {
   }
   document.getElementById('inspectPrev')?.addEventListener('click', () => stepPhoto(-1))
   document.getElementById('inspectNext')?.addEventListener('click', () => stepPhoto(1))
+  document.getElementById('inspectFull')?.addEventListener('click', () => {
+    if (world.inspectIdx >= 0) openGalleryLightbox(world.inspectIdx)
+  })
   document.getElementById('inspectClose')?.addEventListener('click', releaseInspect)
   window.addEventListener('wheel', releaseInspect, { passive: true })
 
@@ -541,7 +680,7 @@ async function boot() {
   const touchDist = (t0, t1) => Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY)
 
   window.addEventListener('touchstart', (e) => {
-    if (e.target.closest('a, button, .inspect-bar, .themes-backdrop')) return
+    if (e.target.closest('a, button, .inspect-bar, .themes-backdrop, .mobile-scrubber, .gallery-lb')) return
     if (locked) return
     const mosaicUp = Math.max(state.openAssemble || 0, state.assemble || 0) > 0.72
     if (e.touches.length === 2 && mosaicUp) {
@@ -704,11 +843,19 @@ async function boot() {
       })
     : null
 
-  // ---- resize ----
+  // ---- resize (ignore mobile URL-bar vertical height changes so scroll never jumps!) ----
   let rt
   window.addEventListener('resize', () => {
     clearTimeout(rt)
-    rt = setTimeout(() => compose(trigger ? trigger.progress : 0), 220)
+    rt = setTimeout(() => {
+      const w = window.innerWidth, h = window.innerHeight
+      if (isMobile() && Math.abs(w - lastComposeW) < 2) {
+        world.resize(w, h)
+        return
+      }
+      lastComposeW = w
+      compose(trigger ? trigger.progress : 0)
+    }, 220)
   })
 
   // ---- debug jump ----
@@ -788,6 +935,11 @@ async function boot() {
     finale.classList.toggle('is-live', live)
     document.body.classList.toggle('nav-aside', !live)
     if (zoomBtn) zoomBtn.classList.toggle('is-hidden', out.mosaicMode <= 0.65)
+    tunnelBtn.classList.toggle('is-hidden', locked || out.mosaicMode <= 0.65)
+    randomBtn.classList.toggle('is-hidden', locked)
+    document.body.classList.toggle('is-wall-zoom', !locked && out.mosaicMode > 0.65 && world.wallZoomTarget > 1.25)
+    const showScrubber = (!finePointer || isMobile()) && !locked && out.mosaicMode <= 0.65 && world.inspectIdx < 0 && !galleryLb
+    mobileScrubber.classList.toggle('is-on', showScrubber)
 
     // Crisp vector cursor reacts clearly to interactive controls vs hovered prints on the wall
     if (cursor && !isMobile()) {

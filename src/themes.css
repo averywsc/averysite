@@ -1,3 +1,12 @@
+@import '@fontsource/comic-neue/400.css';
+@import '@fontsource/comic-neue/700.css';
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/courier-prime/400.css';
+@import '@fontsource/courier-prime/700.css';
+@import '@fontsource/dm-sans/500.css';
+@import '@fontsource/dm-sans/700.css';
+
 /* ---------- Zero-Flash Takeover Gates ---------- */
 html.is-themed-home #loader,
 html.is-themed-home #stage,
@@ -10,6 +19,7 @@ html.is-themed-home .hint,
 html.is-themed-home .progress,
 html.is-themed-home .photo-counter,
 html.is-themed-home .inspect-bar,
+html.is-themed-home .mobile-scrubber,
 html.is-themed-home .calm,
 html.has-theme-takeover .site-shell,
 html.has-theme-takeover .back-to-top,
@@ -281,7 +291,7 @@ html.has-theme-takeover .music-vinyl-stage {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  font-family: 'Comic Sans MS', 'Comic Sans', 'Patrick Hand', cursive;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Patrick Hand', cursive, sans-serif;
 }
 .tpv-silly-card {
   width: 84%;
@@ -620,6 +630,19 @@ html[data-theme="frutiger"] body::after { display: none !important; }
   transition: background 0.16s ease;
 }
 .aero-d-icon:hover { background: rgba(185, 228, 255, 0.24); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.48); }
+.aero-d-icon.is-selected {
+  background: linear-gradient(180deg, rgba(168, 220, 255, 0.46) 0%, rgba(74, 158, 232, 0.42) 100%);
+  box-shadow: inset 0 0 0 1px rgba(210, 240, 255, 0.85), 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+.aero-os.is-selecting { user-select: none; }
+.aero-marquee {
+  position: fixed;
+  z-index: 25;
+  pointer-events: none;
+  background: rgba(51, 153, 255, 0.24);
+  border: 1px solid rgba(72, 168, 255, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
 .aero-d-glyph { display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45)); }
 
 .aero-desktop-hint {
@@ -797,15 +820,26 @@ html[data-theme="silly"] {
   --ink-faint: #787872;
   --line: #d4d2c8;
   --line-strong: #1c1c1c;
-  --font-serif: 'Comic Sans MS', 'Comic Sans', 'Patrick Hand', cursive, sans-serif;
-  --font-sans: 'Comic Sans MS', 'Comic Sans', 'Patrick Hand', cursive, sans-serif;
+  --font-serif: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Patrick Hand', cursive, sans-serif;
+  --font-sans: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Patrick Hand', cursive, sans-serif;
 }
 html[data-theme="silly"] body {
   background-color: #faf9f4;
   background-image: linear-gradient(rgba(28, 28, 28, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(28, 28, 28, 0.045) 1px, transparent 1px);
   background-size: 24px 24px;
   color: #1c1c1c;
-  font-family: 'Comic Sans MS', 'Comic Sans', 'Patrick Hand', cursive, sans-serif;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Patrick Hand', cursive, sans-serif;
+}
+html[data-theme="silly"] button,
+html[data-theme="silly"] input,
+html[data-theme="silly"] textarea {
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Patrick Hand', cursive, sans-serif;
+}
+html[data-theme="silly"] .themes-popover,
+html[data-theme="silly"] .themes-popover button,
+html[data-theme="silly"] #eggModal,
+html[data-theme="silly"] #eggModal button {
+  font-family: 'Dotmatri', ui-monospace, monospace;
 }
 html[data-theme="silly"] body::before,
 html[data-theme="silly"] body::after,
@@ -835,7 +869,7 @@ html[data-theme="silly"] .album-title,
 html[data-theme="silly"] [class*="album-title--"],
 html[data-theme="silly"] .film-title,
 html[data-theme="silly"] .script-title,
-html[data-theme="silly"] .script-character { color: #1c1c1c !important; font-family: 'Comic Sans MS', 'Comic Sans', 'Patrick Hand', cursive !important; text-shadow: none !important; }
+html[data-theme="silly"] .script-character { color: #1c1c1c !important; font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Patrick Hand', cursive, sans-serif !important; text-shadow: none !important; }
 html[data-theme="silly"] .rail-nav a { color: #52524c; }
 html[data-theme="silly"] .rail-nav a.is-active,
 html[data-theme="silly"] .rail-nav a:hover { color: #1c1c1c; text-decoration: underline wavy #d63031; }
@@ -1065,7 +1099,7 @@ html[data-theme="cobalt"] .project-card:hover .project-thumb, html[data-theme="c
   box-shadow: 6px 6px 0 #1c1c1c;
   padding: 22px 26px;
   text-align: center;
-  font-family: 'Comic Sans MS', 'Comic Sans', 'Patrick Hand', cursive, sans-serif;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Patrick Hand', cursive, sans-serif;
 }
 .silly-fallen-rescue p { margin-bottom: 14px; font-size: 16px; color: #1c1c1c; }
 .silly-fallen-rescue button {
@@ -1324,3 +1358,129 @@ html.is-cobalt-whiteprint .cobalt-card::before,
 html.is-cobalt-whiteprint .cobalt-card::after {
   color: #1655b8;
 }
+
+/* ---------- Desktop Context Menu, Sticky Notes, Recycle Bin & Fun Animations ---------- */
+@keyframes wtPartyHue {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+.wt-root.is-party .wt-screen { animation: wtPartyHue 1.2s linear infinite; }
+
+.aero-desktop-icons.is-refreshing { opacity: 0.15; transition: opacity 0.08s linear; }
+.aero-note-secret {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-size: 11px;
+  color: rgba(29, 47, 66, 0.34);
+  cursor: pointer;
+}
+.aero-note-secret:hover { color: #1a66b3; text-decoration: underline; }
+
+.aero-bin-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 10px;
+  background: linear-gradient(180deg, #f6faff, #dceaf7);
+  border-left: 1px solid #8aa8c7;
+  border-right: 1px solid #8aa8c7;
+  font-size: 11.5px;
+  color: #365069;
+}
+.aero-bin-body { gap: 7px; }
+.aero-bin-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 10px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: #f4f8fc;
+  font-size: 12px;
+}
+.aero-bin-row strong { color: #16293d; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.aero-bin-row span { color: #5b748e; font-size: 11px; }
+.aero-bin-row em { grid-column: 1 / -1; font-style: normal; font-size: 11px; color: #6c849c; }
+
+.aero-sticky {
+  position: absolute;
+  pointer-events: auto;
+  width: 210px;
+  min-height: 176px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #fff6a8 0%, #ffef82 100%);
+  border: 1px solid #d4c048;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.38);
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', 'Segoe UI', sans-serif;
+  color: #3a3208;
+}
+.aero-sticky-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 7px;
+  background: linear-gradient(180deg, #f6e472, #ead24c);
+  font-size: 11px;
+  font-weight: 700;
+  user-select: none;
+  cursor: grab;
+}
+.aero-sticky-bar button { width: 20px; height: 20px; font-size: 14px; line-height: 1; color: #5c4f0a; cursor: pointer; }
+.aero-sticky-bar button:hover { color: #000000; }
+.aero-sticky-text {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 140px;
+  padding: 10px;
+  border: 0;
+  outline: none;
+  resize: both;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #2e2806;
+}
+
+.aero-ctx {
+  position: fixed;
+  z-index: 9500;
+  min-width: 186px;
+  padding: 4px;
+  background: #f4f6f9;
+  border: 1px solid #97a8bc;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-family: 'Segoe UI', 'DM Sans', system-ui, sans-serif;
+}
+.aero-ctx button {
+  text-align: left;
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #162436;
+  cursor: pointer;
+}
+.aero-ctx button:hover { background: linear-gradient(180deg, #eaf4ff, #d4e8fc); }
+.aero-ctx button.is-faint { color: rgba(22, 36, 54, 0.42); font-size: 11px; }
+.aero-ctx button.is-faint:hover { color: #162436; }
+
+.silly-hidden-secret {
+  font: inherit;
+  color: inherit;
+  margin-left: 0 !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+.silly-hidden-secret:hover { color: #1c1c1c; }
+@keyframes sillyWobble {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.12, 0.9) rotate(-4deg); }
+  55% { transform: scale(0.94, 1.08) rotate(3deg); }
+  80% { transform: scale(1.04, 0.98) rotate(-1.5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.silly-wobble { display: inline-block; animation: sillyWobble 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }

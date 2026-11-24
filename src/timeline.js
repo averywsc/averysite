@@ -163,7 +163,7 @@ export function buildTimeline(layout, cfg, state) {
     samples.push({ p, camZ: state.camZ })
   }
   const photoProgress = layout.planes.map((pl) => {
-    const targetZ = pl.z + pl.fitD
+    const targetZ = pl.z + pl.fitD * 1.38 + 1.2
     let bestP = samples[0].p, bestD = Infinity
     for (let s = 0; s < samples.length; s++) {
       const d = Math.abs(samples[s].camZ - targetZ)

@@ -103,9 +103,9 @@ html[data-theme="frutiger"] {
   --cursor-hover: #00a8ff;
 }
 html[data-theme="silly"] {
-  --cursor-ring: #00a8ff;
-  --cursor-dot: #ff4fa3;
-  --cursor-hover: #ff6b00;
+  --cursor-ring: #1c1c1c;
+  --cursor-dot: #1c1c1c;
+  --cursor-hover: #d63031;
 }
 html[data-theme="paper"] {
   --cursor-ring: rgba(23, 22, 20, 0.38);

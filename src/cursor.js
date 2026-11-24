@@ -4,7 +4,7 @@
  * and switches SVG geometry dynamically for each active site theme.
  */
 const INTERACTIVE =
-  'a, button, [role="button"], input, textarea, select, summary, .project-thumb-wrap, .album-cover-wrap, .script-card, .music-vinyl-disc, .aero-win-titlebar, body.is-locked .finale.is-live'
+  'a, button, [role="button"], input, textarea, select, summary, .project-thumb-wrap, .album-cover-wrap, .script-card, .music-vinyl-disc, .aero-win-titlebar, .aero-win-handle, body.is-locked .finale.is-live'
 
 const CURSOR_SHAPES = {
   original: {

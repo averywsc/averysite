@@ -315,7 +315,7 @@ export class World {
     let jumpFlight = 0
     if (this.inspectIdx >= 0 && this.items[this.inspectIdx]) {
       const ip = this.items[this.inspectIdx].p
-      const dzDelta = (ip.z + ip.fitD) - state.camZ
+      const dzDelta = (ip.z + ip.fitD * 1.38 + 1.2) - state.camZ
       jumpFlight = Math.min(1, Math.abs(dzDelta) / 28) * this.inspectMix
       const lateralBlend = this.inspectMix * (1 - OA) * (1 - A)
       const zLock = smooth(28, 0, Math.abs(dzDelta)) * lateralBlend

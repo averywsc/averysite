@@ -15,7 +15,7 @@ import { rgbToCss, linearToSrgb, luma } from './colors.js'
 import { createCursor, startCursorLoop } from './cursor.js'
 import { initInteractiveWordmark } from './wordmark.js'
 import { initEasterEggs } from './easter-eggs.js'
-import { initThemes, isPhotosRoute } from './themes.js'
+import { initThemes } from './themes.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -64,7 +64,7 @@ function calmMode(cfg, photos) {
 
 async function boot() {
   const savedTheme = sessionStorage.getItem('avery_theme')
-  if (!isPhotosRoute() && savedTheme && savedTheme !== 'original') {
+  if (savedTheme && savedTheme !== 'original') {
     document.documentElement.classList.add('is-themed-home')
     initThemes()
     startCursorLoop()
@@ -333,7 +333,7 @@ async function boot() {
   // ---- click ANY photo (or click background on locked landing to unlock browsing) ----
   let downPos = null
   window.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar')) return
+    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar, .gallery-lb')) return
     downPos = { x: e.clientX, y: e.clientY }
     if (!locked && e.pointerType !== 'mouse') {
       world.pointerActive = true
@@ -420,7 +420,7 @@ async function boot() {
     const dist = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y)
     downPos = null
     if (dist > 8) return
-    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar')) return
+    if (e.target.closest('a, button, input, .themes-backdrop, .theme-shell, .inspect-bar, .gallery-lb')) return
     if (locked || !finaleDismissed || performance.now() - unlockedAt < 350) {
       unlock()
       finaleDismissed = true
@@ -435,6 +435,80 @@ async function boot() {
     const endA = state.assemble || 0
     const ndcX = (e.clientX / innerWidth) * 2 - 1
     const ndcY = (e.clientY / innerHeight) * 2 - 1
+    const onWall = Math.max(openA, endA) > 0.72
+    let hit = -1
+    if (onWall) {
+      const mz = openA >= endA ? layout.mosaicOpen.z : layout.mosaic.z
+      hit = world.pickMosaic(ndcX, ndcY, mz)
+      if (hit >= 0) inspectPhoto(hit)
+    } else {
+      hit = world.pickTunnel(ndcX, ndcY)
+      if (hit < 0 && world.inspectIdx >= 0) hit = world.inspectIdx
+      if (hit >= 0) openGalleryLightbox(hit)
+    }
+  })
+
+  // Single-click any photo in 3D tunnel (or double-click on the All Photos wall) to open full-screen preview
+  let galleryLb = null
+  const openGalleryLightbox = (startIdx) => {
+    const n = layout.planes.length
+    if (!n || startIdx < 0 || startIdx >= n) return
+    let idx = startIdx
+    if (galleryLb) galleryLb.remove()
+    const lb = document.createElement('div')
+    lb.className = 'gallery-lb'
+    lb.id = 'galleryLightbox'
+    lb.setAttribute('role', 'dialog')
+    lb.setAttribute('aria-modal', 'true')
+    lb.setAttribute('aria-label', 'Full-screen photo preview')
+    lb.innerHTML = `
+      <div class="gallery-lb__bar">
+        <span class="gallery-lb__count" id="glbCount"></span>
+        <div class="gallery-lb__btns">
+          <button type="button" id="glbPrev" aria-label="Previous photo">&lsaquo; prev</button>
+          <button type="button" id="glbNext" aria-label="Next photo">next &rsaquo;</button>
+          <button type="button" id="glbClose" aria-label="Close preview">&times; close</button>
+        </div>
+      </div>
+      <div class="gallery-lb__stage"><img id="glbImg" alt="" /></div>
+    `
+    document.body.appendChild(lb)
+    galleryLb = lb
+    lenis.stop()
+
+    const render = () => {
+      const photo = layout.planes[idx]?.photo
+      if (!photo) return
+      const img = lb.querySelector('#glbImg')
+      img.src = photo.tex?.[2048] || photo.src
+      img.alt = altFor(cfg, photo)
+      lb.querySelector('#glbCount').textContent = `${pad3(idx + 1)} / ${pad3(n)}`
+    }
+    const close = () => {
+      window.removeEventListener('keydown', onKey)
+      lb.remove()
+      galleryLb = null
+      if (!locked) lenis.start()
+    }
+    const onKey = (ev) => {
+      if (ev.key === 'Escape') { ev.preventDefault(); close() }
+      else if (ev.key === 'ArrowRight') { ev.preventDefault(); idx = (idx + 1) % n; render() }
+      else if (ev.key === 'ArrowLeft') { ev.preventDefault(); idx = (idx - 1 + n) % n; render() }
+    }
+    lb.querySelector('#glbPrev').addEventListener('click', () => { idx = (idx - 1 + n) % n; render() })
+    lb.querySelector('#glbNext').addEventListener('click', () => { idx = (idx + 1) % n; render() })
+    lb.querySelector('#glbClose').addEventListener('click', close)
+    lb.addEventListener('click', (ev) => { if (ev.target === lb || ev.target === lb.querySelector('.gallery-lb__stage')) close() })
+    window.addEventListener('keydown', onKey)
+    render()
+  }
+
+  window.addEventListener('dblclick', (e) => {
+    if (e.target.closest('a, button, input, .inspect-bar, .gallery-lb')) return
+    const openA = state.openAssemble || 0
+    const endA = state.assemble || 0
+    const ndcX = (e.clientX / innerWidth) * 2 - 1
+    const ndcY = (e.clientY / innerHeight) * 2 - 1
     let hit = -1
     if (Math.max(openA, endA) > 0.72) {
       const mz = openA >= endA ? layout.mosaicOpen.z : layout.mosaic.z
@@ -442,7 +516,11 @@ async function boot() {
     } else {
       hit = world.pickTunnel(ndcX, ndcY)
     }
-    if (hit >= 0) inspectPhoto(hit)
+    if (hit < 0 && world.inspectIdx >= 0) hit = world.inspectIdx
+    if (hit >= 0) {
+      if (locked) unlock()
+      openGalleryLightbox(hit)
+    }
   })
 
   // Release inspect lock smoothly once user resumes manual scrolling

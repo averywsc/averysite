@@ -458,7 +458,7 @@ export function initThemes() {
         await streamLines([
           `<span class="wt-dim">Mode                 Items Name</span>`,
           `d----                  375 <button type="button" class="wt-link" data-wt-run="cd photos">photos\\</button>`,
-          `d----                   89 <button type="button" class="wt-link" data-wt-run="cd code">code\\</button>`,
+          `d----                   94 <button type="button" class="wt-link" data-wt-run="cd code">code\\</button>`,
           `d----                   15 <button type="button" class="wt-link" data-wt-run="cd scripts">scripts\\</button>`,
           `d----                   12 <button type="button" class="wt-link" data-wt-run="cd music">music\\</button>`,
           `d----                    3 <button type="button" class="wt-link" data-wt-run="cd films">films\\</button>`,
@@ -672,7 +672,7 @@ export function initThemes() {
         await streamLines([
           `<span class="wt-g">dir / ls [folder]</span>   List entries (photos, code, scripts, music, films)`,
           `<span class="wt-g">cd &lt;folder&gt;</span>         Enter directory &amp; stream entries (or <span class="wt-g">cd ..</span> / <span class="wt-g">cd ~</span>)`,
-          `<span class="wt-g">archive</span>             List all 74 archived code projects`,
+          `<span class="wt-g">archive</span>             List all 88 archived code projects`,
           `<span class="wt-g">cat &lt;name&gt;</span>          Inspect any project, song, film or script`,
           `<span class="wt-g">open &lt;name&gt;</span>         Launch link directly`,
           `<span class="wt-g">tree</span>                Show directory tree`,
@@ -691,7 +691,7 @@ export function initThemes() {
         await streamLines([
           `C:\\USERS\\VISITOR\\AVERYBEUTH.XYZ`,
           `├───photos   (375 color-ordered frames)`,
-          `├───code     (15 main + 74 archive)`,
+          `├───code     (6 main + 88 archive)`,
           `├───scripts  (original screenplays + PDFs)`,
           `├───music    (albums, EPs, singles + bebeat)`,
           `└───films    (short films + fifilm + LUTs)`,
@@ -1807,7 +1807,7 @@ export function initThemes() {
             <div class="paper-sec-head"><span class="paper-kicker">SECTION I &middot; SOFTWARE &amp; TOOLS</span><h2>The Code Gazette</h2></div>
             <div class="paper-article-grid" id="paperCodeMain"><p class="paper-loading">Typesetting selected works...</p></div>
             <div class="paper-classifieds-wrap">
-              <h3 class="paper-classifieds-title">ARCHIVE CLASSIFIEDS (74 PROJECTS)</h3>
+              <h3 class="paper-classifieds-title">ARCHIVE CLASSIFIEDS (88 PROJECTS)</h3>
               <div class="paper-classifieds" id="paperCodeArchive"></div>
             </div>
           </section>
@@ -1990,10 +1990,10 @@ export function initThemes() {
           </nav>
 
           <div class="cobalt-block" data-csec="code">
-            <div class="cobalt-sec-bar"><span>SHEET S-01 // SOFTWARE &amp; TOOLS SPECIFICATION</span><span>89+ ASSEMBLIES</span></div>
+            <div class="cobalt-sec-bar"><span>SHEET S-01 // SOFTWARE &amp; TOOLS SPECIFICATION</span><span>94 ASSEMBLIES</span></div>
             <div class="cobalt-spec-cards" id="cobaltCodeMain"><div class="tp-loading">Drafting specifications...</div></div>
             <details class="cobalt-archive-drawer">
-              <summary>EXPAND ARCHIVE SCHEDULE (74 SECONDARY BUILDS)</summary>
+              <summary>EXPAND ARCHIVE SCHEDULE (88 SECONDARY BUILDS)</summary>
               <div class="cobalt-archive-table" id="cobaltCodeArchive"></div>
             </details>
           </div>

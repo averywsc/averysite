@@ -123,8 +123,16 @@ export async function loadMusicData(base = '.') {
       href: resolveRel(base, a.getAttribute('href') || '#'),
     }))
     const sc = links.find((l) => l.href.includes('soundcloud.com'))
-    const kind = (metaEl?.textContent || 'release').trim().toLowerCase()
-    const folder = kind.includes('single') ? 'singles' : 'albums'
+    const rawKind = (row.dataset.kind || '').trim().toLowerCase()
+    const metaText = (metaEl?.textContent || 'release').trim().toLowerCase()
+    const folder = rawKind === 'soundtrack' || metaText.includes('soundtrack')
+      ? 'soundtracks'
+      : rawKind === 'ep' || metaText.startsWith('ep')
+        ? 'eps'
+        : rawKind === 'single' || metaText.includes('single')
+          ? 'singles'
+          : 'albums'
+    const folderLabels = { singles: 'Singles', eps: 'EPs', albums: 'Albums', soundtracks: 'Soundtracks' }
     return {
       title: titleEl?.textContent?.trim() || 'Untitled',
       href: links[0]?.href || '#',
@@ -133,7 +141,7 @@ export async function loadMusicData(base = '.') {
       tag: metaEl?.textContent?.trim() || 'music',
       desc: copyEl?.textContent?.trim() || '',
       folder,
-      folderLabel: folder === 'singles' ? 'Singles' : 'Albums & EPs',
+      folderLabel: folderLabels[folder] || 'Music',
       typeLabel: metaEl?.textContent?.trim() || 'audio',
       links,
       soundcloud: sc?.href || '',

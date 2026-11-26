@@ -1136,8 +1136,10 @@ export function initThemes() {
         iconSvg = ICONS.music
         folders = [
           { id: 'all', label: 'All Releases', count: items.length },
-          { id: 'albums', label: 'Albums & EPs', count: items.filter((i) => i.folder === 'albums').length },
           { id: 'singles', label: 'Singles', count: items.filter((i) => i.folder === 'singles').length },
+          { id: 'eps', label: 'EPs', count: items.filter((i) => i.folder === 'eps').length },
+          { id: 'albums', label: 'Albums', count: items.filter((i) => i.folder === 'albums').length },
+          { id: 'soundtracks', label: 'Soundtracks', count: items.filter((i) => i.folder === 'soundtracks').length },
         ]
       } else if (appId === 'films') {
         items = await loadFilmsData(meta.base)

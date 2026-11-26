@@ -804,6 +804,26 @@ img {
   }
 }
 
+.music-toolbar {
+  margin-bottom: 34px;
+}
+
+.music-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.music-section[hidden] {
+  display: none !important;
+}
+
+.music-section-list {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
 .album-cover {
   width: 100%;
   height: 100%;

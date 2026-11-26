@@ -417,11 +417,46 @@ function initMobilePolish() {
   }, { passive: true })
 }
 
+function initMusicFilter() {
+  const bar = document.getElementById('musicFilterBar')
+  const sections = [...document.querySelectorAll('[data-music-section]')]
+  if (!bar || !sections.length) return
+
+  const links = [...bar.querySelectorAll('[data-music-filter]')]
+  const valid = new Set(['all', 'single', 'ep', 'album', 'soundtrack'])
+
+  const apply = (mode, pushUrl = false) => {
+    const active = valid.has(mode) ? mode : 'all'
+    links.forEach((a) => {
+      if (a.dataset.musicFilter === active) a.setAttribute('aria-current', 'page')
+      else a.removeAttribute('aria-current')
+    })
+    sections.forEach((sec) => {
+      sec.hidden = active !== 'all' && sec.dataset.musicSection !== active
+    })
+    if (pushUrl) {
+      const url = active === 'all' ? 'music.html' : `music.html?type=${active}`
+      try { history.replaceState(null, '', url) } catch {}
+    }
+  }
+
+  const initParam = new URLSearchParams(window.location.search).get('type') || 'all'
+  apply(initParam, false)
+
+  bar.addEventListener('click', (e) => {
+    const link = e.target.closest('[data-music-filter]')
+    if (!link) return
+    e.preventDefault()
+    apply(link.dataset.musicFilter, true)
+  })
+}
+
 function boot() {
   initEasterEggs()
   initThemes()
   initMobilePolish()
   startCursorLoop()
+  initMusicFilter()
   initPortfolioListen()
   initSoundCloudPreviews()
   initMusicVinyl()

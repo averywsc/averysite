@@ -929,6 +929,16 @@ img {
   color: #e8eef9;
 }
 
+.album-title--austral {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 38px;
+  letter-spacing: 0.02em;
+  color: #b7f5dc;
+  text-shadow: 0 0 20px rgba(102, 232, 184, 0.3);
+}
+
 .album-title--deepfold {
   font-family: 'Courier Prime', 'Courier New', monospace;
   font-weight: 700;

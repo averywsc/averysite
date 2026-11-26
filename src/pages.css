@@ -909,6 +909,16 @@ img {
   color: #e8eef9;
 }
 
+.album-title--deepfold {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 29px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #a6f7f0;
+  text-shadow: 0 0 18px rgba(88, 224, 212, 0.35);
+}
+
 .album-title--undersong {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 500;

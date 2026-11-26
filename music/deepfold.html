@@ -1,0 +1,880 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Deepfold Instrumentals</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2VmMGZmIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiM4ZjdiZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZjllZTYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNCIgZmlsbD0iIzA1MDcwZCIvPjxwYXRoIGQ9Ik0zMiA4IDUzIDIwdjI0TDMyIDU2IDExIDQ0VjIweiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2cpIiBzdHJva2Utd2lkdGg9IjMuMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yNyAyMy41djE3bDE0LTguNXoiIGZpbGw9InVybCgjZykiLz48L3N2Zz4K">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: cover and title side by side, then one row per song with space between them instead of lines. Single dark look by choice. */
+  :root {
+    color-scheme: dark;
+    --bg: #08060f;
+    --fg: #ece8ff;
+    --mute: #8d88a8;
+    --edge: rgba(200, 190, 255, 0.22);
+    --accent: #ff7ad9;
+    --display: "Unbounded", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 400 0.8rem/1.9 var(--mono);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 0;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 44px 2px 90px; }
+  header { display: flex; gap: 28px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 40px; }
+  .cv { width: min(100%, 260px); aspect-ratio: 1; background: #05030b; }
+  .cv canvas { display: block; width: 100%; height: 100%; }
+  h1 {
+    font: 500 clamp(1.7rem, 1.2rem + 2.6vw, 2.5rem)/1 var(--display);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  h2 {
+    font: 400 0.82rem/1.3 var(--display);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+    transition: color 0.4s;
+  }
+  button {
+    font: inherit;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--edge);
+    border-radius: 2px;
+    padding: 9px 16px;
+    cursor: pointer;
+    min-width: 92px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  button:hover { border-color: var(--mute); background: rgba(200, 190, 255, 0.07); }
+  button:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  #st { margin-left: 14px; color: var(--mute); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .trk { padding: 14px 0; }
+  .hd { display: flex; align-items: center; gap: 12px 16px; flex-wrap: wrap; }
+  .m { color: var(--mute); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; flex: 1; min-width: 12ch; font-variant-numeric: tabular-nums; }
+  .bar { height: 2px; background: var(--edge); margin-top: 14px; opacity: 0; transition: opacity 0.5s; }
+  .bar i { display: block; height: 100%; width: 0; }
+  .trk.on .bar { opacity: 1; }
+  .trk.on .m { color: var(--fg); }
+  @media (max-width: 480px) { header { gap: 22px; } }
+</style>
+
+<main>
+  <header>
+    <div class="cv"><canvas id="cv" width="520" height="520" aria-label="A slowly moving glowing picture that changes with each song"></canvas></div>
+    <div>
+      <h1>Deepfold</h1>
+      <button id="all" type="button">Play album</button><span id="st" role="status" aria-live="polite"></span>
+    </div>
+  </header>
+  <div id="list"></div>
+</main>
+
+<script>
+(() => {
+  const VERT = "attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}";
+  const HEAD = `precision highp float;
+uniform vec2 R; uniform float T; uniform float Z; uniform vec2 M; uniform float W; uniform float A;
+uniform float Q; uniform float F; uniform float H;
+uniform vec3 pa, pb, pc, pd;
+mat2 rot(float a){ float c = cos(a), s = sin(a); return mat2(c, -s, s, c); }
+vec3 pal(float x){ return pa + pb * cos(6.28318 * (pc * (x + H) + pd)); }
+vec3 finish(vec3 acc, vec2 uv){
+  vec3 bg = mix(pal(0.1) * 0.03, pal(0.5) * 0.07, smoothstep(-0.6, 0.8, uv.y));
+  vec3 col = bg + acc;
+  col = 1.0 - exp(-col * 1.25);
+  col = pow(col, vec3(0.86));
+  col *= 1.0 - 0.55 * dot(uv, uv);
+  col += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 160.0;
+  return col * F;
+}`;
+  const SHADERS = [
+    HEAD + `float map(vec3 p, out float orb){
+  p.xy *= rot(p.z * 0.07 + T * 0.03);
+  p.z = mod(p.z, 4.0) - 2.0;
+  float s = 1.0;
+  orb = 1e3;
+  float a = 0.55 + 0.08 * sin(T * 0.07);
+  vec3 off = vec3(1.0 + A * 0.03 + 0.08 * sin(T * 0.05), 0.75, 0.5 + 0.05 * cos(T * 0.06));
+  for (int i = 0; i < 5; i++){
+    p = abs(p) - off;
+    p.xy *= rot(a + 0.12 * float(i));
+    p.yz *= rot(0.45);
+    float k = 1.42;
+    p *= k; s *= k;
+    orb = min(orb, dot(p, p));
+  }
+  return (length(p.xy) - 0.05) / s;
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5 * R) / R.y;
+  vec3 ro = vec3(0.22 * sin(T * 0.21), 0.18 * cos(T * 0.17), Z);
+  vec3 rd = vec3(uv, 1.15 - W * 0.35);
+  rd.xy += Q * 0.05 * sin(uv.yx * 5.0 + T * 0.7);
+  rd = normalize(rd);
+  rd.xy *= rot(M.x * 0.25 + 0.05 * sin(T * 0.11));
+  rd.yz *= rot(-M.y * 0.45);
+  rd.xz *= rot(M.x * 0.7);
+  float t = 0.0;
+  vec3 acc = vec3(0.0);
+  for (int i = 0; i < 70; i++){
+    vec3 p = ro + rd * t;
+    float o;
+    float d = map(p, o);
+    float glow = exp(-abs(d) * 120.0);
+    float fog = exp(-t * 0.09);
+    acc += pal(log(o + 1.0) * 0.18 + p.z * 0.04 + T * 0.015) * glow * fog * (0.4 + 0.18 * W) * (1.0 + A * 1.1);
+    acc += pal(log(o + 1.0) * 0.12 + p.z * 0.03 + 0.3) * exp(-abs(d) * 12.0) * fog * 0.006;
+    t += max(abs(d) * 0.7, 0.04);
+    if (t > 26.0) break;
+  }
+  gl_FragColor = vec4(finish(acc, uv), 1.0);
+}`,
+    HEAD + `vec3 mandala(vec2 uv, float N, float freq, float warpAmt, float spin, float seed, float weight){
+  float r = length(uv) + 1e-4;
+  float a = atan(uv.y, uv.x) + spin + Q * 0.7 * r + 0.5 * sin(T * 0.05 + seed);
+  float seg = 6.28318 / N;
+  a = abs(mod(a, seg) - seg * 0.5);
+  float v = 0.34 / (r + 0.07) + Z * (0.5 + 0.12 * seed);
+  vec2 q = vec2(a * freq, v);
+  vec3 acc = vec3(0.0);
+  for (int i = 0; i < 5; i++){
+    float fi = float(i);
+    q += warpAmt * sin(q.yx * (1.1 + 0.2 * fi) + T * 0.25 + fi * 1.9 + seed);
+    float l = min(abs(sin(q.x * 2.0)), abs(sin(q.y * 2.0)));
+    acc += pal(fi * 0.17 + v * 0.03 + q.x * 0.05 + seed * 0.2) * (0.022 / (l + 0.022)) * weight;
+  }
+  return acc * smoothstep(0.0, 0.35, r);
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5 * R) / R.y;
+  uv += M * vec2(0.14, 0.09);
+  uv += Q * 0.025 * sin(uv.yx * 7.0 + T * 0.8);
+  float r = length(uv) + 1e-4;
+  vec3 acc = mandala(uv, 10.0, 2.4, 0.32, T * 0.04, 0.0, 0.9);
+  acc += mandala(uv * 1.65, 14.0, 3.1, 0.22, -T * 0.055, 1.7, 0.4);
+  acc *= (1.0 + A * 0.9);
+  // a ring leaves the centre every few seconds and is pushed harder by the music
+  float ph = fract(T * 0.11);
+  acc += pal(0.55 + ph) * exp(-abs(r - ph * 1.15) * 26.0) * (1.0 - ph) * (0.28 + A * 0.5);
+  acc += pal(0.3 + T * 0.01) * 0.1 / (r * r * 40.0 + 0.5) * (1.0 + A);
+  gl_FragColor = vec4(finish(acc, uv), 1.0);
+}`,
+    HEAD + `float gy(vec3 p){ return dot(sin(p), cos(p.zxy)); }
+float map(vec3 p, out float g){
+  float g1 = gy(p * 1.25 + vec3(0.0, T * 0.05, 0.0)) / 1.25;
+  float g2 = gy(p * 3.3 + T * 0.12) / 3.3;
+  g = g1;
+  return min(abs(g1) - 0.015, abs(g2) * 0.8 - 0.004);
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5 * R) / R.y;
+  vec3 ro = vec3(0.7 * sin(Z * 0.23), 0.7 * cos(Z * 0.19), Z);
+  vec3 rd = vec3(uv, 1.0 - W * 0.3);
+  rd.xy += Q * 0.06 * sin(uv.yx * 4.0 + T * 0.6);
+  rd = normalize(rd);
+  rd.xy *= rot(M.x * 0.3 + 0.1 * sin(T * 0.09));
+  rd.yz *= rot(-M.y * 0.5);
+  rd.xz *= rot(M.x * 0.8);
+  float t = 0.0;
+  vec3 acc = vec3(0.0);
+  for (int i = 0; i < 64; i++){
+    vec3 p = ro + rd * t;
+    float g;
+    float d = map(p, g);
+    float glow = exp(-abs(d) * 90.0);
+    float fog = exp(-t * 0.11);
+    acc += pal(p.z * 0.045 + g * 0.35 + t * 0.02) * glow * fog * (0.07 + 0.04 * W) * (1.0 + A * 1.0);
+    vec3 cp = p * 2.2 + vec3(0.0, T * 0.05, 0.0);
+    vec3 ci = floor(cp), cf = fract(cp) - 0.5;
+    float h = fract(sin(dot(ci, vec3(12.9898, 78.233, 37.719))) * 43758.5453);
+    vec3 off = (vec3(fract(h * 7.0), fract(h * 13.0), fract(h * 23.0)) - 0.5) * 0.6;
+    acc += pal(h + 0.3 + p.z * 0.02) * exp(-length(cf - off) * 30.0) * step(0.62, h) * fog * 0.1 * (1.0 + A * 1.5);
+    t += max(abs(d) * 0.75, 0.035);
+    if (t > 24.0) break;
+  }
+  gl_FragColor = vec4(finish(acc, uv), 1.0);
+}`,
+    HEAD + `float hash(vec3 p){ p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+float vnoise(vec3 x){
+  vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(mix(hash(i), hash(i + vec3(1,0,0)), f.x), mix(hash(i + vec3(0,1,0)), hash(i + vec3(1,1,0)), f.x), f.y),
+             mix(mix(hash(i + vec3(0,0,1)), hash(i + vec3(1,0,1)), f.x), mix(hash(i + vec3(0,1,1)), hash(i + vec3(1,1,1)), f.x), f.y), f.z);
+}
+float fbm(vec3 p){
+  float a = 0.5, s = 0.0;
+  for (int i = 0; i < 4; i++){ s += a * vnoise(p); p = p * 2.03 + vec3(1.7, 9.2, 3.1); a *= 0.5; }
+  return s;
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5 * R) / R.y;
+  vec3 ro = vec3(0.4 * sin(T * 0.05), 0.3 * cos(T * 0.04), Z * 0.7);
+  vec3 rd = vec3(uv, 1.0 - W * 0.3);
+  rd.xy += Q * 0.05 * sin(uv.yx * 4.0 + T * 0.5);
+  rd = normalize(rd);
+  rd.xy *= rot(M.x * 0.25 + 0.06 * sin(T * 0.07));
+  rd.yz *= rot(-M.y * 0.4);
+  rd.xz *= rot(M.x * 0.6);
+  vec3 acc = vec3(0.0);
+  float trans = 1.0;
+  float t = 0.6;
+  for (int i = 0; i < 30; i++){
+    vec3 p = ro + rd * t;
+    vec3 q = p * 0.55;
+    q += 0.8 * vec3(fbm(q * 0.7 + T * 0.01), fbm(q * 0.7 + 7.0), 0.0);
+    float n = fbm(q + vec3(0.0, 0.0, T * 0.02));
+    float dens = smoothstep(0.54, 0.86, n);
+    float core = smoothstep(0.70, 0.92, n);
+    float dt = 0.28 + t * 0.05;
+    vec3 c = pal(n * 0.7 + p.z * 0.02 + t * 0.012);
+    acc += trans * (c * dens * 0.30 + pal(n + 0.4) * core * 1.6 * (1.0 + A * 1.4)) * dt;
+    trans *= exp(-dens * dt * 0.7);
+    t += dt;
+    if (t > 24.0 || trans < 0.03) break;
+  }
+  // stars behind the cloud
+  vec3 sp = rd * 70.0 + vec3(0.0, 0.0, Z * 0.02);
+  vec3 id = floor(sp);
+  float h = hash(id);
+  float star = pow(max(0.0, h - 0.965) / 0.035, 2.0) * smoothstep(0.5, 0.0, length(fract(sp) - 0.5));
+  acc += trans * pal(h * 3.0) * star * 2.2 * (1.0 + A);
+  gl_FragColor = vec4(finish(acc, uv), 1.0);
+}`,
+    HEAD + `float map(vec3 p, out float orb){
+  vec3 z = p; float dr = 1.0, r = 0.0;
+  orb = 1e3;
+  float power = 7.0 + 1.6 * sin(T * 0.07) + A * 0.25;
+  for (int i = 0; i < 6; i++){
+    r = length(z);
+    if (r > 2.5) break;
+    float theta = acos(clamp(z.z / r, -1.0, 1.0));
+    float phi = atan(z.y, z.x);
+    dr = pow(r, power - 1.0) * power * dr + 1.0;
+    float zr = pow(r, power);
+    theta *= power; phi *= power;
+    z = zr * vec3(sin(theta) * cos(phi), sin(phi) * sin(theta), cos(theta)) + p;
+    orb = min(orb, dot(z, z));
+  }
+  return 0.5 * log(r) * r / dr;
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5 * R) / R.y;
+  uv += Q * 0.012 * sin(uv.yx * 6.0 + T);
+  float a = T * 0.06 + M.x * 2.6, b = 0.35 * sin(T * 0.045) + M.y * 1.1;
+  float dist = 2.55 - W * 0.9;
+  vec3 ro = dist * vec3(cos(a) * cos(b), sin(b), sin(a) * cos(b));
+  vec3 fw = normalize(-ro), rt = normalize(cross(vec3(0.0, 1.0, 0.0), fw)), up = cross(fw, rt);
+  vec3 rd = normalize(fw * 1.35 + rt * uv.x + up * uv.y);
+  float t = 0.0;
+  vec3 acc = vec3(0.0);
+  float hitO = 0.0; bool hit = false;
+  for (int i = 0; i < 70; i++){
+    vec3 p = ro + rd * t;
+    float o;
+    float d = map(p, o);
+    acc += pal(log(o + 1.0) * 0.35 + T * 0.01) * exp(-d * 26.0) * 0.04 * (1.0 + A * 0.5);
+    if (d < 0.0009 * (1.0 + t)) {
+      float ao = 1.0 - float(i) / 70.0;
+      acc += pal(log(o + 1.0) * 0.9 + 0.15) * ao * ao * ao * 0.62;
+      hit = true; break;
+    }
+    t += d * 0.85;
+    if (t > 7.0) break;
+  }
+  gl_FragColor = vec4(finish(acc, uv), 1.0);
+}`
+  ];
+
+  const SCALES = {
+    lydian:  [0, 2, 4, 6, 7, 9, 11],
+    dorian:  [0, 2, 3, 5, 7, 9, 10],
+    aeolian: [0, 2, 3, 5, 7, 8, 10]
+  };
+  const PALETTES = [
+    { name: "Prism", p: [[0.5, 0.5, 0.5], [0.5, 0.5, 0.5], [1, 1, 1], [0, 0.33, 0.67]], css: "linear-gradient(90deg,#ff7ad9,#7a5cff)", c: "#ff9ee6", root: 50, scale: SCALES.lydian,  prog: [0, 4, 1, 3] },
+    { name: "Coral", p: [[0.8, 0.5, 0.4], [0.2, 0.4, 0.2], [2, 1, 1], [0, 0.25, 0.25]], css: "linear-gradient(90deg,#ffb199,#d2406a)", c: "#ffb199", root: 45, scale: SCALES.dorian,  prog: [0, 3, 5, 4] },
+    { name: "Ice",   p: [[0.3, 0.4, 0.45], [0.3, 0.4, 0.4], [1, 1, 1], [0.55, 0.7, 0.8]], css: "linear-gradient(90deg,#c9f3ff,#2a8fd6)", c: "#7ef0ff", root: 52, scale: SCALES.aeolian, prog: [0, 5, 2, 6] },
+    { name: "Gilt",  p: [[0.45, 0.4, 0.25], [0.4, 0.35, 0.25], [1, 1, 0.6], [0.85, 0.9, 0.3]], css: "linear-gradient(90deg,#fff0b8,#a8803a)", c: "#f4ffb0", root: 48, scale: SCALES.lydian,  prog: [0, 1, 5, 4] }
+  ];
+
+  /* mode: 0 lattice, 1 mandala, 2 gyroid, 3 nebula, 4 bulb. key: index into PALETTES. */
+  const DUR_SCALE = 1;
+  const TRACKS = [
+    { name: "Lattice",   mode: 0, key: 0, dur: 224, bpm: 0,   seed: 11 },
+    { name: "Mandala",   mode: 1, key: 1, dur: 190, bpm: 100, seed: 23 },
+    { name: "Gyroid",    mode: 2, key: 2, dur: 220, bpm: 0,   seed: 37 },
+    { name: "Nebula",    mode: 3, key: 3, dur: 245, bpm: 0,   seed: 41 },
+    { name: "Bulb",      mode: 4, key: 1, dur: 200, bpm: 90,  seed: 53 },
+    { name: "Glasswork", mode: 0, key: 2, dur: 210, bpm: 0,   seed: 67 },
+    { name: "Undertow",  mode: 2, key: 1, dur: 230, bpm: 0,   seed: 71 },
+    { name: "Afterglow", mode: 3, key: 0, dur: 235, bpm: 0,   seed: 89 }
+  ].map(t => Object.assign({}, t, { dur: t.dur * DUR_SCALE }));
+
+  /* Every song moves through the same shape: a quiet opening, the tune arrives, the beat joins,
+     a short lift, one peak, then a slow fade. */
+  const SECTIONS = [
+    { p: 0.00, trip: 0, melody: false, rhythm: false, warp: 0 },
+    { p: 0.08, trip: 1, melody: true,  rhythm: false, warp: 0 },
+    { p: 0.28, trip: 1, melody: true,  rhythm: true,  warp: 0.1 },
+    { p: 0.58, trip: 1, melody: false, rhythm: false, warp: 0.2 },
+    { p: 0.64, trip: 2, melody: true,  rhythm: true,  warp: 0.55 },
+    { p: 0.88, trip: 1, melody: true,  rhythm: false, warp: 0.1 },
+    { p: 0.95, trip: 0, melody: false, rhythm: false, warp: 0 }
+  ];
+  const TRIPQ = [0, 0.55, 1];
+
+  /* ============ the player ============ */
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+  function rngFrom(seed) {
+    let a = seed >>> 0;
+    return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  }
+
+  const Player = (() => {
+    let ctx = null, N = null, analyser = null, noiseBuf = null, irBuf = null, rnd = Math.random;
+    let trk = null, t0 = 0, timer = null, persist = [], playing = false, onEnd = null, nowIdx = -1;
+    let nextChord = 0, chordStep = 0, nextBell = 0, bellDeg = 15, nextStep = 0, stepIdx = 0, nextGlide = 0, barPat = 0;
+    let timeline = [], nextSec = 0, riserDone = false;
+
+    const PAD_ATTACK = [4.5, 1.2, 5.5, 6.5, 0.9];
+    const PAD_FILTER = [700, 700, 700, 1000, 480];
+    const PD = {
+      0: { delay: 0.62, send: 0.45, drone: 0.0,  sub: 0.10 },
+      1: { delay: 0.43, send: 0.55, drone: 0.0,  sub: 0.07 },
+      2: { delay: 0.93, send: 0.5,  drone: 0.30, sub: 0.14 },
+      3: { delay: 0.78, send: 0.62, drone: 0.12, sub: 0.08 },
+      4: { delay: 0.5,  send: 0.5,  drone: 0.22, sub: 0.12 }
+    };
+    const ARP_PATS = [
+      [0, -1, 2, 1, 3, -1, 2, 4, 5, 3, 2, -1, 4, 2, 1, 3],
+      [0, 2, 4, 2, 1, 3, 5, 3, 2, 4, 6, 4, 3, 1, -1, 2],
+      [0, -1, -1, 2, 4, -1, 3, 1, 0, -1, 2, 4, 5, -1, 4, 2],
+      [3, 2, 1, 0, 2, 1, 0, -1, 4, 3, 2, 1, 5, 4, 3, 2]
+    ];
+    const isGrid = () => trk.mode === 1 || trk.mode === 4;
+    const stepLen = () => 15 / (trk.bpm || 104);
+    const chordLen = () => isGrid() ? 64 * stepLen() : [13, 0, 15, 17][trk.mode];
+    const degNote = (P, d) => { const n = P.scale.length; return P.root + P.scale[((d % n) + n) % n] + 12 * Math.floor(d / n); };
+    const degAt = t => { let d = timeline.length ? timeline[0].deg : 0; for (const c of timeline) if (c.t <= t + 0.02) d = c.deg; return d; };
+    const secAt = t => { let s = SECTIONS[0]; for (const x of SECTIONS) if (t0 + x.p * trk.dur <= t + 0.001) s = x; return s; };
+    const mk = (type, v) => { const g = ctx[type](); if (v !== undefined) g.gain.value = v; return g; };
+    const keep = o => { persist.push(o); return o; };
+
+    function makeIR(seconds, decay) {
+      const len = Math.floor(ctx.sampleRate * seconds);
+      const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+      for (let c = 0; c < 2; c++) {
+        const d = buf.getChannelData(c); let lp = 0;
+        for (let i = 0; i < len; i++) { lp += ((Math.random() * 2 - 1) - lp) * 0.35; d[i] = lp * Math.pow(1 - i / len, decay); }
+      }
+      return buf;
+    }
+
+    function build() {
+      persist = [];
+      const master = mk("createGain", 0);
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -22; comp.ratio.value = 3.5; comp.attack.value = 0.02; comp.release.value = 0.35;
+      master.connect(comp); comp.connect(ctx.destination);
+
+      const rev = ctx.createConvolver(); rev.buffer = irBuf;
+      const revOut = mk("createGain", 0.9); rev.connect(revOut); revOut.connect(master);
+      const dry = mk("createGain", 0.85); dry.connect(master);
+      const send = mk("createGain", 0.55); send.connect(rev);
+
+      const ppIn = mk("createGain", 0.5);
+      const dL = ctx.createDelay(2), dR = ctx.createDelay(2);
+      dL.delayTime.value = 0.62; dR.delayTime.value = 0.62;
+      const lpL = ctx.createBiquadFilter(), lpR = ctx.createBiquadFilter();
+      lpL.type = lpR.type = "lowpass"; lpL.frequency.value = lpR.frequency.value = 1900;
+      const fbL = mk("createGain", 0.42), fbR = mk("createGain", 0.42);
+      const pL = ctx.createStereoPanner(), pR = ctx.createStereoPanner(); pL.pan.value = -0.75; pR.pan.value = 0.75;
+      const ppOut = mk("createGain", 1);
+      ppIn.connect(dL); dL.connect(lpL); lpL.connect(pL); pL.connect(ppOut);
+      lpL.connect(fbL); fbL.connect(dR); dR.connect(lpR); lpR.connect(pR); pR.connect(ppOut); lpR.connect(fbR); fbR.connect(dL);
+      ppOut.connect(dry); ppOut.connect(send);
+      const dlLfo = keep(ctx.createOscillator()); dlLfo.frequency.value = 0.09;
+      const dlLfoG = mk("createGain", 900);
+      dlLfo.connect(dlLfoG); dlLfoG.connect(lpL.frequency); dlLfoG.connect(lpR.frequency); dlLfo.start();
+
+      const detuneMod = mk("createGain", 1);
+      const wob = keep(ctx.createOscillator()); wob.frequency.value = 0.27;
+      const wobG = mk("createGain", 12); wob.connect(wobG); wobG.connect(detuneMod); wob.start();
+      const vib = keep(ctx.createOscillator()); vib.frequency.value = 5.1;
+      const vibG = mk("createGain", 3); vib.connect(vibG); vibG.connect(detuneMod); vib.start();
+
+      const formLfo = keep(ctx.createOscillator()); formLfo.frequency.value = 0.055; formLfo.start();
+      const formG1 = mk("createGain", 260), formG2 = mk("createGain", 420);
+      formLfo.connect(formG1); formLfo.connect(formG2);
+
+      const padBus = mk("createGain", 1);
+      const padDuck = mk("createGain", 1);
+      const padFilter = ctx.createBiquadFilter(); padFilter.type = "lowpass"; padFilter.frequency.value = 700; padFilter.Q.value = 0.6;
+      const fLfo = keep(ctx.createOscillator()); fLfo.frequency.value = 0.045;
+      const fLfoG = mk("createGain", 280); fLfo.connect(fLfoG); fLfoG.connect(padFilter.frequency); fLfo.start();
+      padBus.connect(padDuck); padDuck.connect(padFilter);
+      const padOut = mk("createGain", 0.55);
+      const phWet = mk("createGain", 0.75);
+      const phLfo = keep(ctx.createOscillator()); phLfo.frequency.value = 0.075; phLfo.start();
+      const phDepth = [];
+      let chain = padFilter;
+      [600, 1000, 1700, 2800].forEach(f => {
+        const ap = ctx.createBiquadFilter(); ap.type = "allpass"; ap.frequency.value = f; ap.Q.value = 0.9;
+        const dg = mk("createGain", f * 0.6); phLfo.connect(dg); dg.connect(ap.frequency); phDepth.push([dg, f]);
+        chain.connect(ap); chain = ap;
+      });
+      chain.connect(phWet); phWet.connect(padOut); padFilter.connect(padOut);
+      padOut.connect(dry); padOut.connect(send);
+
+      const meter = mk("createGain", 1);
+      analyser = ctx.createAnalyser(); analyser.fftSize = 512; meter.connect(analyser);
+      const bellBus = mk("createGain", 0.55); bellBus.connect(dry); bellBus.connect(send); bellBus.connect(ppIn); bellBus.connect(meter);
+      const arpBus = mk("createGain", 0.5); arpBus.connect(dry); arpBus.connect(send); arpBus.connect(ppIn); arpBus.connect(meter);
+      const lowBus = mk("createGain", 0.8); lowBus.connect(dry); lowBus.connect(meter);
+
+      const P = PALETTES[trk.key];
+      const sub = keep(ctx.createOscillator()); sub.type = "sine"; sub.frequency.value = mtof(P.root - 12);
+      const subG = mk("createGain", 0.1); sub.connect(subG); subG.connect(lowBus); sub.start();
+      const drone = keep(ctx.createOscillator()); drone.type = "sawtooth"; drone.frequency.value = mtof(P.root - 24);
+      const drone2 = keep(ctx.createOscillator()); drone2.type = "sawtooth"; drone2.frequency.value = mtof(P.root - 24); drone2.detune.value = 8;
+      const droneF = ctx.createBiquadFilter(); droneF.type = "lowpass"; droneF.frequency.value = 240; droneF.Q.value = 3;
+      const droneG = mk("createGain", 0);
+      const breathe = mk("createGain", 0.5), breatheLfo = keep(ctx.createOscillator()); breatheLfo.frequency.value = 0.19;
+      const breatheDepth = mk("createGain", 0.5); breatheLfo.connect(breatheDepth); breatheDepth.connect(breathe.gain); breatheLfo.start();
+      drone.connect(droneF); drone2.connect(droneF); droneF.connect(breathe); breathe.connect(droneG); droneG.connect(lowBus);
+      drone.start(); drone2.start();
+      const dfLfo = keep(ctx.createOscillator()); dfLfo.frequency.value = 0.07; const dfG = mk("createGain", 120); dfLfo.connect(dfG); dfG.connect(droneF.frequency); dfLfo.start();
+
+      N = { formG1, formG2, master, comp, send, ppIn, dL, dR, fbL, fbR, detuneMod, wobG, vibG, padBus, padDuck, padFilter, phDepth, phWet, bellBus, arpBus, lowBus, sub, subG, drone, drone2, droneG };
+    }
+
+    /* ---- instruments ---- */
+    function padVoice(freq, t, dur, attack, vol, shim) {
+      const g = mk("createGain");
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + attack);
+      g.gain.setValueAtTime(vol, t + dur); g.gain.linearRampToValueAtTime(0.0001, t + dur + 5.5);
+      g.connect(N.padBus);
+      [["sawtooth", 1, 9, -0.65, 0.17], ["sawtooth", 1, -9, 0.65, 0.17], ["triangle", 1, 0, 0, 0.8], ["sine", 2, 0, 0, shim === undefined ? 0.1 : shim]].forEach(([type, mul, cents, pan, amp]) => {
+        const o = ctx.createOscillator(); o.type = type; o.frequency.value = freq * mul; o.detune.value = cents;
+        const dm = N.detuneMod; dm.connect(o.detune); o.onended = () => { try { dm.disconnect(o.detune); } catch (e) {} };
+        const a = mk("createGain", amp), p = ctx.createStereoPanner(); p.pan.value = pan;
+        o.connect(a); a.connect(p); p.connect(g);
+        o.start(t); o.stop(t + dur + 6);
+      });
+    }
+    function choirVoice(freq, t, dur, attack, vol) {
+      const g = mk("createGain");
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + attack);
+      g.gain.setValueAtTime(vol, t + dur); g.gain.linearRampToValueAtTime(0.0001, t + dur + 6);
+      const p = ctx.createStereoPanner(); p.pan.value = rnd() * 0.8 - 0.4; g.connect(p); p.connect(N.padBus);
+      const src = [];
+      const dm = N.detuneMod;
+      [-6, 6].forEach(c => {
+        const o = ctx.createOscillator(); o.type = "sawtooth"; o.frequency.value = freq; o.detune.value = c;
+        dm.connect(o.detune); o.onended = () => { try { dm.disconnect(o.detune); } catch (e) {} };
+        src.push(o);
+      });
+      const sess = N;
+      [[730, 8, 1, N.formG1], [1090, 9, 0.6, N.formG2], [2440, 10, 0.25, null]].forEach(([f, q, amp, lfo]) => {
+        const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = f; bp.Q.value = q;
+        if (lfo) { lfo.connect(bp.frequency); setTimeout(() => { try { lfo.disconnect(bp.frequency); } catch (e) {} }, (t - ctx.currentTime + dur + 8) * 1000); }
+        const a = mk("createGain", amp); src.forEach(o => o.connect(bp)); bp.connect(a); a.connect(g);
+      });
+      src.forEach(o => { o.start(t); o.stop(t + dur + 7); });
+    }
+    function playChord(t) {
+      const P = PALETTES[trk.key], m = trk.mode, len = chordLen();
+      const deg = P.prog[chordStep % P.prog.length]; chordStep++;
+      timeline.push({ t, deg }); if (timeline.length > 6) timeline.shift();
+      const vol = m === 1 ? 0.12 : m === 3 ? 0.08 : 0.13;
+      [0, 2, 4, 6].forEach((s, i) => padVoice(mtof(degNote(P, deg + s) - (i === 0 ? 12 : 0)), t, len + 0.5, PAD_ATTACK[m], vol, m === 3 ? 0.3 : 0.1));
+      if (m === 3) [0, 4, 7].forEach(s => choirVoice(mtof(degNote(P, deg + s) + 12), t, len + 0.5, PAD_ATTACK[m], 0.2));
+      N.sub.frequency.setTargetAtTime(mtof(degNote(P, deg) - 24 + 12), t, 0.8);
+      N.drone.frequency.setTargetAtTime(mtof(degNote(P, deg) - 24), t, 1.2);
+      N.drone2.frequency.setTargetAtTime(mtof(degNote(P, deg) - 24), t, 1.2);
+    }
+    function bell(t) {
+      const P = PALETTES[trk.key];
+      const lo = trk.mode === 2 ? 8 : 13, hi = trk.mode === 2 ? 20 : 25;
+      bellDeg = Math.max(lo, Math.min(hi, bellDeg + [-2, -1, -1, 1, 1, 2, 3][Math.floor(rnd() * 7)]));
+      const f = mtof(degNote(P, bellDeg));
+      const pan = ctx.createStereoPanner(); pan.pan.value = rnd() * 1.4 - 0.7; pan.connect(N.bellBus);
+      const g = mk("createGain");
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.26, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + 3.6);
+      g.connect(pan);
+      [[1, 1, 3.6], [2.76, 0.28, 1.4], [5.4, 0.08, 0.5]].forEach(([mul, amp, len]) => {
+        const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f * mul;
+        const a = mk("createGain"); a.gain.setValueAtTime(amp, t); a.gain.exponentialRampToValueAtTime(0.0001, t + len);
+        o.connect(a); a.connect(g); o.start(t); o.stop(t + len + 0.1);
+      });
+    }
+    function twinkle(t) {
+      const P = PALETTES[trk.key];
+      const f = mtof(degNote(P, 14 + Math.floor(rnd() * 11)));
+      const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f;
+      const g = mk("createGain"); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.07, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
+      const p = ctx.createStereoPanner(); p.pan.value = rnd() * 1.8 - 0.9;
+      o.connect(g); g.connect(p); p.connect(N.bellBus); o.start(t); o.stop(t + 1.7);
+    }
+    function glide(t) {
+      const P = PALETTES[trk.key];
+      const d = [7, 9, 11, 14][Math.floor(rnd() * 4)];
+      const f1 = mtof(degNote(P, d)), f2 = f1 * Math.pow(2, ([-5, 7, 2, -7][Math.floor(rnd() * 4)]) / 12);
+      const o = ctx.createOscillator(); o.type = "sine";
+      o.frequency.setValueAtTime(f1, t); o.frequency.exponentialRampToValueAtTime(f2, t + 5.5);
+      const dm = N.detuneMod; dm.connect(o.detune); o.onended = () => { try { dm.disconnect(o.detune); } catch (e) {} };
+      const g = mk("createGain");
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.16, t + 2.4); g.gain.linearRampToValueAtTime(0.0001, t + 6.5);
+      const p = ctx.createStereoPanner(); p.pan.value = rnd() * 1.2 - 0.6;
+      o.connect(g); g.connect(p); p.connect(N.bellBus); o.start(t); o.stop(t + 7);
+    }
+    function pluck(t, freq, accent, sec) {
+      const o1 = ctx.createOscillator(), o2 = ctx.createOscillator();
+      o1.type = "sawtooth"; o2.type = "square"; o1.frequency.value = freq; o2.frequency.value = freq; o2.detune.value = 7;
+      const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.Q.value = 6;
+      const base = (700 + sec.warp * 2600 + TRIPQ[sec.trip] * 900) * (1 + 0.55 * Math.sin(t * 0.33));
+      f.frequency.setValueAtTime(base * 3, t); f.frequency.exponentialRampToValueAtTime(Math.max(180, base * 0.35), t + 0.22);
+      const g = mk("createGain"); const v = accent ? 0.2 : 0.12;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.34);
+      const a1 = mk("createGain", 0.6), a2 = mk("createGain", 0.35);
+      const p = ctx.createStereoPanner(); p.pan.value = rnd() * 0.8 - 0.4;
+      o1.connect(a1); o2.connect(a2); a1.connect(f); a2.connect(f); f.connect(g); g.connect(p); p.connect(N.arpBus);
+      o1.start(t); o2.start(t); o1.stop(t + 0.4); o2.stop(t + 0.4);
+    }
+    function kick(t, vol) {
+      const o = ctx.createOscillator(); o.type = "sine";
+      o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.15);
+      const g = mk("createGain");
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+      o.connect(g); g.connect(N.lowBus); o.start(t); o.stop(t + 0.45);
+      N.padDuck.gain.cancelScheduledValues(t); N.padDuck.gain.setValueAtTime(0.42, t); N.padDuck.gain.linearRampToValueAtTime(1, t + 0.36);
+    }
+    function hat(t) {
+      const s = ctx.createBufferSource(); s.buffer = noiseBuf;
+      const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 7500;
+      const g = mk("createGain"); g.gain.setValueAtTime(0.05, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+      const p = ctx.createStereoPanner(); p.pan.value = rnd() * 0.6 - 0.3;
+      s.connect(hp); hp.connect(g); g.connect(p); p.connect(N.arpBus); s.start(t, rnd() * 0.8, 0.08);
+    }
+    function bass(t, freq) {
+      const o = ctx.createOscillator(); o.type = "sawtooth"; o.frequency.value = freq;
+      const f = ctx.createBiquadFilter(); f.type = "lowpass"; f.Q.value = 4;
+      f.frequency.setValueAtTime(700, t); f.frequency.exponentialRampToValueAtTime(140, t + 0.22);
+      const g = mk("createGain"); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.2, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3);
+      o.connect(f); f.connect(g); g.connect(N.lowBus); o.start(t); o.stop(t + 0.35);
+    }
+    function riser(dur, t) {
+      const s = ctx.createBufferSource(); s.buffer = noiseBuf; s.loop = true;
+      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 2.2;
+      bp.frequency.setValueAtTime(260, t); bp.frequency.exponentialRampToValueAtTime(7500, t + dur);
+      const g = mk("createGain");
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.24, t + dur);
+      g.gain.setValueAtTime(0.24, t + dur); g.gain.linearRampToValueAtTime(0.0001, t + dur + 0.12);
+      const pan = ctx.createStereoPanner();
+      const lfo = ctx.createOscillator(); lfo.frequency.setValueAtTime(0.3, t); lfo.frequency.exponentialRampToValueAtTime(6, t + dur);
+      const lg = mk("createGain", 0.9); lfo.connect(lg); lg.connect(pan.pan);
+      s.connect(bp); bp.connect(g); g.connect(pan); pan.connect(N.bellBus);
+      const o = ctx.createOscillator(); o.type = "sine";
+      o.frequency.setValueAtTime(50, t); o.frequency.exponentialRampToValueAtTime(200, t + dur);
+      const og = mk("createGain"); og.gain.setValueAtTime(0.0001, t); og.gain.exponentialRampToValueAtTime(0.14, t + dur); og.gain.linearRampToValueAtTime(0.0001, t + dur + 0.1);
+      o.connect(og); og.connect(N.lowBus);
+      s.start(t); lfo.start(t); o.start(t);
+      s.stop(t + dur + 0.2); lfo.stop(t + dur + 0.2); o.stop(t + dur + 0.2);
+    }
+    function impact(t) {
+      const o = ctx.createOscillator(); o.type = "sine";
+      o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(26, t + 1.6);
+      const og = mk("createGain"); og.gain.setValueAtTime(0.0001, t); og.gain.exponentialRampToValueAtTime(0.4, t + 0.02); og.gain.exponentialRampToValueAtTime(0.0001, t + 2.0);
+      o.connect(og); og.connect(N.lowBus); o.start(t); o.stop(t + 2.1);
+      const s = ctx.createBufferSource(); s.buffer = noiseBuf; s.loop = true;
+      const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 1.4;
+      bp.frequency.setValueAtTime(7000, t); bp.frequency.exponentialRampToValueAtTime(220, t + 2.2);
+      const g = mk("createGain"); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.2, t + 0.05); g.gain.exponentialRampToValueAtTime(0.0001, t + 2.4);
+      const pan = ctx.createStereoPanner(); pan.pan.setValueAtTime(-0.9, t); pan.pan.linearRampToValueAtTime(0.9, t + 2.0);
+      s.connect(bp); bp.connect(g); g.connect(pan); pan.connect(N.bellBus); s.start(t); s.stop(t + 2.5);
+    }
+
+    function stepEvent(t, i) {
+      const P = PALETTES[trk.key], sec = secAt(t), deg = degAt(t), s = i % 16;
+      if (s === 0) barPat = Math.floor(rnd() * ARP_PATS.length);
+      const idx = ARP_PATS[barPat][s];
+      if (trk.mode === 1) {
+        if (sec.rhythm) {
+          if (s === 0 || s === 8 || (s === 14 && rnd() < 0.4)) kick(t, s === 0 ? 0.85 : 0.65);
+          if (s % 2 === 1) hat(t);
+          if (s === 0 || s === 6 || s === 10) bass(t, mtof(degNote(P, deg) - 24));
+        }
+        if (sec.melody && idx >= 0 && rnd() < 0.9) pluck(t, mtof(degNote(P, deg + idx + 7 + (rnd() < 0.12 ? 7 : 0))), s % 4 === 0, sec);
+      } else {
+        const len = stepLen();
+        if (sec.rhythm) {
+          if (s === 0) kick(t, 0.8); else if (s === 10) kick(t, 0.5);
+          if (s % 2 === 0) { N.padDuck.gain.cancelScheduledValues(t); N.padDuck.gain.setValueAtTime(0.22, t); N.padDuck.gain.linearRampToValueAtTime(1, t + len * 1.7); }
+          if ([0, 3, 6, 10, 12].includes(s)) bass(t, mtof(degNote(P, deg) - 24 + (s === 6 || s === 12 ? 12 : 0)));
+        }
+        if (sec.melody && idx >= 0 && (s % 4 === 2 || s === 7 || s === 15) && rnd() < 0.85) pluck(t, mtof(degNote(P, deg + idx + 14)), s === 2, sec);
+      }
+    }
+
+    function applyMode(t) {
+      const d = PD[trk.mode];
+      const delay = isGrid() ? 60 / (trk.bpm || 104) * 0.75 : d.delay;
+      N.dL.delayTime.setValueAtTime(delay, t); N.dR.delayTime.setValueAtTime(delay, t);
+      N.ppIn.gain.setValueAtTime(d.send, t);
+      N.droneG.gain.setTargetAtTime(d.drone, t, 1.2);
+      N.subG.gain.setTargetAtTime(d.sub, t, 0.6);
+    }
+    function applyTrip(idx, t) {
+      const q = TRIPQ[idx];
+      N.wobG.gain.setTargetAtTime(5 + q * 20, t, 0.8);
+      N.vibG.gain.setTargetAtTime(2 + q * 6, t, 0.8);
+      N.fbL.gain.setTargetAtTime(0.32 + q * 0.3, t, 0.8); N.fbR.gain.setTargetAtTime(0.32 + q * 0.3, t, 0.8);
+      N.phWet.gain.setTargetAtTime(0.25 + q * 0.7, t, 0.8);
+      N.phDepth.forEach(([g, f]) => g.gain.setTargetAtTime(f * (0.15 + q * 0.75), t, 0.8));
+      N.send.gain.setTargetAtTime(0.45 + q * 0.3, t, 0.8);
+    }
+
+    function tick() {
+      if (!playing) return;
+      const now = ctx.currentTime, endT = t0 + trk.dur;
+      if (now >= endT + 1.2) { finish(true); return; }
+      // song shape: sections, the lift and the peak
+      while (nextSec < SECTIONS.length) {
+        const s = SECTIONS[nextSec], st = t0 + s.p * trk.dur;
+        if (st > now + 1.5) break;
+        const at = Math.max(st, now + 0.02);
+        applyTrip(s.trip, at);
+        N.padFilter.frequency.setTargetAtTime(PAD_FILTER[trk.mode] + s.warp * 2400, at, 0.9);
+        if (nextSec === 4) impact(at);
+        nextSec++;
+      }
+      const riseLen = Math.min(10, trk.dur * 0.05), riseAt = t0 + SECTIONS[4].p * trk.dur - riseLen;
+      if (!riserDone && riseAt <= now + 1.5) { riserDone = true; riser(riseLen, Math.max(riseAt, now + 0.05)); }
+
+      while (nextChord < now + 3 && nextChord < endT - 6) { playChord(Math.max(nextChord, now + 0.05)); nextChord += chordLen(); }
+      if (isGrid()) {
+        const STEP = stepLen();
+        while (nextStep < now + 1.2 && nextStep < endT - 4) {
+          const swing = stepIdx % 2 ? STEP * (trk.mode === 1 ? 0.13 : 0.05) : 0;
+          stepEvent(Math.max(nextStep + swing, now + 0.01), stepIdx);
+          nextStep += STEP; stepIdx++;
+        }
+      } else {
+        while (nextBell < now + 1.5 && nextBell < endT - 4) {
+          const at = Math.max(nextBell, now + 0.02), sec = secAt(at);
+          if (sec.melody) { if (trk.mode === 3) twinkle(at); else bell(at); }
+          nextBell += trk.mode === 3 ? (0.3 + rnd() * 1.1) * (1 - 0.6 * sec.warp)
+                                     : (1.6 + rnd() * 2.6) * (1 - 0.7 * sec.warp) * (trk.mode === 2 ? 2.1 : 1);
+        }
+        if ((trk.mode === 2 || trk.mode === 3) && nextGlide < now + 1.5 && nextGlide < endT - 12) {
+          const at = Math.max(nextGlide, now + 0.05);
+          if (secAt(at).melody) glide(at);
+          nextGlide += (trk.mode === 3 ? 10 : 7) + rnd() * 6;
+        }
+      }
+    }
+
+    function teardown(fast) {
+      clearInterval(timer); timer = null; playing = false;
+      if (!N) return;
+      const old = { N, persist }, now = ctx.currentTime;
+      old.N.master.gain.cancelScheduledValues(now);
+      old.N.master.gain.setValueAtTime(old.N.master.gain.value, now);
+      old.N.master.gain.linearRampToValueAtTime(0, now + (fast ? 0.35 : 0.05));
+      setTimeout(() => {
+        old.persist.forEach(o => { try { o.stop(); } catch (e) {} });
+        try { old.N.comp.disconnect(); } catch (e) {}
+      }, fast ? 800 : 200);
+      N = null; persist = [];
+    }
+    function finish(natural) {
+      const done = onEnd, k = nowIdx;
+      teardown(false); nowIdx = -1;
+      if (done) done(k, natural);
+    }
+
+    return {
+      get playing() { return playing; },
+      get index() { return nowIdx; },
+      async play(k, cb) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return false;
+        if (!ctx) {
+          ctx = new AC();
+          irBuf = makeIR(7, 2.3);
+          noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+          const nd = noiseBuf.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+        }
+        await ctx.resume();
+        if (playing) teardown(true);
+        trk = TRACKS[k]; nowIdx = k; onEnd = cb;
+        rnd = rngFrom(trk.seed);
+        build();
+        t0 = ctx.currentTime + 0.25;
+        chordStep = 0; timeline = []; stepIdx = 0; barPat = 0; nextSec = 0; riserDone = false;
+        nextChord = t0; nextStep = t0;
+        nextBell = t0 + SECTIONS[1].p * trk.dur; nextGlide = t0 + SECTIONS[1].p * trk.dur + 6;
+        bellDeg = trk.mode === 2 ? 12 : 15;
+        applyMode(t0); applyTrip(0, t0);
+        const fadeIn = Math.min(6, trk.dur * 0.04), fadeOut = Math.min(12, trk.dur * 0.07);
+        N.master.gain.setValueAtTime(0, t0); N.master.gain.linearRampToValueAtTime(0.85, t0 + fadeIn);
+        N.master.gain.setValueAtTime(0.85, t0 + trk.dur - fadeOut); N.master.gain.linearRampToValueAtTime(0, t0 + trk.dur);
+        playing = true; tick(); timer = setInterval(tick, 250);
+        return true;
+      },
+      stop() { if (ctx && (playing || N)) { const k = nowIdx; teardown(true); nowIdx = -1; if (onEnd) onEnd(k, false); } },
+      elapsed() { return playing ? Math.max(0, Math.min(trk.dur, ctx.currentTime - t0)) : 0; },
+      section() { return playing ? secAt(ctx.currentTime) : SECTIONS[1]; },
+      level() {
+        if (!analyser || !playing) return 0;
+        const d = new Uint8Array(analyser.fftSize); analyser.getByteTimeDomainData(d);
+        let s = 0; for (let i = 0; i < d.length; i++) { const v = (d[i] - 128) / 128; s += v * v; }
+        return Math.min(1, Math.sqrt(s / d.length) * 7);
+      }
+    };
+  })();
+
+  /* ============ the cover ============ */
+  const cv = document.getElementById("cv");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const NAMES = ["R", "T", "Z", "M", "W", "A", "Q", "F", "H", "pa", "pb", "pc", "pd"];
+  let gl = null; const progs = [];
+  const cover = { mode: 0, key: 0, F: 0, Q: 0.3, A: 0, W: 0, T: 8, Z: 0 };
+  const pcur = PALETTES[0].p.map(v => v.slice());
+  function compile(m) {
+    const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
+    const vs = sh(gl.VERTEX_SHADER, VERT), fs = sh(gl.FRAGMENT_SHADER, SHADERS[m]);
+    if (!vs || !fs) return null;
+    const prog = gl.createProgram(); gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+    const U = {}; NAMES.forEach(n => { U[n] = gl.getUniformLocation(prog, n); });
+    return { prog, U, loc: gl.getAttribLocation(prog, "a") };
+  }
+  function sizeCover() {
+    const s = Math.max(120, Math.round(cv.clientWidth * Math.min(window.devicePixelRatio || 1, 2) * 0.8));
+    if (cv.width !== s) { cv.width = s; cv.height = s; }
+  }
+  function startCover() {
+    gl = cv.getContext("webgl", { antialias: false, alpha: false });
+    if (!gl) return;
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    sizeCover(); window.addEventListener("resize", sizeCover);
+    let last = performance.now();
+    (function frame(now) {
+      requestAnimationFrame(frame);
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (document.hidden) return;
+      if (progs[cover.mode] === undefined) progs[cover.mode] = compile(cover.mode);
+      const p = progs[cover.mode]; if (!p) return;
+      const sec = Player.section(), on = Player.playing;
+      const qWant = on ? TRIPQ[sec.trip] * 0.9 : 0.3, wWant = on ? sec.warp : 0;
+      cover.Q += (qWant - cover.Q) * (1 - Math.pow(0.15, dt));
+      cover.W += (wWant - cover.W) * (1 - Math.pow(0.1, dt));
+      const lv = Player.level(); cover.A += (lv - cover.A) * (lv > cover.A ? 0.5 : 1 - Math.pow(0.15, dt));
+      cover.F = Math.min(1, cover.F + dt / 1.4);
+      const k = reduce ? 0.3 : 1;
+      cover.T += dt * k; cover.Z += dt * k * (0.8 + cover.W * 2);
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) pcur[r][c] += (PALETTES[cover.key].p[r][c] - pcur[r][c]) * (1 - Math.pow(0.12, dt));
+      gl.useProgram(p.prog); gl.enableVertexAttribArray(p.loc); gl.vertexAttribPointer(p.loc, 2, gl.FLOAT, false, 0, 0);
+      gl.viewport(0, 0, cv.width, cv.height);
+      const U = p.U;
+      gl.uniform2f(U.R, cv.width, cv.height); gl.uniform1f(U.T, cover.T); gl.uniform1f(U.Z, cover.Z);
+      gl.uniform2f(U.M, 0.5 * Math.sin(cover.T * 0.13), 0.3 * Math.sin(cover.T * 0.09 + 1)); gl.uniform1f(U.W, cover.W); gl.uniform1f(U.A, cover.A);
+      gl.uniform1f(U.Q, cover.Q); gl.uniform1f(U.F, cover.F); gl.uniform1f(U.H, 0);
+      gl.uniform3fv(U.pa, pcur[0]); gl.uniform3fv(U.pb, pcur[1]); gl.uniform3fv(U.pc, pcur[2]); gl.uniform3fv(U.pd, pcur[3]);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    })(last);
+  }
+  function setCover(mode, key) { if (cover.mode !== mode || cover.key !== key) { cover.mode = mode; cover.key = key; cover.F = 0; } }
+
+  /* ============ the page ============ */
+  const $ = s => document.querySelector(s);
+  const fmt = s => (s / 60 | 0) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+  const rows = [];
+  const list = $("#list");
+  TRACKS.forEach((t, k) => {
+    const P = PALETTES[t.key];
+    const e = document.createElement("section");
+    e.className = "trk";
+    e.innerHTML = '<div class="hd"><h2></h2><span class="m"></span><button type="button" data-p>Play</button></div><div class="bar"><i></i></div>';
+    e.querySelector("h2").textContent = (k + 1) + ". " + t.name;
+    e.querySelector(".m").textContent = fmt(t.dur);
+    e.querySelector(".bar i").style.background = P.css;
+    e.querySelector("[data-p]").setAttribute("aria-label", "Play " + t.name);
+    e.querySelector("[data-p]").onclick = () => { if (Player.index === k) Player.stop(); else playTrack(k); };
+    list.appendChild(e);
+    rows.push({ e, h2: e.querySelector("h2"), m: e.querySelector(".m"), btn: e.querySelector("[data-p]"), bar: e.querySelector(".bar i") });
+  });
+
+  const allBtn = $("#all"), st = $("#st");
+  let wantAlbum = false;
+  function paint() {
+    const cur = Player.index;
+    rows.forEach((r, k) => {
+      const on = k === cur;
+      r.e.classList.toggle("on", on);
+      r.btn.textContent = on ? "Stop" : "Play";
+      r.btn.setAttribute("aria-label", (on ? "Stop " : "Play ") + TRACKS[k].name);
+      r.h2.style.color = on ? PALETTES[TRACKS[k].key].c : "";
+      if (!on) { r.m.textContent = fmt(TRACKS[k].dur); r.bar.style.width = "0"; }
+    });
+    allBtn.textContent = cur >= 0 ? "Stop" : "Play album";
+    st.textContent = cur >= 0 ? "Now playing " + TRACKS[cur].name : "";
+  }
+  function setMedia(k) {
+    if (!("mediaSession" in navigator) || typeof MediaMetadata === "undefined") return;
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({ title: TRACKS[k].name, artist: "Deepfold", album: "Deepfold Instrumentals" });
+      navigator.mediaSession.setActionHandler("play", () => { if (Player.index < 0) playTrack(k); });
+      navigator.mediaSession.setActionHandler("pause", () => Player.stop());
+      navigator.mediaSession.setActionHandler("nexttrack", () => playTrack((k + 1) % TRACKS.length));
+      navigator.mediaSession.setActionHandler("previoustrack", () => playTrack((k + TRACKS.length - 1) % TRACKS.length));
+    } catch (e) {}
+  }
+  let gapTimer = null;
+  async function playTrack(k) {
+    clearTimeout(gapTimer); gapTimer = null;
+    setCover(TRACKS[k].mode, TRACKS[k].key);
+    const ok = await Player.play(k, (done, natural) => {
+      paint();
+      if (natural) { gapTimer = setTimeout(() => { gapTimer = null; playTrack((done + 1) % TRACKS.length); }, 2500); }
+    });
+    if (!ok) { st.textContent = "Sound is not available in this browser."; return; }
+    setMedia(k); paint();
+  }
+  allBtn.onclick = () => { if (Player.index >= 0 || gapTimer) { clearTimeout(gapTimer); gapTimer = null; Player.stop(); paint(); } else playTrack(0); };
+
+  (function tickUi() {
+    requestAnimationFrame(tickUi);
+    const k = Player.index;
+    if (k >= 0 && Player.playing) {
+      const el = Player.elapsed(), d = TRACKS[k].dur;
+      rows[k].bar.style.width = (el / d * 100).toFixed(2) + "%";
+      rows[k].m.textContent = fmt(el) + " / " + fmt(d);
+    }
+  })();
+
+  setCover(0, 0);
+  startCover();
+  paint();
+})();
+</script>
+
+</body></html>

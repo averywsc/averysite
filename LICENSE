@@ -9,5 +9,6 @@ contents, in whole or in part, without prior written permission from the
 copyright holder.
 
 Viewing the repository or accessing the published website does not grant any
-license or transfer of rights. Third-party open-source packages listed in
-package.json remain subject to their respective licenses.
+license or transfer of rights. Linked projects hosted in separate repositories
+are governed by their own respective licenses, and third-party open-source
+packages listed in package.json remain subject to their respective licenses.

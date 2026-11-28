@@ -10,3 +10,8 @@ This is my personal portfolio site: a collection of photography, films, screenpl
 - **Scripts** — Screenplays available to read online or download.
 - **Code** — Browser tools, games, websites, and desktop applications, with links to try projects or view their source repositories.
 
+## License
+
+Copyright (c) 2026 Avery Beuth. All rights reserved. See [LICENSE](./LICENSE) for details.
+
+
